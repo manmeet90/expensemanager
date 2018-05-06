@@ -287,6 +287,7 @@ var CreateExpenseComponent = /** @class */ (function () {
         });
     };
     CreateExpenseComponent.prototype.onCreateButtonClicked = function () {
+        var _this = this;
         console.log(this.expenseForm.value);
         this.expenseService.saveExpense(this.expenseForm.value)
             .then(function (err) {
@@ -295,6 +296,7 @@ var CreateExpenseComponent = /** @class */ (function () {
             }
             else {
                 alert('Expense saved successfully');
+                _this.expenseForm.reset();
             }
         });
     };
