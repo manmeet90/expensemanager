@@ -289,7 +289,9 @@ var CreateExpenseComponent = /** @class */ (function () {
     };
     CreateExpenseComponent.prototype.onCreateButtonClicked = function () {
         var _this = this;
-        console.log(this.expenseForm.value);
+        if (!this.expenseForm.value.amount) {
+            return;
+        }
         this.expenseService.saveExpense(this.expenseForm.value)
             .then(function (err) {
             if (err) {
