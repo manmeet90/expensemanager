@@ -1,5 +1,285 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
 
+/***/ "./node_modules/moment/locale sync recursive ^\\.\\/.*$":
+/*!**************************************************!*\
+  !*** ./node_modules/moment/locale sync ^\.\/.*$ ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./af": "./node_modules/moment/locale/af.js",
+	"./af.js": "./node_modules/moment/locale/af.js",
+	"./ar": "./node_modules/moment/locale/ar.js",
+	"./ar-dz": "./node_modules/moment/locale/ar-dz.js",
+	"./ar-dz.js": "./node_modules/moment/locale/ar-dz.js",
+	"./ar-kw": "./node_modules/moment/locale/ar-kw.js",
+	"./ar-kw.js": "./node_modules/moment/locale/ar-kw.js",
+	"./ar-ly": "./node_modules/moment/locale/ar-ly.js",
+	"./ar-ly.js": "./node_modules/moment/locale/ar-ly.js",
+	"./ar-ma": "./node_modules/moment/locale/ar-ma.js",
+	"./ar-ma.js": "./node_modules/moment/locale/ar-ma.js",
+	"./ar-sa": "./node_modules/moment/locale/ar-sa.js",
+	"./ar-sa.js": "./node_modules/moment/locale/ar-sa.js",
+	"./ar-tn": "./node_modules/moment/locale/ar-tn.js",
+	"./ar-tn.js": "./node_modules/moment/locale/ar-tn.js",
+	"./ar.js": "./node_modules/moment/locale/ar.js",
+	"./az": "./node_modules/moment/locale/az.js",
+	"./az.js": "./node_modules/moment/locale/az.js",
+	"./be": "./node_modules/moment/locale/be.js",
+	"./be.js": "./node_modules/moment/locale/be.js",
+	"./bg": "./node_modules/moment/locale/bg.js",
+	"./bg.js": "./node_modules/moment/locale/bg.js",
+	"./bm": "./node_modules/moment/locale/bm.js",
+	"./bm.js": "./node_modules/moment/locale/bm.js",
+	"./bn": "./node_modules/moment/locale/bn.js",
+	"./bn.js": "./node_modules/moment/locale/bn.js",
+	"./bo": "./node_modules/moment/locale/bo.js",
+	"./bo.js": "./node_modules/moment/locale/bo.js",
+	"./br": "./node_modules/moment/locale/br.js",
+	"./br.js": "./node_modules/moment/locale/br.js",
+	"./bs": "./node_modules/moment/locale/bs.js",
+	"./bs.js": "./node_modules/moment/locale/bs.js",
+	"./ca": "./node_modules/moment/locale/ca.js",
+	"./ca.js": "./node_modules/moment/locale/ca.js",
+	"./cs": "./node_modules/moment/locale/cs.js",
+	"./cs.js": "./node_modules/moment/locale/cs.js",
+	"./cv": "./node_modules/moment/locale/cv.js",
+	"./cv.js": "./node_modules/moment/locale/cv.js",
+	"./cy": "./node_modules/moment/locale/cy.js",
+	"./cy.js": "./node_modules/moment/locale/cy.js",
+	"./da": "./node_modules/moment/locale/da.js",
+	"./da.js": "./node_modules/moment/locale/da.js",
+	"./de": "./node_modules/moment/locale/de.js",
+	"./de-at": "./node_modules/moment/locale/de-at.js",
+	"./de-at.js": "./node_modules/moment/locale/de-at.js",
+	"./de-ch": "./node_modules/moment/locale/de-ch.js",
+	"./de-ch.js": "./node_modules/moment/locale/de-ch.js",
+	"./de.js": "./node_modules/moment/locale/de.js",
+	"./dv": "./node_modules/moment/locale/dv.js",
+	"./dv.js": "./node_modules/moment/locale/dv.js",
+	"./el": "./node_modules/moment/locale/el.js",
+	"./el.js": "./node_modules/moment/locale/el.js",
+	"./en-au": "./node_modules/moment/locale/en-au.js",
+	"./en-au.js": "./node_modules/moment/locale/en-au.js",
+	"./en-ca": "./node_modules/moment/locale/en-ca.js",
+	"./en-ca.js": "./node_modules/moment/locale/en-ca.js",
+	"./en-gb": "./node_modules/moment/locale/en-gb.js",
+	"./en-gb.js": "./node_modules/moment/locale/en-gb.js",
+	"./en-ie": "./node_modules/moment/locale/en-ie.js",
+	"./en-ie.js": "./node_modules/moment/locale/en-ie.js",
+	"./en-il": "./node_modules/moment/locale/en-il.js",
+	"./en-il.js": "./node_modules/moment/locale/en-il.js",
+	"./en-nz": "./node_modules/moment/locale/en-nz.js",
+	"./en-nz.js": "./node_modules/moment/locale/en-nz.js",
+	"./eo": "./node_modules/moment/locale/eo.js",
+	"./eo.js": "./node_modules/moment/locale/eo.js",
+	"./es": "./node_modules/moment/locale/es.js",
+	"./es-do": "./node_modules/moment/locale/es-do.js",
+	"./es-do.js": "./node_modules/moment/locale/es-do.js",
+	"./es-us": "./node_modules/moment/locale/es-us.js",
+	"./es-us.js": "./node_modules/moment/locale/es-us.js",
+	"./es.js": "./node_modules/moment/locale/es.js",
+	"./et": "./node_modules/moment/locale/et.js",
+	"./et.js": "./node_modules/moment/locale/et.js",
+	"./eu": "./node_modules/moment/locale/eu.js",
+	"./eu.js": "./node_modules/moment/locale/eu.js",
+	"./fa": "./node_modules/moment/locale/fa.js",
+	"./fa.js": "./node_modules/moment/locale/fa.js",
+	"./fi": "./node_modules/moment/locale/fi.js",
+	"./fi.js": "./node_modules/moment/locale/fi.js",
+	"./fo": "./node_modules/moment/locale/fo.js",
+	"./fo.js": "./node_modules/moment/locale/fo.js",
+	"./fr": "./node_modules/moment/locale/fr.js",
+	"./fr-ca": "./node_modules/moment/locale/fr-ca.js",
+	"./fr-ca.js": "./node_modules/moment/locale/fr-ca.js",
+	"./fr-ch": "./node_modules/moment/locale/fr-ch.js",
+	"./fr-ch.js": "./node_modules/moment/locale/fr-ch.js",
+	"./fr.js": "./node_modules/moment/locale/fr.js",
+	"./fy": "./node_modules/moment/locale/fy.js",
+	"./fy.js": "./node_modules/moment/locale/fy.js",
+	"./gd": "./node_modules/moment/locale/gd.js",
+	"./gd.js": "./node_modules/moment/locale/gd.js",
+	"./gl": "./node_modules/moment/locale/gl.js",
+	"./gl.js": "./node_modules/moment/locale/gl.js",
+	"./gom-latn": "./node_modules/moment/locale/gom-latn.js",
+	"./gom-latn.js": "./node_modules/moment/locale/gom-latn.js",
+	"./gu": "./node_modules/moment/locale/gu.js",
+	"./gu.js": "./node_modules/moment/locale/gu.js",
+	"./he": "./node_modules/moment/locale/he.js",
+	"./he.js": "./node_modules/moment/locale/he.js",
+	"./hi": "./node_modules/moment/locale/hi.js",
+	"./hi.js": "./node_modules/moment/locale/hi.js",
+	"./hr": "./node_modules/moment/locale/hr.js",
+	"./hr.js": "./node_modules/moment/locale/hr.js",
+	"./hu": "./node_modules/moment/locale/hu.js",
+	"./hu.js": "./node_modules/moment/locale/hu.js",
+	"./hy-am": "./node_modules/moment/locale/hy-am.js",
+	"./hy-am.js": "./node_modules/moment/locale/hy-am.js",
+	"./id": "./node_modules/moment/locale/id.js",
+	"./id.js": "./node_modules/moment/locale/id.js",
+	"./is": "./node_modules/moment/locale/is.js",
+	"./is.js": "./node_modules/moment/locale/is.js",
+	"./it": "./node_modules/moment/locale/it.js",
+	"./it.js": "./node_modules/moment/locale/it.js",
+	"./ja": "./node_modules/moment/locale/ja.js",
+	"./ja.js": "./node_modules/moment/locale/ja.js",
+	"./jv": "./node_modules/moment/locale/jv.js",
+	"./jv.js": "./node_modules/moment/locale/jv.js",
+	"./ka": "./node_modules/moment/locale/ka.js",
+	"./ka.js": "./node_modules/moment/locale/ka.js",
+	"./kk": "./node_modules/moment/locale/kk.js",
+	"./kk.js": "./node_modules/moment/locale/kk.js",
+	"./km": "./node_modules/moment/locale/km.js",
+	"./km.js": "./node_modules/moment/locale/km.js",
+	"./kn": "./node_modules/moment/locale/kn.js",
+	"./kn.js": "./node_modules/moment/locale/kn.js",
+	"./ko": "./node_modules/moment/locale/ko.js",
+	"./ko.js": "./node_modules/moment/locale/ko.js",
+	"./ky": "./node_modules/moment/locale/ky.js",
+	"./ky.js": "./node_modules/moment/locale/ky.js",
+	"./lb": "./node_modules/moment/locale/lb.js",
+	"./lb.js": "./node_modules/moment/locale/lb.js",
+	"./lo": "./node_modules/moment/locale/lo.js",
+	"./lo.js": "./node_modules/moment/locale/lo.js",
+	"./lt": "./node_modules/moment/locale/lt.js",
+	"./lt.js": "./node_modules/moment/locale/lt.js",
+	"./lv": "./node_modules/moment/locale/lv.js",
+	"./lv.js": "./node_modules/moment/locale/lv.js",
+	"./me": "./node_modules/moment/locale/me.js",
+	"./me.js": "./node_modules/moment/locale/me.js",
+	"./mi": "./node_modules/moment/locale/mi.js",
+	"./mi.js": "./node_modules/moment/locale/mi.js",
+	"./mk": "./node_modules/moment/locale/mk.js",
+	"./mk.js": "./node_modules/moment/locale/mk.js",
+	"./ml": "./node_modules/moment/locale/ml.js",
+	"./ml.js": "./node_modules/moment/locale/ml.js",
+	"./mn": "./node_modules/moment/locale/mn.js",
+	"./mn.js": "./node_modules/moment/locale/mn.js",
+	"./mr": "./node_modules/moment/locale/mr.js",
+	"./mr.js": "./node_modules/moment/locale/mr.js",
+	"./ms": "./node_modules/moment/locale/ms.js",
+	"./ms-my": "./node_modules/moment/locale/ms-my.js",
+	"./ms-my.js": "./node_modules/moment/locale/ms-my.js",
+	"./ms.js": "./node_modules/moment/locale/ms.js",
+	"./mt": "./node_modules/moment/locale/mt.js",
+	"./mt.js": "./node_modules/moment/locale/mt.js",
+	"./my": "./node_modules/moment/locale/my.js",
+	"./my.js": "./node_modules/moment/locale/my.js",
+	"./nb": "./node_modules/moment/locale/nb.js",
+	"./nb.js": "./node_modules/moment/locale/nb.js",
+	"./ne": "./node_modules/moment/locale/ne.js",
+	"./ne.js": "./node_modules/moment/locale/ne.js",
+	"./nl": "./node_modules/moment/locale/nl.js",
+	"./nl-be": "./node_modules/moment/locale/nl-be.js",
+	"./nl-be.js": "./node_modules/moment/locale/nl-be.js",
+	"./nl.js": "./node_modules/moment/locale/nl.js",
+	"./nn": "./node_modules/moment/locale/nn.js",
+	"./nn.js": "./node_modules/moment/locale/nn.js",
+	"./pa-in": "./node_modules/moment/locale/pa-in.js",
+	"./pa-in.js": "./node_modules/moment/locale/pa-in.js",
+	"./pl": "./node_modules/moment/locale/pl.js",
+	"./pl.js": "./node_modules/moment/locale/pl.js",
+	"./pt": "./node_modules/moment/locale/pt.js",
+	"./pt-br": "./node_modules/moment/locale/pt-br.js",
+	"./pt-br.js": "./node_modules/moment/locale/pt-br.js",
+	"./pt.js": "./node_modules/moment/locale/pt.js",
+	"./ro": "./node_modules/moment/locale/ro.js",
+	"./ro.js": "./node_modules/moment/locale/ro.js",
+	"./ru": "./node_modules/moment/locale/ru.js",
+	"./ru.js": "./node_modules/moment/locale/ru.js",
+	"./sd": "./node_modules/moment/locale/sd.js",
+	"./sd.js": "./node_modules/moment/locale/sd.js",
+	"./se": "./node_modules/moment/locale/se.js",
+	"./se.js": "./node_modules/moment/locale/se.js",
+	"./si": "./node_modules/moment/locale/si.js",
+	"./si.js": "./node_modules/moment/locale/si.js",
+	"./sk": "./node_modules/moment/locale/sk.js",
+	"./sk.js": "./node_modules/moment/locale/sk.js",
+	"./sl": "./node_modules/moment/locale/sl.js",
+	"./sl.js": "./node_modules/moment/locale/sl.js",
+	"./sq": "./node_modules/moment/locale/sq.js",
+	"./sq.js": "./node_modules/moment/locale/sq.js",
+	"./sr": "./node_modules/moment/locale/sr.js",
+	"./sr-cyrl": "./node_modules/moment/locale/sr-cyrl.js",
+	"./sr-cyrl.js": "./node_modules/moment/locale/sr-cyrl.js",
+	"./sr.js": "./node_modules/moment/locale/sr.js",
+	"./ss": "./node_modules/moment/locale/ss.js",
+	"./ss.js": "./node_modules/moment/locale/ss.js",
+	"./sv": "./node_modules/moment/locale/sv.js",
+	"./sv.js": "./node_modules/moment/locale/sv.js",
+	"./sw": "./node_modules/moment/locale/sw.js",
+	"./sw.js": "./node_modules/moment/locale/sw.js",
+	"./ta": "./node_modules/moment/locale/ta.js",
+	"./ta.js": "./node_modules/moment/locale/ta.js",
+	"./te": "./node_modules/moment/locale/te.js",
+	"./te.js": "./node_modules/moment/locale/te.js",
+	"./tet": "./node_modules/moment/locale/tet.js",
+	"./tet.js": "./node_modules/moment/locale/tet.js",
+	"./tg": "./node_modules/moment/locale/tg.js",
+	"./tg.js": "./node_modules/moment/locale/tg.js",
+	"./th": "./node_modules/moment/locale/th.js",
+	"./th.js": "./node_modules/moment/locale/th.js",
+	"./tl-ph": "./node_modules/moment/locale/tl-ph.js",
+	"./tl-ph.js": "./node_modules/moment/locale/tl-ph.js",
+	"./tlh": "./node_modules/moment/locale/tlh.js",
+	"./tlh.js": "./node_modules/moment/locale/tlh.js",
+	"./tr": "./node_modules/moment/locale/tr.js",
+	"./tr.js": "./node_modules/moment/locale/tr.js",
+	"./tzl": "./node_modules/moment/locale/tzl.js",
+	"./tzl.js": "./node_modules/moment/locale/tzl.js",
+	"./tzm": "./node_modules/moment/locale/tzm.js",
+	"./tzm-latn": "./node_modules/moment/locale/tzm-latn.js",
+	"./tzm-latn.js": "./node_modules/moment/locale/tzm-latn.js",
+	"./tzm.js": "./node_modules/moment/locale/tzm.js",
+	"./ug-cn": "./node_modules/moment/locale/ug-cn.js",
+	"./ug-cn.js": "./node_modules/moment/locale/ug-cn.js",
+	"./uk": "./node_modules/moment/locale/uk.js",
+	"./uk.js": "./node_modules/moment/locale/uk.js",
+	"./ur": "./node_modules/moment/locale/ur.js",
+	"./ur.js": "./node_modules/moment/locale/ur.js",
+	"./uz": "./node_modules/moment/locale/uz.js",
+	"./uz-latn": "./node_modules/moment/locale/uz-latn.js",
+	"./uz-latn.js": "./node_modules/moment/locale/uz-latn.js",
+	"./uz.js": "./node_modules/moment/locale/uz.js",
+	"./vi": "./node_modules/moment/locale/vi.js",
+	"./vi.js": "./node_modules/moment/locale/vi.js",
+	"./x-pseudo": "./node_modules/moment/locale/x-pseudo.js",
+	"./x-pseudo.js": "./node_modules/moment/locale/x-pseudo.js",
+	"./yo": "./node_modules/moment/locale/yo.js",
+	"./yo.js": "./node_modules/moment/locale/yo.js",
+	"./zh-cn": "./node_modules/moment/locale/zh-cn.js",
+	"./zh-cn.js": "./node_modules/moment/locale/zh-cn.js",
+	"./zh-hk": "./node_modules/moment/locale/zh-hk.js",
+	"./zh-hk.js": "./node_modules/moment/locale/zh-hk.js",
+	"./zh-tw": "./node_modules/moment/locale/zh-tw.js",
+	"./zh-tw.js": "./node_modules/moment/locale/zh-tw.js"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	var module = __webpack_require__(id);
+	return module;
+}
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) { // check for number or string
+		var e = new Error('Cannot find module "' + req + '".');
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return id;
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
+
+/***/ }),
+
 /***/ "./src/$$_lazy_route_resource lazy recursive":
 /*!**********************************************************!*\
   !*** ./src/$$_lazy_route_resource lazy namespace object ***!
@@ -94,12 +374,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
-/* harmony import */ var _components_404_PageNotFound_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/404/PageNotFound.component */ "./src/app/components/404/PageNotFound.component.ts");
-/* harmony import */ var _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/reports/Reports.component */ "./src/app/components/reports/Reports.component.ts");
-/* harmony import */ var _components_expenses__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/expenses */ "./src/app/components/expenses/index.ts");
-/* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/expense.service */ "./src/app/services/expense.service.ts");
+/* harmony import */ var ng2_date_picker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ng2-date-picker */ "./node_modules/ng2-date-picker/esm5/ng2-date-picker.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
+/* harmony import */ var _components_404_PageNotFound_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/404/PageNotFound.component */ "./src/app/components/404/PageNotFound.component.ts");
+/* harmony import */ var _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/reports/Reports.component */ "./src/app/components/reports/Reports.component.ts");
+/* harmony import */ var _components_expenses__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/expenses */ "./src/app/components/expenses/index.ts");
+/* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/expense.service */ "./src/app/services/expense.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -115,29 +396,32 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"],
-                _components_404_PageNotFound_component__WEBPACK_IMPORTED_MODULE_5__["PageNotFoundComponent"],
-                _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_6__["ReportsComponent"],
-                _components_expenses__WEBPACK_IMPORTED_MODULE_7__["CreateExpenseComponent"],
-                _components_expenses__WEBPACK_IMPORTED_MODULE_7__["ExpenseComponent"],
-                _components_expenses__WEBPACK_IMPORTED_MODULE_7__["ExpenseListComponent"]
+                _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
+                _components_404_PageNotFound_component__WEBPACK_IMPORTED_MODULE_6__["PageNotFoundComponent"],
+                _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_7__["ReportsComponent"],
+                _components_expenses__WEBPACK_IMPORTED_MODULE_8__["CreateExpenseComponent"],
+                _components_expenses__WEBPACK_IMPORTED_MODULE_8__["ExpenseComponent"],
+                _components_expenses__WEBPACK_IMPORTED_MODULE_8__["ExpenseListComponent"]
             ],
             imports: [
-                _app_routing__WEBPACK_IMPORTED_MODULE_4__["APP_ROUTES"],
+                _app_routing__WEBPACK_IMPORTED_MODULE_5__["APP_ROUTES"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"]
+                ng2_date_picker__WEBPACK_IMPORTED_MODULE_3__["DpDatePickerModule"],
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"]
             ],
             providers: [
-                _components_expenses__WEBPACK_IMPORTED_MODULE_7__["ExpenseType"],
-                _services_expense_service__WEBPACK_IMPORTED_MODULE_8__["ExpenseService"]
+                _components_expenses__WEBPACK_IMPORTED_MODULE_8__["ExpenseType"],
+                _services_expense_service__WEBPACK_IMPORTED_MODULE_9__["ExpenseService"]
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -277,10 +561,12 @@ var CreateExpenseComponent = /** @class */ (function () {
         this.expenseType = expenseType;
         this.expenseService = expenseService;
         this.showMsg = false;
+        this.dpConfig = {};
     }
     CreateExpenseComponent.prototype.ngOnInit = function () {
         this.expenseTypes = this.expenseType.getExpenseTypes();
         this.expenseForm = this.fb.group({
+            date: [this.today()],
             description: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             amount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
             expenseType: [this.expenseTypes[0].value, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
@@ -292,6 +578,7 @@ var CreateExpenseComponent = /** @class */ (function () {
         if (!this.expenseForm.value.amount) {
             return;
         }
+        console.log(this.expenseForm.value);
         this.expenseService.saveExpense(this.expenseForm.value)
             .then(function (err) {
             if (err) {
@@ -305,6 +592,12 @@ var CreateExpenseComponent = /** @class */ (function () {
                 _this.expenseForm.reset();
             }
         });
+    };
+    CreateExpenseComponent.prototype.today = function () {
+        var today = '';
+        var _d = new Date();
+        today = _d.getDate() + "-" + (_d.getMonth() + 1) + "-" + _d.getFullYear();
+        return today;
     };
     CreateExpenseComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -327,7 +620,7 @@ var CreateExpenseComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<style>\n    #expenseform {\n        margin: 0 15px;\n        width: 80vw;\n    }\n</style>\n<div id=\"expenseform\">\n    <div *ngIf='showMsg' class=\"alert alert-success\">\n            Expense saved successfully\n    </div>\n    <form [formGroup]='expenseForm'>\n        <div class=\"form-group\">\n            <label for=\"description\">Expense Description</label>\n            <input type=\"text\" class=\"form-control\" id=\"description\" placeholder=\"Expense Name\" formControlName=\"description\" />\n            <span class=\"text-danger\" *ngIf='expenseForm.controls.description.touched && expenseForm.controls.description.errors?.required'>Expense Description is required</span>\n        </div>\n        <div class=\"form-group\">\n                <label for=\"description\">Amount</label>\n                <input type=\"number\" class=\"form-control\" id=\"description\" formControlName=\"amount\" />\n            <span class=\"text-danger\" *ngIf='expenseForm.controls.amount.touched && expenseForm.controls.amount.errors?.required'>Amount is required</span>\n                \n            </div>\n            <div class=\"form-group\">\n                    <label for=\"expense_type\">Expense Type</label>\n                    <select formControlName='expenseType' class='form-control'name=\"expense_type\" id=\"expense_type\">\n                        <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}</option>\n                    </select>\n                </div>\n                <div class=\"form-group\">\n                        <label for=\"remarks\">Remarks</label>\n                        <input type=\"text\" class=\"form-control\" id=\"remarks\" placeholder=\"Extra remarks\" formControlName=\"remarks\" />\n                    </div>\n        <button type=\"submit\" class=\"btn btn-primary\" [disabled]='expenseForm.invalid' (click)='onCreateButtonClicked()'>Create</button>\n    </form>\n</div>"
+module.exports = "<style>\n    #expenseform {\n        margin: 0 15px;\n        width: 80vw;\n    }\n</style>\n<div id=\"expenseform\">\n    <div *ngIf='showMsg' class=\"alert alert-success\">\n            Expense saved successfully\n    </div>\n    <form [formGroup]='expenseForm'>\n        <div class=\"form-group\">\n            <label for=\"date\">Expense Date</label>\n            <!-- <dp-date-picker formControlName=\"date\" #dayPicker></dp-date-picker> -->\n            <input type=\"text\" [dpDayPicker]=\"dpConfig\" class=\"form-control\" formControlName=\"date\" id=\"date\" placeholder=\"Expense Name\" />\n\n        </div>\n        <div class=\"form-group\">\n            <label for=\"description\">Expense Description</label>\n            <input type=\"text\" class=\"form-control\" id=\"description\" placeholder=\"Expense Name\" formControlName=\"description\" />\n            <span class=\"text-danger\" *ngIf='expenseForm.controls.description.touched && expenseForm.controls.description.errors?.required'>Expense Description is required</span>\n        </div>\n        <div class=\"form-group\">\n                <label for=\"description\">Amount</label>\n                <input type=\"number\" class=\"form-control\" id=\"description\" formControlName=\"amount\" />\n            <span class=\"text-danger\" *ngIf='expenseForm.controls.amount.touched && expenseForm.controls.amount.errors?.required'>Amount is required</span>\n\n            </div>\n            <div class=\"form-group\">\n                    <label for=\"expense_type\">Expense Type</label>\n                    <select formControlName='expenseType' class='form-control'name=\"expense_type\" id=\"expense_type\">\n                        <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}</option>\n                    </select>\n                </div>\n                <div class=\"form-group\">\n                        <label for=\"remarks\">Remarks</label>\n                        <input type=\"text\" class=\"form-control\" id=\"remarks\" placeholder=\"Extra remarks\" formControlName=\"remarks\" />\n                    </div>\n        <button type=\"submit\" class=\"btn btn-primary\" [disabled]='expenseForm.invalid' (click)='onCreateButtonClicked()'>Create</button>\n    </form>\n</div>\n"
 
 /***/ }),
 
@@ -388,6 +681,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/expense.service */ "./src/app/services/expense.service.ts");
 /* harmony import */ var _expenseType__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./expenseType */ "./src/app/components/expenses/expenseType.ts");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/utils */ "./src/app/utils/utils.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -397,6 +691,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -410,14 +705,21 @@ var ExpenseListComponent = /** @class */ (function () {
         this.months = ["Jan", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     }
     ExpenseListComponent.prototype.ngOnInit = function () {
+        this.loadExpenses();
+    };
+    ExpenseListComponent.prototype.loadExpenses = function () {
         var _this = this;
         this.expenseTypes = this.expenseType.getExpenseTypes();
+        this.expenses = [];
+        this.years = [];
         this.expenseService.getAllExpenses()
             .then(function (snapshot) {
             var data = snapshot.val();
+            // tslint:disable-next-line:forin
             for (var year in data) {
                 _this.years.push(year);
                 for (var month in data[year]) {
+                    // tslint:disable-next-line:forin
                     for (var _d in data[year][month]) {
                         _this.expenses.push(data[year][month][_d]);
                         _this._data = _this.expenses;
@@ -425,6 +727,24 @@ var ExpenseListComponent = /** @class */ (function () {
                     }
                 }
             }
+        });
+    };
+    ExpenseListComponent.prototype.getDateofExpense = function (expense) {
+        var result = "";
+        if (expense && expense.date) {
+            result = expense.date;
+        }
+        else {
+            var _month = _utils_utils__WEBPACK_IMPORTED_MODULE_3__["utils"].getMonthFromMonthName(expense.month);
+            result = "01-" + _month + "-" + expense.year;
+        }
+        return result;
+    };
+    ExpenseListComponent.prototype.deleteExpense = function (expense) {
+        var _this = this;
+        this.expenseService.deleteExpense(expense)
+            .then(function () {
+            _this.loadExpenses();
         });
     };
     ExpenseListComponent.prototype.filterListByYear = function (year) {
@@ -466,7 +786,7 @@ var ExpenseListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <div>\n        Filter By :\n        <div>\n            Year :\n            <select name=\"year\" id=\"year\" #year (change)=\"filterListByYear(year.value)\">\n                <option value=\"\">Choose filterListByYear</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select name=\"month\" id=\"month\" #month (change)=\"filterListByMonth(month.value)\">\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            Expense Type :\n            <select name=\"month\" id=\"month\" #expenseType (change)=\"filterListByExpenseType(expenseType.value)\">\n                <option value=\"\">Choose Type</option>\n                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}</option>\n            </select>\n        </div>\n    </div>\n    <table class=\"table\">\n        <thead>\n            <tr>\n                <th>Expense Name</th>\n                <th>Amount</th>\n                <th>Year</th>\n                <th>Month</th>\n                <th>Expense Type</th>\n                <th>Remarks</th>\n            </tr>\n        </thead>\n        <tbody>\n            \n            <tr *ngFor='let expense of expenses'>\n                <td>\n                    <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                </td>\n                <td>Rs. {{expense.amount}}</td>\n                <td>{{expense.year}}</td>\n                <td>{{expense.month}}</td>\n                <td>{{expense.expenseType}}</td>\n                <td>{{expense.remarks}}</td>\n            </tr>\n            <tr>\n                    <td colspan='6' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n                </tr>\n        </tbody>\n    </table>\n</div>"
+module.exports = "<div>\n    <div>\n        Filter By :\n        <div>\n            Year :\n            <select name=\"year\" id=\"year\" #year (change)=\"filterListByYear(year.value)\">\n                <option value=\"\">Choose Year</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select name=\"month\" id=\"month\" #month (change)=\"filterListByMonth(month.value)\">\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            Expense Type :\n            <select name=\"month\" id=\"month\" #expenseType (change)=\"filterListByExpenseType(expenseType.value)\">\n                <option value=\"\">Choose Type</option>\n                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}</option>\n            </select>\n        </div>\n    </div>\n    <table class=\"table\">\n        <thead>\n            <tr>\n                <th>Expense Name</th>\n                <th>Amount</th>\n                <th>Date</th>\n                <th>Expense Type</th>\n                <th>Remarks</th>\n                <th>Actions</th>\n            </tr>\n        </thead>\n        <tbody>\n\n            <tr *ngFor='let expense of expenses'>\n                <td>\n                    <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                </td>\n                <td>Rs. {{expense.amount}}</td>\n                <td>{{getDateofExpense(expense)}}</td>\n                <td>{{expense.expenseType}}</td>\n                <td>{{expense.remarks}}</td>\n                <td>\n                  <button (click)=\"deleteExpense(expense)\" class=\"btn btn-danger\">Delete</button>\n                </td>\n            </tr>\n            <tr>\n                    <td colspan='6' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n                </tr>\n        </tbody>\n    </table>\n</div>\n"
 
 /***/ }),
 
@@ -506,6 +826,7 @@ var ExpenseType = /** @class */ (function () {
         this.expenseTypes = [];
     }
     ExpenseType.prototype.getExpenseTypes = function () {
+        this.expenseTypes = [];
         for (var type in EXPENSETYPE) {
             this.expenseTypes.push({
                 name: type,
@@ -567,20 +888,89 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportsComponent", function() { return ReportsComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/expense.service */ "./src/app/services/expense.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
 
 var ReportsComponent = /** @class */ (function () {
-    function ReportsComponent() {
+    function ReportsComponent(expenseService) {
+        this.expenseService = expenseService;
+        this.months = ["Jan", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.years = ['2018', '2019', '2020', '2021', '2022'];
+        this.reportData = [];
+        this.year = null;
+        this.month = null;
     }
+    ReportsComponent.prototype.generateReportBtnClicked = function () {
+        var _this = this;
+        this.expenseService.getExpensesByYearAndMonth(this.year, this.month)
+            .then(function (snapshot) {
+            var data = snapshot.val();
+            var _dataArr = [];
+            for (var _d in data) {
+                _dataArr.push(data[_d]);
+            }
+            _this.generateReport(_dataArr);
+        });
+    };
+    ReportsComponent.prototype.generateReport = function (data) {
+        this.reportData = [];
+        var _groupedData = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["groupBy"])(data, function (_d) { return _d.expenseType; });
+        console.log(_groupedData);
+        var _loop_1 = function (group) {
+            var _total = 0;
+            _groupedData[group].forEach(function (_d) {
+                _total += _d.amount;
+            });
+            this_1.reportData.push({ name: group, total: _total });
+        };
+        var this_1 = this;
+        for (var group in _groupedData) {
+            _loop_1(group);
+        }
+        this.generateChart();
+    };
+    ReportsComponent.prototype.generateChart = function () {
+        var labels = this.reportData.map(function (_d) { return _d.name; });
+        var _data = this.reportData.map(function (_d) { return _d.total; });
+        var _total = 0;
+        this.reportData.forEach(function (_d) { _total += _d.total; });
+        var data = this.reportData.map(function (_d) { return _d.total / _total * 100; });
+        var ctx = document.getElementById('myChart')['getContext']('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'doughnut',
+            // The data for our dataset
+            data: {
+                labels: labels,
+                datasets: [{
+                        data: data,
+                        backgroundColor: ['red', 'blue', 'orange', 'green', 'purple', 'pink', 'brown']
+                    }],
+            },
+            // Configuration options go here
+            options: {}
+        });
+    };
+    ReportsComponent.prototype.isFormValid = function () {
+        return (!this.year || !this.month);
+    };
     ReportsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./Reports.html */ "./src/app/components/reports/Reports.html")
-        })
+        }),
+        __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"]])
     ], ReportsComponent);
     return ReportsComponent;
 }());
@@ -596,7 +986,7 @@ var ReportsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>Reports</div>"
+module.exports = "<div>\r\n    <style>\r\n      .small{\r\n        width : 200px;\r\n        display: inline-block;\r\n        margin-right: 15px;\r\n      }\r\n    </style>\r\n    <h4>Monthly Reports</h4>\r\n    <div>\r\n      Generate Report For:\r\n        <div>\r\n            Year :\r\n            <select class=\"form-control small\" name=\"year\" id=\"year\" [(ngModel)]='year'>\r\n                <option value=\"\">Choose Year</option>\r\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\r\n            </select>\r\n            Month :\r\n            <select class=\"form-control small\" name=\"month\" id=\"month\" [(ngModel)]='month'>\r\n                <option value=\"\">Choose Month</option>\r\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\r\n            </select>\r\n            <button class=\"btn btn-primary\" [disabled]=\"isFormValid()\" (click)='generateReportBtnClicked()'>Generate Report</button>\r\n        </div>\r\n    </div>\r\n    <br>\r\n    <div>\r\n      <table *ngIf=\"reportData.length>0\" class=\"table table-bordered table-condensed\" >\r\n        <thead>\r\n          <tr>\r\n            <th>Category</th>\r\n            <th>Expense Amount</th>\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n          <tr *ngFor=\"let report of reportData\">\r\n            <td>{{report.name}}</td>\r\n            <td>Rs. {{report.total}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n      <canvas id=\"myChart\" width=\"300\" height=\"300\"></canvas>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -682,12 +1072,88 @@ var ExpenseService = /** @class */ (function () {
     ExpenseService.prototype.getExpensesByYear = function (year) {
         return this.db.ref("" + year).once('value');
     };
+    ExpenseService.prototype.getExpensesByYearAndMonth = function (year, month) {
+        return this.db.ref(year + "/" + month).once('value');
+    };
+    ExpenseService.prototype.deleteExpense = function (expense) {
+        return this.db.ref().child(expense.year + "/" + expense.month + "/" + expense.id).remove();
+    };
     ExpenseService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
     ], ExpenseService);
     return ExpenseService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/utils/utils.ts":
+/*!********************************!*\
+  !*** ./src/app/utils/utils.ts ***!
+  \********************************/
+/*! exports provided: utils */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "utils", function() { return utils; });
+var utils = {
+    getMonthFromMonthName: function (monthName) {
+        var result;
+        switch (monthName) {
+            case "Jan": {
+                result = "01";
+                break;
+            }
+            case "Feb": {
+                result = "02";
+                break;
+            }
+            case "Mar": {
+                result = "03";
+                break;
+            }
+            case "Apr": {
+                result = "04";
+                break;
+            }
+            case "May": {
+                result = "05";
+                break;
+            }
+            case "Jun": {
+                result = "06";
+                break;
+            }
+            case "Jul": {
+                result = "07";
+                break;
+            }
+            case "Aug": {
+                result = "08";
+                break;
+            }
+            case "Sep": {
+                result = "09";
+                break;
+            }
+            case "Oct": {
+                result = "10";
+                break;
+            }
+            case "Nov": {
+                result = "11";
+                break;
+            }
+            case "Dec": {
+                result = "12";
+                break;
+            }
+        }
+        return result;
+    }
+};
 
 
 /***/ }),
@@ -752,7 +1218,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/manmeetg/Documents/mystuffs/expensemanager/expenseapp/src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\My FE Works\expensemanagerapp\src\main.ts */"./src/main.ts");
 
 
 /***/ })
