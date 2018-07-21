@@ -414,8 +414,7 @@ var AppModule = /** @class */ (function () {
                 _app_routing__WEBPACK_IMPORTED_MODULE_5__["APP_ROUTES"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
                 ng2_date_picker__WEBPACK_IMPORTED_MODULE_3__["DpDatePickerModule"],
-                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"]
+                _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"]
             ],
             providers: [
                 _components_expenses__WEBPACK_IMPORTED_MODULE_8__["ExpenseType"],
@@ -680,8 +679,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpenseListComponent", function() { return ExpenseListComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/expense.service */ "./src/app/services/expense.service.ts");
-/* harmony import */ var _expenseType__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./expenseType */ "./src/app/components/expenses/expenseType.ts");
-/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/utils */ "./src/app/utils/utils.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _expenseType__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./expenseType */ "./src/app/components/expenses/expenseType.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -705,21 +705,14 @@ var ExpenseListComponent = /** @class */ (function () {
         this.months = ["Jan", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     }
     ExpenseListComponent.prototype.ngOnInit = function () {
-        this.loadExpenses();
-    };
-    ExpenseListComponent.prototype.loadExpenses = function () {
         var _this = this;
         this.expenseTypes = this.expenseType.getExpenseTypes();
-        this.expenses = [];
-        this.years = [];
         this.expenseService.getAllExpenses()
             .then(function (snapshot) {
             var data = snapshot.val();
-            // tslint:disable-next-line:forin
             for (var year in data) {
                 _this.years.push(year);
                 for (var month in data[year]) {
-                    // tslint:disable-next-line:forin
                     for (var _d in data[year][month]) {
                         _this.expenses.push(data[year][month][_d]);
                         _this._data = _this.expenses;
@@ -729,34 +722,30 @@ var ExpenseListComponent = /** @class */ (function () {
             }
         });
     };
-    ExpenseListComponent.prototype.getDateofExpense = function (expense) {
-        var result = "";
-        if (expense && expense.date) {
-            result = expense.date;
-        }
-        else {
-            var _month = _utils_utils__WEBPACK_IMPORTED_MODULE_3__["utils"].getMonthFromMonthName(expense.month);
-            result = "01-" + _month + "-" + expense.year;
-        }
-        return result;
-    };
-    ExpenseListComponent.prototype.deleteExpense = function (expense) {
-        var _this = this;
-        this.expenseService.deleteExpense(expense)
-            .then(function () {
-            _this.loadExpenses();
-        });
-    };
     ExpenseListComponent.prototype.filterListByYear = function (year) {
-        this.expenses = year ? this._data.filter(function (_d) { return _d.year === year; }) : this._data;
+        this.expenses = year ? this._data.filter(function (_d) { return _d.year.toString() === year; }) : this._data;
+        this.expenses = this.sortDataByDate(this.expenses);
         this.total = this.calculateTotal();
     };
-    ExpenseListComponent.prototype.filterListByMonth = function (month) {
-        this.expenses = month ? this._data.filter(function (_d) { return _d.month === month; }) : this._data;
+    ExpenseListComponent.prototype.filterListByMonth = function (month, year) {
+        var data = this._data;
+        if (year) {
+            data = this._data.filter(function (_d) { return _d.year.toString() === year; });
+        }
+        this.expenses = month ? data.filter(function (_d) { return _d.month.toString() === month; }) : data;
+        this.expenses = this.sortDataByDate(this.expenses);
         this.total = this.calculateTotal();
     };
-    ExpenseListComponent.prototype.filterListByExpenseType = function (type) {
-        this.expenses = type ? this._data.filter(function (_d) { return _d.expenseType === type; }) : this._data;
+    ExpenseListComponent.prototype.filterListByExpenseType = function (type, month, year) {
+        var data = this._data;
+        if (year) {
+            data = this._data.filter(function (_d) { return _d.year.toString() === year; });
+        }
+        if (month) {
+            data = data.filter(function (_d) { return _d.month.toString() === month; });
+        }
+        this.expenses = type ? data.filter(function (_d) { return _d.expenseType === type; }) : data;
+        this.expenses = this.sortDataByDate(this.expenses);
         this.total = this.calculateTotal();
     };
     ExpenseListComponent.prototype.calculateTotal = function () {
@@ -766,11 +755,14 @@ var ExpenseListComponent = /** @class */ (function () {
         });
         return total;
     };
+    ExpenseListComponent.prototype.sortDataByDate = function (data) {
+        return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"])(data, 'date');
+    };
     ExpenseListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./ExpenseList.html */ "./src/app/components/expenses/ExpenseList.html")
         }),
-        __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"], _expenseType__WEBPACK_IMPORTED_MODULE_2__["ExpenseType"]])
+        __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"], _expenseType__WEBPACK_IMPORTED_MODULE_3__["ExpenseType"]])
     ], ExpenseListComponent);
     return ExpenseListComponent;
 }());
@@ -786,7 +778,7 @@ var ExpenseListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <div>\n        Filter By :\n        <div>\n            Year :\n            <select name=\"year\" id=\"year\" #year (change)=\"filterListByYear(year.value)\">\n                <option value=\"\">Choose Year</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select name=\"month\" id=\"month\" #month (change)=\"filterListByMonth(month.value)\">\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            Expense Type :\n            <select name=\"month\" id=\"month\" #expenseType (change)=\"filterListByExpenseType(expenseType.value)\">\n                <option value=\"\">Choose Type</option>\n                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}</option>\n            </select>\n        </div>\n    </div>\n    <table class=\"table\">\n        <thead>\n            <tr>\n                <th>Expense Name</th>\n                <th>Amount</th>\n                <th>Date</th>\n                <th>Expense Type</th>\n                <th>Remarks</th>\n                <th>Actions</th>\n            </tr>\n        </thead>\n        <tbody>\n\n            <tr *ngFor='let expense of expenses'>\n                <td>\n                    <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                </td>\n                <td>Rs. {{expense.amount}}</td>\n                <td>{{getDateofExpense(expense)}}</td>\n                <td>{{expense.expenseType}}</td>\n                <td>{{expense.remarks}}</td>\n                <td>\n                  <button (click)=\"deleteExpense(expense)\" class=\"btn btn-danger\">Delete</button>\n                </td>\n            </tr>\n            <tr>\n                    <td colspan='6' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n                </tr>\n        </tbody>\n    </table>\n</div>\n"
+module.exports = "<div>\n    <div>\n        Filter By :\n        <div>\n            Year :\n            <select name=\"year\" id=\"year\" #year (change)=\"filterListByYear(year.value)\">\n                <option value=\"\">Choose filterListByYear</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select name=\"month\" id=\"month\" #month (change)=\"filterListByMonth(month.value, year.value)\">\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            Expense Type :\n            <select name=\"month\" id=\"month\" #expenseType (change)=\"filterListByExpenseType(expenseType.value, month.value, year.value)\">\n                <option value=\"\">Choose Type</option>\n                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}</option>\n            </select>\n        </div>\n    </div>\n    <table class=\"table\">\n        <thead>\n            <tr>\n                <th>Expense Name</th>\n                <th>Amount</th>\n                <th>Year</th>\n                <th>Month</th>\n                <th>Date</th>\n                <th>Expense Type</th>\n                <th>Remarks</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td colspan='6' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n            </tr>\n            <tr *ngFor='let expense of expenses'>\n                <td>\n                    <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                </td>\n                <td>Rs. {{expense.amount}}</td>\n                <td>{{expense.year}}</td>\n                <td>{{expense.month}}</td>\n                <td>{{expense.date}}</td>\n                <td>{{expense.expenseType}}</td>\n                <td>{{expense.remarks}}</td>\n            </tr>\n            <tr>\n                <td colspan='6' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n            </tr>\n        </tbody>\n    </table>\n</div>"
 
 /***/ }),
 
@@ -826,7 +818,6 @@ var ExpenseType = /** @class */ (function () {
         this.expenseTypes = [];
     }
     ExpenseType.prototype.getExpenseTypes = function () {
-        this.expenseTypes = [];
         for (var type in EXPENSETYPE) {
             this.expenseTypes.push({
                 name: type,
@@ -928,17 +919,20 @@ var ReportsComponent = /** @class */ (function () {
         this.reportData = [];
         var _groupedData = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["groupBy"])(data, function (_d) { return _d.expenseType; });
         console.log(_groupedData);
+        var grandTotal = 0;
         var _loop_1 = function (group) {
             var _total = 0;
             _groupedData[group].forEach(function (_d) {
                 _total += _d.amount;
             });
+            grandTotal += _total;
             this_1.reportData.push({ name: group, total: _total });
         };
         var this_1 = this;
         for (var group in _groupedData) {
             _loop_1(group);
         }
+        this.reportData.push({ name: "Total Expense Amount", total: grandTotal });
         this.generateChart();
     };
     ReportsComponent.prototype.generateChart = function () {
@@ -966,6 +960,12 @@ var ReportsComponent = /** @class */ (function () {
     ReportsComponent.prototype.isFormValid = function () {
         return (!this.year || !this.month);
     };
+    ReportsComponent.prototype.onYearChange = function (e) {
+        this.year = e.currentTarget.value;
+    };
+    ReportsComponent.prototype.onMonthChange = function (e) {
+        this.month = e.currentTarget.value;
+    };
     ReportsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./Reports.html */ "./src/app/components/reports/Reports.html")
@@ -986,7 +986,7 @@ var ReportsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <style>\r\n      .small{\r\n        width : 200px;\r\n        display: inline-block;\r\n        margin-right: 15px;\r\n      }\r\n    </style>\r\n    <h4>Monthly Reports</h4>\r\n    <div>\r\n      Generate Report For:\r\n        <div>\r\n            Year :\r\n            <select class=\"form-control small\" name=\"year\" id=\"year\" [(ngModel)]='year'>\r\n                <option value=\"\">Choose Year</option>\r\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\r\n            </select>\r\n            Month :\r\n            <select class=\"form-control small\" name=\"month\" id=\"month\" [(ngModel)]='month'>\r\n                <option value=\"\">Choose Month</option>\r\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\r\n            </select>\r\n            <button class=\"btn btn-primary\" [disabled]=\"isFormValid()\" (click)='generateReportBtnClicked()'>Generate Report</button>\r\n        </div>\r\n    </div>\r\n    <br>\r\n    <div>\r\n      <table *ngIf=\"reportData.length>0\" class=\"table table-bordered table-condensed\" >\r\n        <thead>\r\n          <tr>\r\n            <th>Category</th>\r\n            <th>Expense Amount</th>\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n          <tr *ngFor=\"let report of reportData\">\r\n            <td>{{report.name}}</td>\r\n            <td>Rs. {{report.total}}</td>\r\n          </tr>\r\n        </tbody>\r\n      </table>\r\n      <canvas id=\"myChart\" width=\"300\" height=\"300\"></canvas>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div>\n    <style>\n      .small{\n        width : 200px;\n        display: inline-block;\n        margin-right: 15px;\n      }\n      table tbody tr:last-child {\n          background-color: aliceblue;\n      }\n    </style>\n    <h4>Monthly Reports</h4>\n    <div>\n      Generate Report For:\n        <div>\n            Year :\n            <select class=\"form-control small\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n                <option value=\"\">Choose Year</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select class=\"form-control small\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <button class=\"btn btn-primary\" [disabled]=\"isFormValid()\" (click)='generateReportBtnClicked()'>Generate Report</button>\n        </div>\n    </div>\n    <br>\n    <div>\n      <table *ngIf=\"reportData.length>0\" class=\"table table-bordered table-condensed\" >\n        <thead>\n          <tr>\n            <th>Category</th>\n            <th>Expense Amount</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let report of reportData\">\n            <td>{{report.name}}</td>\n            <td>Rs. {{report.total}}</td>\n          </tr>\n        </tbody>\n      </table>\n      <canvas id=\"myChart\" width=\"300\" height=\"300\"></canvas>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1088,76 +1088,6 @@ var ExpenseService = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/utils/utils.ts":
-/*!********************************!*\
-  !*** ./src/app/utils/utils.ts ***!
-  \********************************/
-/*! exports provided: utils */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "utils", function() { return utils; });
-var utils = {
-    getMonthFromMonthName: function (monthName) {
-        var result;
-        switch (monthName) {
-            case "Jan": {
-                result = "01";
-                break;
-            }
-            case "Feb": {
-                result = "02";
-                break;
-            }
-            case "Mar": {
-                result = "03";
-                break;
-            }
-            case "Apr": {
-                result = "04";
-                break;
-            }
-            case "May": {
-                result = "05";
-                break;
-            }
-            case "Jun": {
-                result = "06";
-                break;
-            }
-            case "Jul": {
-                result = "07";
-                break;
-            }
-            case "Aug": {
-                result = "08";
-                break;
-            }
-            case "Sep": {
-                result = "09";
-                break;
-            }
-            case "Oct": {
-                result = "10";
-                break;
-            }
-            case "Nov": {
-                result = "11";
-                break;
-            }
-            case "Dec": {
-                result = "12";
-                break;
-            }
-        }
-        return result;
-    }
-};
-
-
-/***/ }),
-
 /***/ "./src/environments/environment.ts":
 /*!*****************************************!*\
   !*** ./src/environments/environment.ts ***!
@@ -1218,7 +1148,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\My FE Works\expensemanagerapp\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/manmeetg/Documents/mystuffs/expensemanager/expenseapp/src/main.ts */"./src/main.ts");
 
 
 /***/ })

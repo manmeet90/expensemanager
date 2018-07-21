@@ -539,7 +539,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\My FE Works\expensemanagerapp\src\styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! /Users/manmeetg/Documents/mystuffs/expensemanager/expenseapp/src/styles.css */"./src/styles.css");
 
 
 /***/ })
