@@ -773,12 +773,20 @@ var ExpenseListComponent = /** @class */ (function () {
     };
     ExpenseListComponent.prototype.sortDataByDate = function (data) {
         return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"])(data, function (_d) {
-            var parts = _d.date.split('-');
-            var md = parts[0] + parts[1];
-            if (md.length === 3) {
-                md = "0" + md;
+            if (_d.date) {
+                var parts = _d.date.split('-');
+                if (parts[0].length === 1) {
+                    parts[0] = "0" + parts[0];
+                }
+                if (parts[1].length === 1) {
+                    parts[1] = "0" + parts[1];
+                }
+                var md = parts[0] + parts[1];
+                return md;
             }
-            return md;
+            else {
+                return '';
+            }
         });
     };
     ExpenseListComponent = __decorate([
