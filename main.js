@@ -725,9 +725,12 @@ var ExpenseListComponent = /** @class */ (function () {
         });
     };
     ExpenseListComponent.prototype.setmonthDropdownToCurrentMonth = function () {
+        var _this = this;
         var d = new Date();
-        $('#month').val(this.months[d.getMonth()]);
-        $("#year").val(d.getFullYear().toString());
+        setTimeout(function () {
+            $('#month').val(_this.months[d.getMonth()]);
+            $("#year").val(d.getFullYear());
+        }, 1000);
         this.filterList(d.getFullYear().toString(), this.months[d.getMonth()]);
     };
     ExpenseListComponent.prototype.filterListByYear = function (year) {
