@@ -721,7 +721,14 @@ var ExpenseListComponent = /** @class */ (function () {
                     }
                 }
             }
+            _this.setmonthDropdownToCurrentMonth();
         });
+    };
+    ExpenseListComponent.prototype.setmonthDropdownToCurrentMonth = function () {
+        var d = new Date();
+        $('#month').val(this.months[d.getMonth()]);
+        $("#year").val(d.getFullYear().toString());
+        this.filterList(d.getFullYear().toString(), this.months[d.getMonth()]);
     };
     ExpenseListComponent.prototype.filterListByYear = function (year) {
         this.expenses = year ? this._data.filter(function (_d) { return _d.year.toString() === year; }) : this._data;
