@@ -321,7 +321,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"site-wrapper\">\n    <nav class=\"navbar navbar-default\">\n        <div class=\"container-fluid\">\n          <!-- Brand and toggle get grouped for better mobile display -->\n          <div class=\"navbar-header\">\n            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n              <span class=\"sr-only\">Toggle navigation</span>\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n            </button>\n            <a class=\"navbar-brand\" href=\"#\">Expense Manager</a>\n          </div>\n      \n          <!-- Collect the nav links, forms, and other content for toggling -->\n          <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n            <ul class=\"nav navbar-nav\">\n              <li><a routerLink=\"\">Show All Expenses</a></li>\n              <li><a routerLink=\"create\">Create New Expense</a></li>\n              <li><a routerLink=\"reports\">Reports</a></li>\n            </ul>\n          </div><!-- /.navbar-collapse -->\n        </div><!-- /.container-fluid -->\n      </nav>\n      <section id=\"main\">\n        <router-outlet></router-outlet>\n      </section>\n      <div id=\"footer\">\n      \n      </div>\n</div>"
+module.exports = "<div id=\"site-wrapper\">\n    <nav class=\"navbar navbar-default\">\n        <div class=\"container-fluid\">\n          <!-- Brand and toggle get grouped for better mobile display -->\n          <div class=\"navbar-header\">\n            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n              <span class=\"sr-only\">Toggle navigation</span>\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n            </button>\n            <a class=\"navbar-brand\" href=\"#\">{{title}}</a>\n          </div>\n      \n          <!-- Collect the nav links, forms, and other content for toggling -->\n          <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n            <ul class=\"nav navbar-nav\">\n              <li *ngIf=\"isLoggedIn\"><a routerLink=\"expenses\">Show All Expenses</a></li>\n              <li *ngIf=\"isLoggedIn\"><a routerLink=\"create\">Create New Expense</a></li>\n              <li *ngIf=\"isLoggedIn\"><a routerLink=\"reports\">Reports</a></li>\n              <li *ngIf=\"isLoggedIn\"><a href=\"\" (click)=\"signOut($event)\">Sign Out</a></li>\n            </ul>\n          </div><!-- /.navbar-collapse -->\n        </div><!-- /.container-fluid -->\n      </nav>\n      <section id=\"main\">\n        <router-outlet></router-outlet>\n      </section>\n      <div id=\"footer\">\n      \n      </div>\n</div>"
 
 /***/ }),
 
@@ -336,23 +336,55 @@ module.exports = "<div id=\"site-wrapper\">\n    <nav class=\"navbar navbar-defa
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
-        this.title = 'app';
+    function AppComponent(authService, router) {
+        this.authService = authService;
+        this.router = router;
+        this.title = 'Expense Manager';
+        this.isLoggedIn = false;
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.authService.loginEvent.subscribe(function () {
+            _this.isLoggedIn = true;
+        });
+        var isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        this.isLoggedIn = JSON.parse(isLoggedIn);
+    };
+    AppComponent.prototype.signOut = function (e) {
+        var _this = this;
+        e.preventDefault();
+        firebase.auth().signOut().then(function () {
+            // Sign-out successful.
+            sessionStorage.setItem('isLoggedIn', JSON.stringify(false));
+            _this.isLoggedIn = false;
+            _this.router.navigate(['login']);
+        }).catch(function (error) {
+            // An error happened.
+            console.log(error);
+        });
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_services_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthGuard"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -377,16 +409,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng2_date_picker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ng2-date-picker */ "./node_modules/ng2-date-picker/esm5/ng2-date-picker.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
-/* harmony import */ var _components_404_PageNotFound_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/404/PageNotFound.component */ "./src/app/components/404/PageNotFound.component.ts");
-/* harmony import */ var _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/reports/Reports.component */ "./src/app/components/reports/Reports.component.ts");
-/* harmony import */ var _components_expenses__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/expenses */ "./src/app/components/expenses/index.ts");
-/* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/expense.service */ "./src/app/services/expense.service.ts");
+/* harmony import */ var _components_login_login_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/login/login.component */ "./src/app/components/login/login.component.ts");
+/* harmony import */ var _components_404_PageNotFound_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/404/PageNotFound.component */ "./src/app/components/404/PageNotFound.component.ts");
+/* harmony import */ var _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/reports/Reports.component */ "./src/app/components/reports/Reports.component.ts");
+/* harmony import */ var _components_expenses__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/expenses */ "./src/app/components/expenses/index.ts");
+/* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/expense.service */ "./src/app/services/expense.service.ts");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -404,21 +440,24 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-                _components_404_PageNotFound_component__WEBPACK_IMPORTED_MODULE_6__["PageNotFoundComponent"],
-                _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_7__["ReportsComponent"],
-                _components_expenses__WEBPACK_IMPORTED_MODULE_8__["CreateExpenseComponent"],
-                _components_expenses__WEBPACK_IMPORTED_MODULE_8__["ExpenseComponent"],
-                _components_expenses__WEBPACK_IMPORTED_MODULE_8__["ExpenseListComponent"]
+                _components_login_login_component__WEBPACK_IMPORTED_MODULE_6__["LoginComponent"],
+                _components_404_PageNotFound_component__WEBPACK_IMPORTED_MODULE_7__["PageNotFoundComponent"],
+                _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_8__["ReportsComponent"],
+                _components_expenses__WEBPACK_IMPORTED_MODULE_9__["CreateExpenseComponent"],
+                _components_expenses__WEBPACK_IMPORTED_MODULE_9__["ExpenseComponent"],
+                _components_expenses__WEBPACK_IMPORTED_MODULE_9__["ExpenseListComponent"]
             ],
             imports: [
                 _app_routing__WEBPACK_IMPORTED_MODULE_5__["APP_ROUTES"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
                 ng2_date_picker__WEBPACK_IMPORTED_MODULE_3__["DpDatePickerModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"]
             ],
             providers: [
-                _components_expenses__WEBPACK_IMPORTED_MODULE_8__["ExpenseType"],
-                _services_expense_service__WEBPACK_IMPORTED_MODULE_9__["ExpenseService"]
+                _components_expenses__WEBPACK_IMPORTED_MODULE_9__["ExpenseType"],
+                _services_expense_service__WEBPACK_IMPORTED_MODULE_10__["ExpenseService"],
+                _services_auth_service__WEBPACK_IMPORTED_MODULE_11__["AuthGuard"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
         })
@@ -444,6 +483,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_404_PageNotFound_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/404/PageNotFound.component */ "./src/app/components/404/PageNotFound.component.ts");
 /* harmony import */ var _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/reports/Reports.component */ "./src/app/components/reports/Reports.component.ts");
 /* harmony import */ var _components_expenses__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/expenses */ "./src/app/components/expenses/index.ts");
+/* harmony import */ var _components_login_login_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/login/login.component */ "./src/app/components/login/login.component.ts");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
+
+
 
 
 
@@ -451,12 +494,17 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     {
         path: '',
-        redirectTo: 'expenses',
+        redirectTo: 'login',
         pathMatch: 'full'
+    },
+    {
+        path: 'login',
+        component: _components_login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"]
     },
     {
         path: 'expenses',
         component: _components_expenses__WEBPACK_IMPORTED_MODULE_3__["ExpenseListComponent"],
+        canActivate: [_services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]],
         children: [
             {
                 path: ":year/:month",
@@ -466,11 +514,13 @@ var routes = [
     },
     {
         path: 'create',
-        component: _components_expenses__WEBPACK_IMPORTED_MODULE_3__["CreateExpenseComponent"]
+        component: _components_expenses__WEBPACK_IMPORTED_MODULE_3__["CreateExpenseComponent"],
+        canActivate: [_services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]]
     },
     {
         path: 'reports',
-        component: _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_2__["ReportsComponent"]
+        component: _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_2__["ReportsComponent"],
+        canActivate: [_services_auth_service__WEBPACK_IMPORTED_MODULE_5__["AuthGuard"]]
     },
     {
         path: '**',
@@ -926,6 +976,90 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/app/components/login/login.component.html":
+/*!*******************************************************!*\
+  !*** ./src/app/components/login/login.component.html ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<style>\n    #loginform{\n        margin: 0 10px;\n    }\n</style>\n<div class=\"row\">\n    <div class=\"col-xs-12 col-sm-6 \">\n        <form id=\"loginform\">\n            <h3>Login</h3>\n            <div *ngIf=\"loginError\" class=\"alert alert-danger\">\n                {{message}}\n            </div>\n            <div class=\"form-group\">\n              <label for=\"emailid\">Email Address</label>\n              <input #email type=\"text\" class=\"form-control\" (input)=\"updateLoginBtnState(email.value, password.value)\" id=\"emailid\" placeholder=\"Email\">\n            </div>\n            <div class=\"form-group\">\n              <label for=\"paswrd\">Password</label>\n              <input #password type=\"password\" class=\"form-control\" (input)=\"updateLoginBtnState(email.value, password.value)\" id=\"paswrd\" placeholder=\"Password\">\n            </div>\n            <button type=\"submit\" [disabled]=\"disableLoginBtn\" class=\"btn btn-success\" (click)=\"onLoginButtonClicked($event, email.value, password.value)\">Login</button>\n          </form>\n    </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/components/login/login.component.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/components/login/login.component.ts ***!
+  \*****************************************************/
+/*! exports provided: LoginComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var LoginComponent = /** @class */ (function () {
+    function LoginComponent(authService, router) {
+        this.authService = authService;
+        this.router = router;
+        this.disableLoginBtn = true;
+        this.loginError = false;
+    }
+    LoginComponent.prototype.updateLoginBtnState = function (email, password) {
+        if (email && password) {
+            this.disableLoginBtn = false;
+        }
+        else {
+            this.disableLoginBtn = true;
+        }
+    };
+    LoginComponent.prototype.onLoginButtonClicked = function (e, email, password) {
+        var _this = this;
+        e.preventDefault();
+        if (email && password) {
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then(function (data) {
+                _this.loginError = false;
+                sessionStorage.setItem('isLoggedIn', JSON.stringify(true));
+                _this.authService.loginEvent.emit('login');
+                _this.router.navigate(['expenses']);
+            })
+                .catch(function (error) {
+                // Handle Errors here.
+                _this.loginError = true;
+                _this.message = error.message;
+                console.log(error);
+                sessionStorage.setItem('isLoggedIn', JSON.stringify(false));
+            });
+        }
+    };
+    LoginComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            template: __webpack_require__(/*! ./login.component.html */ "./src/app/components/login/login.component.html")
+        }),
+        __metadata("design:paramtypes", [_services_auth_service__WEBPACK_IMPORTED_MODULE_1__["AuthGuard"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], LoginComponent);
+    return LoginComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/reports/Reports.component.ts":
 /*!*********************************************************!*\
   !*** ./src/app/components/reports/Reports.component.ts ***!
@@ -1056,6 +1190,45 @@ var ReportsComponent = /** @class */ (function () {
 /***/ (function(module, exports) {
 
 module.exports = "<div>\n    <style>\n      .small{\n        width : 200px;\n        display: inline-block;\n        margin-right: 15px;\n      }\n      table tbody tr:last-child {\n          background-color: aliceblue;\n      }\n    </style>\n    <h4>Monthly Reports</h4>\n    <div>\n      Generate Report For:\n        <div>\n            Year :\n            <select class=\"form-control small\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n                <option value=\"\">Choose Year</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select class=\"form-control small\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <button class=\"btn btn-primary\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate Report</button>\n        </div>\n    </div>\n    <br>\n    <div>\n      <table *ngIf=\"reportData.length>0\" class=\"table table-bordered table-condensed\" >\n        <thead>\n          <tr>\n            <th>Category</th>\n            <th>Expense Amount</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let report of reportData\">\n            <td>{{report.name}}</td>\n            <td>Rs. {{report.total}}</td>\n          </tr>\n        </tbody>\n      </table>\n      <canvas id=\"myChart\" width=\"300\" height=\"300\"></canvas>\n    </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/services/auth.service.ts":
+/*!******************************************!*\
+  !*** ./src/app/services/auth.service.ts ***!
+  \******************************************/
+/*! exports provided: AuthGuard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuard", function() { return AuthGuard; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var AuthGuard = /** @class */ (function () {
+    function AuthGuard() {
+        this.loginEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+    }
+    AuthGuard.prototype.canActivate = function (route, state) {
+        return this.isUserLoggedIn();
+    };
+    AuthGuard.prototype.isUserLoggedIn = function () {
+        var isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        return JSON.parse(isLoggedIn);
+    };
+    AuthGuard = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
+    ], AuthGuard);
+    return AuthGuard;
+}());
+
+
 
 /***/ }),
 
