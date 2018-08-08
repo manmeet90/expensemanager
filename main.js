@@ -754,6 +754,7 @@ var ExpenseListComponent = /** @class */ (function () {
         this.expenses = [];
         this.years = [];
         this.months = ["Jan", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.isLoading = false;
     }
     ExpenseListComponent.prototype.ngOnInit = function () {
         this.expenseTypes = this.expenseType.getExpenseTypes();
@@ -763,6 +764,7 @@ var ExpenseListComponent = /** @class */ (function () {
         var _this = this;
         this.expenses = [];
         this._data = [];
+        this.isLoading = true;
         this.expenseService.getAllExpenses()
             .then(function (snapshot) {
             var data = snapshot.val();
@@ -777,6 +779,7 @@ var ExpenseListComponent = /** @class */ (function () {
                 }
             }
             _this.setmonthDropdownToCurrentMonth();
+            _this.isLoading = false;
         });
     };
     ExpenseListComponent.prototype.setmonthDropdownToCurrentMonth = function () {
@@ -881,7 +884,7 @@ var ExpenseListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <div>\n        Filter By :\n        <div>\n            Year :\n            <select name=\"year\" id=\"year\" #year (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose filterListByYear</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select name=\"month\" id=\"month\" #month (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            Expense Type :\n            <select name=\"month\" id=\"month\" #expenseType (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose Type</option>\n                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}</option>\n            </select>\n        </div>\n    </div>\n    <table class=\"table\">\n        <thead>\n            <tr>\n                <th>Expense Name</th>\n                <th>Amount</th>\n                <th>Year</th>\n                <th>Month</th>\n                <th>Date</th>\n                <th>Expense Type</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td colspan='5' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n            </tr>\n            <tr *ngFor='let expense of expenses'>\n                <td>\n                    <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                    <span style=\"color:red;padding-left:10px;cursor:pointer;font-size:1.2em;\" (click)=\"ondeleteButtonClicked(expense)\" class=\"glyphicon glyphicon-trash\"></span>\n                </td>\n                <td>Rs. {{expense.amount}}</td>\n                <td>{{expense.year}}</td>\n                <td>{{expense.month}}</td>\n                <td>{{expense.date}}</td>\n                <td>{{expense.expenseType}}</td>\n            </tr>\n            <tr>\n                <td colspan='5' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n            </tr>\n        </tbody>\n    </table>\n</div>"
+module.exports = "<div>\n    <div>\n        Filter By :\n        <div>\n            Year :\n            <select name=\"year\" id=\"year\" #year (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose filterListByYear</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select name=\"month\" id=\"month\" #month (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            Expense Type :\n            <select name=\"month\" id=\"month\" #expenseType (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose Type</option>\n                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}</option>\n            </select>\n        </div>\n    </div>\n    <table class=\"table\">\n        <thead>\n            <tr>\n                <th>Expense Name</th>\n                <th>Amount</th>\n                <th>Year</th>\n                <th>Month</th>\n                <th>Date</th>\n                <th>Expense Type</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td colspan='5' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n            </tr>\n            <tr>\n                <td colspan='5' *ngIf='isLoading'>Loading...</td>\n            </tr>\n            <tr *ngFor='let expense of expenses'>\n                <td>\n                    <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                    <span style=\"color:red;padding-left:10px;cursor:pointer;font-size:1.2em;\" (click)=\"ondeleteButtonClicked(expense)\" class=\"glyphicon glyphicon-trash\"></span>\n                </td>\n                <td>Rs. {{expense.amount}}</td>\n                <td>{{expense.year}}</td>\n                <td>{{expense.month}}</td>\n                <td>{{expense.date}}</td>\n                <td>{{expense.expenseType}}</td>\n            </tr>\n            <tr>\n                <td colspan='5' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n            </tr>\n        </tbody>\n    </table>\n</div>"
 
 /***/ }),
 
