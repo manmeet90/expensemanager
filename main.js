@@ -610,7 +610,7 @@ var CreateExpenseComponent = /** @class */ (function () {
         this.expenseType = expenseType;
         this.expenseService = expenseService;
         this.showMsg = false;
-        this.dpConfig = {};
+        this.dpConfig = { format: "DD-MM-YYYY" };
     }
     CreateExpenseComponent.prototype.ngOnInit = function () {
         this.expenseTypes = this.expenseType.getExpenseTypes();
@@ -640,6 +640,7 @@ var CreateExpenseComponent = /** @class */ (function () {
                 }, 2000);
                 _this.expenseForm.reset();
                 _this.expenseForm.controls.date.setValue(_this.today());
+                _this.expenseForm.controls.date.updateValueAndValidity();
             }
         });
     };
