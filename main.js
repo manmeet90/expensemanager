@@ -1262,7 +1262,8 @@ var ExpenseService = /** @class */ (function () {
         this.db = firebase.database();
     }
     ExpenseService.prototype.saveExpense = function (expense) {
-        var _d = new Date();
+        var dateParts = expense.date.split('-');
+        var _d = new Date(Date.UTC(dateParts[2], dateParts[1] - 1, dateParts[0])); //new Date();
         expense.id = uuid__WEBPACK_IMPORTED_MODULE_1__();
         var _rootRefYear = _d.getFullYear();
         var _rootRefMonth = this.getMonthString(_d.getMonth());
