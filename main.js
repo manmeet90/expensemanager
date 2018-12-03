@@ -773,9 +773,11 @@ var ExpenseListComponent = /** @class */ (function () {
                 _this.years.push(year);
                 for (var month in data[year]) {
                     for (var _d in data[year][month]) {
-                        _this.expenses.push(data[year][month][_d]);
-                        _this._data = _this.expenses;
-                        _this.total = _this.calculateTotal();
+                        if (_d !== 'earning') {
+                            _this.expenses.push(data[year][month][_d]);
+                            _this._data = _this.expenses;
+                            _this.total = _this.calculateTotal();
+                        }
                     }
                 }
             }
@@ -1093,34 +1095,53 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var ReportsComponent = /** @class */ (function () {
     function ReportsComponent(expenseService) {
         this.expenseService = expenseService;
-        this.months = ["Jan", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         this.years = ['2018', '2019', '2020', '2021', '2022'];
         this.reportData = [];
         this.year = null;
         this.month = null;
+        this.earn_year = null;
+        this.earn_month = null;
+        this.earning = null;
     }
     ReportsComponent.prototype.generateReportBtnClicked = function () {
         var _this = this;
         this.expenseService.getExpensesByYearAndMonth(this.year, this.month)
             .then(function (snapshot) {
             var data = snapshot.val();
+            var earningsSum = null;
             if (!_this.month) {
+                earningsSum = 0;
                 var _temp = {};
                 for (var _d in data) {
                     for (var _i in data[_d]) {
+                        if (_i == 'earning') {
+                            earningsSum += parseInt(data[_d][_i].earning, 10);
+                        }
                         _temp[_i] = (data[_d][_i]);
                     }
                 }
                 data = _temp;
             }
             var _dataArr = [];
+            var earningData = null;
             for (var _d in data) {
-                _dataArr.push(data[_d]);
+                if (_d !== 'earning') {
+                    _dataArr.push(data[_d]);
+                }
+                else {
+                    if (!earningData) {
+                        earningData = data[_d];
+                    }
+                }
             }
-            _this.generateReport(_dataArr);
+            if (earningsSum) {
+                earningData.earning = earningsSum;
+            }
+            _this.generateReport(_dataArr, earningData);
         });
     };
-    ReportsComponent.prototype.generateReport = function (data) {
+    ReportsComponent.prototype.generateReport = function (data, earningData) {
         this.reportData = [];
         var _groupedData = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["groupBy"])(data, function (_d) { return _d.expenseType; });
         console.log(_groupedData);
@@ -1138,11 +1159,19 @@ var ReportsComponent = /** @class */ (function () {
             _loop_1(group);
         }
         this.reportData.push({ name: "Total Expense Amount", total: grandTotal });
+        if (earningData) {
+            this.reportData.push({ name: 'Total Earnings', total: earningData.earning });
+        }
         this.generateChart();
     };
     ReportsComponent.prototype.generateChart = function () {
         var reportData = JSON.parse(JSON.stringify(this.reportData));
-        reportData.splice(reportData.length - 1, 1);
+        if (reportData[reportData.length - 1].name == 'Total Earnings') {
+            reportData.splice(reportData.length - 2, 2);
+        }
+        else {
+            reportData.splice(reportData.length - 1, 1);
+        }
         var labels = reportData.map(function (_d) { return _d.name; });
         var _data = reportData.map(function (_d) { return _d.total; });
         var _total = 0;
@@ -1173,6 +1202,25 @@ var ReportsComponent = /** @class */ (function () {
     ReportsComponent.prototype.onMonthChange = function (e) {
         this.month = e.currentTarget.value;
     };
+    ReportsComponent.prototype.onEarnYearChange = function (e) {
+        this.earn_year = e.currentTarget.value;
+    };
+    ReportsComponent.prototype.onEarnMonthChange = function (e) {
+        this.earn_month = e.currentTarget.value;
+    };
+    ReportsComponent.prototype.onEarningChange = function (e) {
+        this.earning = e.currentTarget.value;
+    };
+    ReportsComponent.prototype.isEarningFormValid = function () {
+        return (this.earn_year && this.earn_month && this.earning);
+    };
+    ReportsComponent.prototype.onSaveEarningBtnClicked = function () {
+        console.log(this.earn_month, this.earn_year, this.earning);
+        this.expenseService.setEarning(this.earn_year, this.earn_month, this.earning)
+            .then(function (snapshot) {
+            alert('Earnings updated successfuly');
+        });
+    };
     ReportsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./Reports.html */ "./src/app/components/reports/Reports.html")
@@ -1193,7 +1241,7 @@ var ReportsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <style>\n      .small{\n        width : 200px;\n        display: inline-block;\n        margin-right: 15px;\n      }\n      table tbody tr:last-child {\n          background-color: aliceblue;\n      }\n    </style>\n    <h4>Monthly Reports</h4>\n    <div>\n      Generate Report For:\n        <div>\n            Year :\n            <select class=\"form-control small\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n                <option value=\"\">Choose Year</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select class=\"form-control small\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <button class=\"btn btn-primary\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate Report</button>\n        </div>\n    </div>\n    <br>\n    <div>\n      <table *ngIf=\"reportData.length>0\" class=\"table table-bordered table-condensed\" >\n        <thead>\n          <tr>\n            <th>Category</th>\n            <th>Expense Amount</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let report of reportData\">\n            <td>{{report.name}}</td>\n            <td>Rs. {{report.total}}</td>\n          </tr>\n        </tbody>\n      </table>\n      <canvas id=\"myChart\" width=\"300\" height=\"300\"></canvas>\n    </div>\n</div>"
+module.exports = "<div style='margin:10px;'>\n    <style>\n      .small{\n        width : 200px;\n        display: inline-block;\n        margin-right: 15px;\n      }\n      table tbody tr:nth-last-child(2){\n          background-color: aliceblue;\n      }\n      table tbody tr:last-child {\n        background-color: darkseagreen;\n      }\n      #earning{\n        width: 200px;\n        display: inline-block;\n      }\n      #earnings_form > div {\n        margin : 7px 0;\n      }\n    </style>\n    <div id=\"earnings_form\">\n      <h4>Set Earnings</h4>\n      <div>\n          Year :\n          <select class=\"form-control small\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\n              <option value=\"\">Choose Year</option>\n              <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n          </select>\n      </div>\n      <div>\n          Month :\n          <select class=\"form-control small\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\n              <option value=\"\">Choose Month</option>\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n          </select>\n      </div>\n      <div>\n          Earnings (INR):\n          <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\" (input)='onEarningChange($event)' />\n      </div>\n      <div>\n          <button class=\"btn btn-success\" [disabled]=\"!isEarningFormValid()\" (click)='onSaveEarningBtnClicked()'>Save</button>\n      </div>\n    </div>\n    \n    <h4>Monthly Reports</h4>\n    <div>\n      Generate Report For:\n        <div>\n            Year :\n            <select class=\"form-control small\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n                <option value=\"\">Choose Year</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select class=\"form-control small\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <button class=\"btn btn-primary\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate Report</button>\n        </div>\n    </div>\n    <br>\n    <div>\n      <table *ngIf=\"reportData.length>0\" class=\"table table-bordered table-condensed\" >\n        <thead>\n          <tr>\n            <th>Category</th>\n            <th>Expense Amount</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr id=\"{{report.name}}\" *ngFor=\"let report of reportData\">\n            <td>{{report.name}}</td>\n            <td>Rs. {{report.total}}</td>\n          </tr>\n        </tbody>\n      </table>\n      <canvas id=\"myChart\" width=\"300\" height=\"300\"></canvas>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1329,6 +1377,13 @@ var ExpenseService = /** @class */ (function () {
     };
     ExpenseService.prototype.deleteExpense = function (expense) {
         return this.db.ref().child(expense.year + "/" + expense.month + "/" + expense.id).remove();
+    };
+    ExpenseService.prototype.setEarning = function (year, month, earning) {
+        return this.db.ref().child(year + "/" + month + "/earning").update({
+            year: year,
+            month: month,
+            earning: earning
+        });
     };
     ExpenseService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
