@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* You can add global styles to this file, and also import other style files */\n"
+module.exports = "/* You can add global styles to this file, and also import other style files */\n.dp-calendar-nav-right, .dp-calendar-nav-left{\n    background-color: #196ab2;\n    color: #fff;\n    padding: 7px;\n    width: 26px !important;\n}\n.dp-calendar-nav-right{\n    margin: 0 -5px 0 5px;\n}\n.dp-calendar-nav-left{\n    margin: 0 5px;\n}\n.dp-current-day{\n    background-color: #5bc0de;\n    color: #fff;\n    border-radius: 50%;\n}\n.dp-nav-header-btn{\n    background-color: #5cb85c;\n    color: #fff;\n    margin-left: -4px;\n}\n.dp-calendar-wrapper .dp-weekdays {\n    font-size: 13px;\n}\n.dp-calendar-month.dp-current-month{\n    color: #fff;\n    background-color: #196ab2;\n}"
 
 /***/ }),
 
