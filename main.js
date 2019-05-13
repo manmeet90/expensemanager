@@ -321,7 +321,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"site-wrapper\">\n    <nav class=\"navbar navbar-default\">\n        <div class=\"container-fluid\">\n          <!-- Brand and toggle get grouped for better mobile display -->\n          <div class=\"navbar-header\">\n            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n              <span class=\"sr-only\">Toggle navigation</span>\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n            </button>\n            <a class=\"navbar-brand\" href=\"#\">{{title}}</a>\n          </div>\n      \n          <!-- Collect the nav links, forms, and other content for toggling -->\n          <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n            <ul class=\"nav navbar-nav\">\n              <li *ngIf=\"isLoggedIn\"><a routerLink=\"expenses\">Show All Expenses</a></li>\n              <li *ngIf=\"isLoggedIn\"><a routerLink=\"create\">Create New Expense</a></li>\n              <li *ngIf=\"isLoggedIn\"><a routerLink=\"reports\">Reports</a></li>\n              <li *ngIf=\"isLoggedIn\"><a href=\"\" (click)=\"signOut($event)\">Sign Out</a></li>\n            </ul>\n          </div><!-- /.navbar-collapse -->\n        </div><!-- /.container-fluid -->\n      </nav>\n      <section id=\"main\">\n        <router-outlet></router-outlet>\n      </section>\n      <div id=\"footer\">\n      \n      </div>\n</div>"
+module.exports = "<div id=\"site-wrapper\">\n    <nav class=\"navbar navbar-default\">\n        <div class=\"container-fluid\">\n          <!-- Brand and toggle get grouped for better mobile display -->\n          <div class=\"navbar-header\">\n            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n              <span class=\"sr-only\">Toggle navigation</span>\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n              <span class=\"icon-bar\"></span>\n            </button>\n            <a class=\"navbar-brand\"  routerLink=\"expenses\">{{title}}</a>\n          </div>\n      \n          <!-- Collect the nav links, forms, and other content for toggling -->\n          <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n            <ul class=\"nav navbar-nav\">\n              <li *ngIf=\"isLoggedIn\"><a routerLink=\"expenses\">Show All Expenses</a></li>\n              <li *ngIf=\"isLoggedIn\"><a routerLink=\"create\">Create New Expense</a></li>\n              <li *ngIf=\"isLoggedIn\"><a routerLink=\"reports\">Reports</a></li>\n              <li *ngIf=\"isLoggedIn\"><a href=\"\" (click)=\"signOut($event)\">Sign Out</a></li>\n            </ul>\n          </div><!-- /.navbar-collapse -->\n        </div><!-- /.container-fluid -->\n      </nav>\n      <section id=\"main\">\n        <router-outlet></router-outlet>\n      </section>\n      <div id=\"footer\">\n      \n      </div>\n</div>"
 
 /***/ }),
 
@@ -887,7 +887,7 @@ var ExpenseListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <div>\n        Filter By :\n        <div class=\"form-inline\">\n            <label for=\"year\">Year </label>\n            <select class=\"form-control\" name=\"year\" id=\"year\" #year (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose filterListByYear</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            <label for=\"month\">Month </label>&nbsp;\n            <select class=\"form-control\" name=\"month\" id=\"month\" #month (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <label for=\"expenseType\">Expense Type </label>&nbsp;\n            <select class=\"form-control\" name=\"expenseType\" id=\"expenseType\" #expenseType (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose Type</option>\n                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}</option>\n            </select>\n        </div>\n    </div>\n    <div class=\"table-responsive\">\n        <table class=\"table\">\n            <thead>\n                <tr>\n                    <th>Expense Name</th>\n                    <th>Amount</th>\n                    <th class=\"hidden-xs\">Year</th>\n                    <th class=\"hidden-xs\">Month</th>\n                    <th>Date</th>\n                    <th class=\"hidden-xs\">Expense Type</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td colspan='5' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n                </tr>\n                <tr>\n                    <td colspan='5' *ngIf='isLoading'>Loading...</td>\n                </tr>\n                <tr *ngFor='let expense of expenses'>\n                    <td>\n                        <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                        <span style=\"color:red;padding-left:10px;cursor:pointer;font-size:1.2em;\" (click)=\"ondeleteButtonClicked(expense)\" class=\"glyphicon glyphicon-trash\"></span>\n                    </td>\n                    <td>Rs. {{expense.amount}}</td>\n                    <td class=\"hidden-xs\">{{expense.year}}</td>\n                    <td class=\"hidden-xs\">{{expense.month}}</td>\n                    <td>{{expense.date}}</td>\n                    <td class=\"hidden-xs\">{{expense.expenseType}}</td>\n                </tr>\n                <tr>\n                    <td colspan='5' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n    \n</div>"
+module.exports = "<div>\n    <div>\n        Filter By :\n        <div class=\"form-inline\">\n            <label for=\"year\">Year </label>\n            <select class=\"form-control\" name=\"year\" id=\"year\" #year\n                (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose filterListByYear</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            <label for=\"month\">Month </label>&nbsp;\n            <select class=\"form-control\" name=\"month\" id=\"month\" #month\n                (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <label for=\"expenseType\">Expense Type </label>&nbsp;\n            <select class=\"form-control\" name=\"expenseType\" id=\"expenseType\" #expenseType\n                (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                <option value=\"\">Choose Type</option>\n                <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}\n                </option>\n            </select>\n        </div>\n    </div>\n    <div class=\"table-responsive\">\n        <table class=\"table\">\n            <thead>\n                <tr>\n                    <th>Expense Name</th>\n                    <th>Amount</th>\n                    <th class=\"hidden-xs\">Year</th>\n                    <th class=\"hidden-xs\">Month</th>\n                    <th>Date</th>\n                    <th class=\"hidden-xs\">Expense Type</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr>\n                    <td colspan='5' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n                </tr>\n                <tr>\n                    <td colspan='5' *ngIf='isLoading'>Loading...</td>\n                </tr>\n                <tr *ngFor='let expense of expenses'>\n                    <td>\n                        <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                        <span style=\"color:red;padding-left:10px;cursor:pointer;font-size:1.2em;\"\n                            (click)=\"ondeleteButtonClicked(expense)\" class=\"glyphicon glyphicon-trash\"></span>\n                    </td>\n                    <td>Rs. {{expense.amount}}</td>\n                    <td class=\"hidden-xs\">{{expense.year}}</td>\n                    <td class=\"hidden-xs\">{{expense.month}}</td>\n                    <td>{{expense.date}}</td>\n                    <td class=\"hidden-xs\">{{expense.expenseType}}</td>\n                </tr>\n                <tr>\n                    <td colspan='5' class='text-success text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n\n</div>"
 
 /***/ }),
 
@@ -924,6 +924,10 @@ var EXPENSETYPE;
     EXPENSETYPE["SNACKS"] = "Snacks";
     EXPENSETYPE["LOAN_EMI"] = "LOAN EMI";
     EXPENSETYPE["TICKETS"] = "Tickets";
+    EXPENSETYPE["CABS"] = "Cabs";
+    EXPENSETYPE["EATING_OUTSIDE"] = "Eating Outside";
+    EXPENSETYPE["RATION"] = "Ration";
+    EXPENSETYPE["BILLS"] = "BILLS";
 })(EXPENSETYPE || (EXPENSETYPE = {}));
 ;
 var ExpenseType = /** @class */ (function () {
@@ -1098,6 +1102,8 @@ var ReportsComponent = /** @class */ (function () {
         this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         this.years = ['2018', '2019', '2020', '2021', '2022'];
         this.reportData = [];
+        this.lineChartData = [];
+        this.chart = null;
         this.year = null;
         this.month = null;
         this.earn_year = null;
@@ -1106,11 +1112,16 @@ var ReportsComponent = /** @class */ (function () {
     }
     ReportsComponent.prototype.generateReportBtnClicked = function () {
         var _this = this;
+        if (this.chart) {
+            this.chart.destroy();
+        }
+        this.lineChartData = null;
         this.expenseService.getExpensesByYearAndMonth(this.year, this.month)
             .then(function (snapshot) {
             var data = snapshot.val();
             var earningsSum = null;
             if (!_this.month) {
+                _this.prepareLineChartData(data);
                 earningsSum = 0;
                 var _temp = {};
                 for (var _d in data) {
@@ -1164,7 +1175,69 @@ var ReportsComponent = /** @class */ (function () {
         }
         this.generateChart();
     };
+    ReportsComponent.prototype.prepareLineChartData = function (data) {
+        this.lineChartData = [];
+        var sum = 0;
+        var _earning = 0;
+        for (var _month in data) {
+            _earning = 0;
+            sum = 0;
+            for (var _row in data[_month]) {
+                if (_row != 'earning') {
+                    sum += parseInt(data[_month][_row].amount, 10);
+                }
+                else {
+                    _earning = parseInt(data[_month][_row].earning, 10);
+                }
+            }
+            this.lineChartData.push({ month: _month, earning: _earning, expenses: sum, savings: (_earning - sum) < 0 ? 0 : (_earning - sum) });
+        }
+    };
     ReportsComponent.prototype.generateChart = function () {
+        var ctx = document.getElementById('myChart')['getContext']('2d');
+        var labels = [], data = [], expensedata = [], savingsdata = [], earningdata = [];
+        Chart.defaults.global.elements.line.fill = false;
+        var self = this;
+        if (this.lineChartData) {
+            //sprt by month
+            this.lineChartData = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"])(this.lineChartData, [function (data) {
+                    return self.MonthToNumber(data.month);
+                }]);
+            for (var idx in this.lineChartData) {
+                labels.push(this.lineChartData[idx].month);
+                expensedata.push(this.lineChartData[idx].expenses);
+                savingsdata.push(this.lineChartData[idx].savings);
+                earningdata.push(this.lineChartData[idx].earning);
+            }
+            this.chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+                // The data for our dataset
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            data: expensedata,
+                            label: "Expense",
+                            borderColor: "#ca1717",
+                        },
+                        {
+                            data: earningdata,
+                            label: "Earnings",
+                            borderColor: "#8e5ea2",
+                        },
+                        {
+                            data: savingsdata,
+                            label: "Savings",
+                            borderColor: "#3cba9f",
+                        }
+                    ],
+                },
+                // Configuration options go here
+                options: {}
+            });
+            return;
+        }
         var reportData = JSON.parse(JSON.stringify(this.reportData));
         if (reportData[reportData.length - 1].name == 'Total Earnings') {
             reportData.splice(reportData.length - 2, 2);
@@ -1172,13 +1245,12 @@ var ReportsComponent = /** @class */ (function () {
         else {
             reportData.splice(reportData.length - 1, 1);
         }
-        var labels = reportData.map(function (_d) { return _d.name; });
+        labels = reportData.map(function (_d) { return _d.name; });
         var _data = reportData.map(function (_d) { return _d.total; });
         var _total = 0;
         reportData.forEach(function (_d) { _total += _d.total; });
-        var data = reportData.map(function (_d) { return _d.total / _total * 100; });
-        var ctx = document.getElementById('myChart')['getContext']('2d');
-        var chart = new Chart(ctx, {
+        data = reportData.map(function (_d) { return _d.total / _total * 100; });
+        this.chart = new Chart(ctx, {
             // The type of chart we want to create
             type: 'doughnut',
             // The data for our dataset
@@ -1186,7 +1258,8 @@ var ReportsComponent = /** @class */ (function () {
                 labels: labels,
                 datasets: [{
                         data: data,
-                        backgroundColor: ['red', 'blue', 'orange', 'green', 'purple', 'pink', 'brown']
+                        backgroundColor: ['red', 'blue', 'orange', 'green', 'purple', 'pink', 'brown', 'yellow', 'magenta',
+                            'coral', 'teal']
                     }],
             },
             // Configuration options go here
@@ -1221,6 +1294,60 @@ var ReportsComponent = /** @class */ (function () {
             alert('Earnings updated successfuly');
         });
     };
+    ReportsComponent.prototype.MonthToNumber = function (month) {
+        var ret = 0;
+        switch (month) {
+            case 'Jan': {
+                ret = 1;
+                break;
+            }
+            case 'Feb': {
+                ret = 2;
+                break;
+            }
+            case 'Mar': {
+                ret = 3;
+                break;
+            }
+            case 'Apr': {
+                ret = 4;
+                break;
+            }
+            case 'May': {
+                ret = 5;
+                break;
+            }
+            case 'Jun': {
+                ret = 6;
+                break;
+            }
+            case 'Jul': {
+                ret = 7;
+                break;
+            }
+            case 'Aug': {
+                ret = 8;
+                break;
+            }
+            case 'Sep': {
+                ret = 9;
+                break;
+            }
+            case 'Oct': {
+                ret = 10;
+                break;
+            }
+            case 'Nov': {
+                ret = 11;
+                break;
+            }
+            case 'Dec': {
+                ret = 12;
+                break;
+            }
+        }
+        return ret;
+    };
     ReportsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./Reports.html */ "./src/app/components/reports/Reports.html")
@@ -1241,7 +1368,7 @@ var ReportsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div style='margin:10px;'>\n    <style>\n      .small{\n        width : 200px;\n        display: inline-block;\n        margin-right: 15px;\n      }\n      table tbody tr:nth-last-child(2){\n          background-color: aliceblue;\n      }\n      table tbody tr:last-child {\n        background-color: darkseagreen;\n      }\n      #earning{\n        width: 200px;\n        display: inline-block;\n      }\n      #earnings_form > div {\n        margin : 7px 0;\n      }\n    </style>\n    <div id=\"earnings_form\">\n      <h4>Set Earnings</h4>\n      <div>\n          Year :\n          <select class=\"form-control small\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\n              <option value=\"\">Choose Year</option>\n              <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n          </select>\n      </div>\n      <div>\n          Month :\n          <select class=\"form-control small\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\n              <option value=\"\">Choose Month</option>\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n          </select>\n      </div>\n      <div>\n          Earnings (INR):\n          <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\" (input)='onEarningChange($event)' />\n      </div>\n      <div>\n          <button class=\"btn btn-success\" [disabled]=\"!isEarningFormValid()\" (click)='onSaveEarningBtnClicked()'>Save</button>\n      </div>\n    </div>\n    \n    <h4>Monthly Reports</h4>\n    <div>\n      Generate Report For:\n        <div>\n            Year :\n            <select class=\"form-control small\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n                <option value=\"\">Choose Year</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select class=\"form-control small\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <button class=\"btn btn-primary\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate Report</button>\n        </div>\n    </div>\n    <br>\n    <div>\n      <table *ngIf=\"reportData.length>0\" class=\"table table-bordered table-condensed\" >\n        <thead>\n          <tr>\n            <th>Category</th>\n            <th>Expense Amount</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr id=\"{{report.name}}\" *ngFor=\"let report of reportData\">\n            <td>{{report.name}}</td>\n            <td>Rs. {{report.total}}</td>\n          </tr>\n        </tbody>\n      </table>\n      <canvas id=\"myChart\" width=\"300\" height=\"300\"></canvas>\n    </div>\n</div>"
+module.exports = "<div style='margin:10px;'>\n    <style>\n      .small{\n        width : 200px;\n        display: inline-block;\n        margin-right: 15px;\n      }\n      table tbody tr:nth-last-child(2){\n          background-color: aliceblue;\n      }\n      table tbody tr:last-child {\n        background-color: darkseagreen;\n      }\n      #earning{\n        width: 200px;\n        display: inline-block;\n      }\n      #earnings_form > div {\n        margin : 7px 0;\n      }\n    </style>\n    <div id=\"earnings_form\">\n      <h4>Set Earnings</h4>\n      <div>\n          Year :\n          <select class=\"form-control small\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\n              <option value=\"\">Choose Year</option>\n              <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n          </select>\n      </div>\n      <div>\n          Month :\n          <select class=\"form-control small\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\n              <option value=\"\">Choose Month</option>\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n          </select>\n      </div>\n      <div>\n          Earnings (INR):\n          <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\" (input)='onEarningChange($event)' />\n      </div>\n      <div>\n          <button class=\"btn btn-success\" [disabled]=\"!isEarningFormValid()\" (click)='onSaveEarningBtnClicked()'>Save</button>\n      </div>\n    </div>\n    \n    <h4>Monthly Reports</h4>\n    <div>\n      Generate Report For:\n        <div>\n            Year :\n            <select class=\"form-control small\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n                <option value=\"\">Choose Year</option>\n                <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n            </select>\n            Month :\n            <select class=\"form-control small\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n                <option value=\"\">Choose Month</option>\n                <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <button class=\"btn btn-primary\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate Report</button>\n        </div>\n    </div>\n    <br>\n    <div>\n      <table *ngIf=\"reportData.length>0\" class=\"table table-bordered table-condensed\" >\n        <thead>\n          <tr>\n            <th>Category</th>\n            <th>Expense Amount</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr id=\"{{report.name}}\" *ngFor=\"let report of reportData\">\n            <td>{{report.name}}</td>\n            <td>Rs. {{report.total}}</td>\n          </tr>\n        </tbody>\n      </table>\n      <div class=\"chart-container\" style=\"position: relative; width:90vw\">\n        <canvas id=\"myChart\"></canvas>\n      </div>\n      \n    </div>\n</div>"
 
 /***/ }),
 
