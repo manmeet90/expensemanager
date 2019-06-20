@@ -321,7 +321,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"site-wrapper\">\n  <nav>\n    <div class=\"nav-wrapper deep-purple\">\n      <a routerLink=\"expenses\" class=\"brand-logo hide-on-small-only\">{{title}}</a>\n      <a href=\"#\" data-target=\"mobile-nav\" class=\"sidenav-trigger\"><i class=\"material-icons\">menu</i></a>\n      <ul class=\"right hide-on-med-and-down\">\n        <li *ngIf=\"isLoggedIn\"><a routerLink=\"expenses\">Show All Expenses</a></li>\n          <li *ngIf=\"isLoggedIn\"><a routerLink=\"create\">Create New Expense</a></li>\n          <li *ngIf=\"isLoggedIn\"><a routerLink=\"reports\">Reports</a></li>\n          <li *ngIf=\"isLoggedIn\"><a href=\"\" (click)=\"signOut($event)\">Sign Out</a></li>\n      </ul>\n    </div>\n  </nav>\n\n  <ul class=\"sidenav\" id=\"mobile-nav\">\n    <li *ngIf=\"isLoggedIn\"><a routerLink=\"expenses\">Show All Expenses</a></li>\n          <li *ngIf=\"isLoggedIn\"><a routerLink=\"create\">Create New Expense</a></li>\n          <li *ngIf=\"isLoggedIn\"><a routerLink=\"reports\">Reports</a></li>\n          <li *ngIf=\"isLoggedIn\"><a href=\"\" (click)=\"signOut($event)\">Sign Out</a></li>\n  </ul>\n  <section id=\"main\">\n    <router-outlet></router-outlet>\n  </section>\n  <div id=\"footer\">\n\n  </div>\n</div>"
+module.exports = "<div id=\"site-wrapper\">\n  <nav>\n    <div class=\"nav-wrapper deep-purple\">\n      <a routerLink=\"expenses\" class=\"brand-logo hide-on-small-only\">{{title}}</a>\n      <span id=\"mob_title\" class=\"center-align text-bold\">{{title}}</span>\n      <a *ngIf=\"isLoggedIn\" href=\"#\" data-target=\"mobile-nav\" class=\"sidenav-trigger\"><i class=\"material-icons\">menu</i></a>\n      <ul class=\"right hide-on-med-and-down\">\n        <li *ngIf=\"isLoggedIn\"><a class=\"sidenav-close\" routerLink=\"expenses\">Show All Expenses</a></li>\n          <li *ngIf=\"isLoggedIn\"><a class=\"sidenav-close\" routerLink=\"create\">Create New Expense</a></li>\n          <li *ngIf=\"isLoggedIn\"><a class=\"sidenav-close\" routerLink=\"reports\">Reports</a></li>\n          <li *ngIf=\"isLoggedIn\"><a class=\"sidenav-close\" href=\"\" (click)=\"signOut($event)\">Sign Out</a></li>\n      </ul>\n    </div>\n  </nav>\n\n  <ul class=\"sidenav\" id=\"mobile-nav\">\n    <li *ngIf=\"isLoggedIn\"><a routerLink=\"expenses\">Show All Expenses</a></li>\n          <li *ngIf=\"isLoggedIn\"><a class=\"sidenav-close\" routerLink=\"create\">Create New Expense</a></li>\n          <li *ngIf=\"isLoggedIn\"><a class=\"sidenav-close\" routerLink=\"reports\">Reports</a></li>\n          <li *ngIf=\"isLoggedIn\"><a class=\"sidenav-close\" href=\"\" (click)=\"signOut($event)\">Sign Out</a></li>\n  </ul>\n  <section id=\"main\">\n    <router-outlet></router-outlet>\n  </section>\n  <div id=\"footer\">\n\n  </div>\n</div>"
 
 /***/ }),
 
@@ -366,6 +366,7 @@ var AppComponent = /** @class */ (function () {
         });
         var isLoggedIn = sessionStorage.getItem('isLoggedIn');
         this.isLoggedIn = JSON.parse(isLoggedIn);
+        $('.sidenav').sidenav();
     };
     AppComponent.prototype.signOut = function (e) {
         var _this = this;
