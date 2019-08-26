@@ -769,7 +769,7 @@ var ExpenseListComponent = /** @class */ (function () {
         this._data = [];
         this.expenses = [];
         this.years = [];
-        this.months = ["Jan", 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         this.isLoading = false;
     }
     ExpenseListComponent.prototype.ngOnInit = function () {
@@ -784,23 +784,47 @@ var ExpenseListComponent = /** @class */ (function () {
         this.expenses = [];
         this._data = [];
         this.isLoading = true;
+        var _d = new Date();
+        this.years.push(_d.getFullYear());
+        this.expenseService.getExpensesByYearAndMonth(_d.getFullYear(), this.months[_d.getMonth()])
+            .then(function (snapshot) {
+            var data = snapshot.val();
+            for (var d in data) {
+                if (d !== 'earning') {
+                    _this.expenses.push(data[d]);
+                    _this._data = _this.expenses;
+                    _this.total = _this.calculateTotal();
+                }
+            }
+            _this.setmonthDropdownToCurrentMonth();
+            _this.isLoading = false;
+            setTimeout(function () {
+                var elems = document.querySelectorAll('select');
+                var instances = M.FormSelect.init(elems, {});
+            }, 2000);
+        });
+        setTimeout(function () {
+            _this.fetchAllDataInBackground();
+        }, 0);
+    };
+    ExpenseListComponent.prototype.fetchAllDataInBackground = function () {
+        var _this = this;
+        this.years = [];
         this.expenseService.getAllExpenses()
             .then(function (snapshot) {
             var data = snapshot.val();
+            var _expenses = [];
             for (var year in data) {
                 _this.years.push(year);
                 for (var month in data[year]) {
                     for (var _d in data[year][month]) {
                         if (_d !== 'earning') {
-                            _this.expenses.push(data[year][month][_d]);
-                            _this._data = _this.expenses;
-                            _this.total = _this.calculateTotal();
+                            _expenses.push(data[year][month][_d]);
+                            _this._data = _expenses;
                         }
                     }
                 }
             }
-            _this.setmonthDropdownToCurrentMonth();
-            _this.isLoading = false;
             setTimeout(function () {
                 var elems = document.querySelectorAll('select');
                 var instances = M.FormSelect.init(elems, {});
