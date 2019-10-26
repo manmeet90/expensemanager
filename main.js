@@ -798,10 +798,10 @@ var ExpenseListComponent = /** @class */ (function () {
             }
             _this.setmonthDropdownToCurrentMonth();
             _this.isLoading = false;
-            setTimeout(function () {
-                var elems = document.querySelectorAll('select');
-                var instances = M.FormSelect.init(elems, {});
-            }, 2000);
+            // setTimeout(()=>{
+            //     var elems = document.querySelectorAll('select');
+            //     var instances = M.FormSelect.init(elems, {});
+            // }, 2000);
         });
         setTimeout(function () {
             _this.fetchAllDataInBackground();
@@ -827,7 +827,8 @@ var ExpenseListComponent = /** @class */ (function () {
             }
             setTimeout(function () {
                 var elems = document.querySelectorAll('select');
-                var instances = M.FormSelect.init(elems, {});
+                // var instances = M.FormSelect.init(elems, {});
+                $(elems).formSelect();
             }, 2000);
         });
     };
