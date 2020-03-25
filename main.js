@@ -976,6 +976,8 @@ var EXPENSETYPE;
     EXPENSETYPE["EATING_OUTSIDE"] = "Eating Outside";
     EXPENSETYPE["RATION"] = "Ration";
     EXPENSETYPE["BILLS"] = "BILLS";
+	    EXPENSETYPE["MEDICAL"] = "MEDICAL";
+	
 })(EXPENSETYPE || (EXPENSETYPE = {}));
 ;
 var ExpenseType = /** @class */ (function () {
