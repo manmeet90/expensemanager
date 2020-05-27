@@ -369,17 +369,10 @@ var AppComponent = /** @class */ (function () {
         $('.sidenav').sidenav();
     };
     AppComponent.prototype.signOut = function (e) {
-        var _this = this;
         e.preventDefault();
-        firebase.auth().signOut().then(function () {
-            // Sign-out successful.
-            sessionStorage.setItem('isLoggedIn', JSON.stringify(false));
-            _this.isLoggedIn = false;
-            _this.router.navigate(['login']);
-        }).catch(function (error) {
-            // An error happened.
-            console.log(error);
-        });
+        sessionStorage.setItem('isLoggedIn', JSON.stringify(false));
+        this.isLoggedIn = false;
+        this.router.navigate(['login']);
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -614,28 +607,41 @@ var CreateExpenseComponent = /** @class */ (function () {
         this.expenseService = expenseService;
         this.showMsg = false;
         this.dpConfig = { format: "DD-MM-YYYY" };
+        this.isLoading = false;
     }
     CreateExpenseComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.expenseTypes = this.expenseType.getExpenseTypes();
-        this.expenseForm = this.fb.group({
-            date: [this.today()],
-            description: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            amount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            expenseType: [this.expenseTypes[0].value, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            remarks: ['']
-        });
-        var elems = document.querySelector('.datepicker');
-        var instances = M.Datepicker.init(elems, {
-            format: "dd-mm-yyyy",
-            onSelect: function (date) {
-                var _d = new Date(date);
-                _this.expenseForm.get('date').setValue(_d.getDate() + "-" + (_d.getMonth() + 1) + "-" + _d.getFullYear());
+        this.isLoading = true;
+        this.expenseType.getExpenseTypes()
+            .then(function (res) {
+            if (res.data.items) {
+                _this.expenseTypes = res.data.items;
+                // start init of component
+                _this.expenseForm = _this.fb.group({
+                    date: [_this.today()],
+                    description: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                    amount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                    expenseType: [_this.expenseTypes[0].id, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                    remarks: ['']
+                });
+                var elems = document.querySelector('.datepicker');
+                var instances = M.Datepicker.init(elems, {
+                    format: "dd-mm-yyyy",
+                    onSelect: function (date) {
+                        var _d = new Date(date);
+                        _this.expenseForm.get('date').setValue(_d.getDate() + "-" + (_d.getMonth() + 1) + "-" + _d.getFullYear());
+                    }
+                });
+                setTimeout(function () {
+                    // $('select').formSelect();
+                }, 1000);
+                _this.isLoading = false;
+            }
+            else if (res.errors) {
+                M.toast({ html: res.errors[0].message });
+                _this.isLoading = false;
             }
         });
-        setTimeout(function () {
-            // $('select').formSelect();
-        }, 1000);
     };
     CreateExpenseComponent.prototype.onCreateButtonClicked = function () {
         var _this = this;
@@ -644,9 +650,9 @@ var CreateExpenseComponent = /** @class */ (function () {
         }
         console.log(this.expenseForm.value);
         this.expenseService.saveExpense(this.expenseForm.value)
-            .then(function (err) {
-            if (err) {
-                console.log(err);
+            .then(function (res) {
+            if (res.errors) {
+                console.log(res.errors);
             }
             else {
                 _this.showMsg = true;
@@ -686,7 +692,7 @@ var CreateExpenseComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<style>\n    #expenseform {\n        margin: 0 15px;\n        width: 80vw;\n    }\n    select {\n        display: inline-block !important;\n    }\n</style>\n<div id=\"expenseform\" class=\"row\">\n    <h4>Create New Expense</h4>\n    <div *ngIf='showMsg' class=\"alert col s12 m6 green white-text\">\n        Expense saved successfully\n    </div>\n    <form [formGroup]='expenseForm'>\n        <div class=\"input-field col s12 m6\">\n            <!-- <dp-date-picker formControlName=\"date\" #dayPicker></dp-date-picker> -->\n            <input type=\"text\" class=\" datepicker\" formControlName=\"date\" id=\"date\" />\n            <label for=\"date\" class=\"active\">Expense Date</label>\n\n        </div>\n        <div class=\"input-field col s12 m6\">\n            <input type=\"text\" class=\"form-control\" id=\"description\" formControlName=\"description\" />\n            <label for=\"description\">Expense Description</label>\n            <span class=\"alert white-text red\"\n                *ngIf='expenseForm.controls.description.touched && expenseForm.controls.description.errors?.required'>Expense\n                Description is required</span>\n        </div>\n        <div class=\"input-field col s12 m6\">\n            <input type=\"number\" class=\"form-control\" id=\"description\" formControlName=\"amount\" />\n            <label for=\"description\">Amount</label>\n            <span class=\"alert white-text red\"\n                *ngIf='expenseForm.controls.amount.touched && expenseForm.controls.amount.errors?.required'>Amount is\n                required</span>\n\n        </div>\n        <div class=\"col s12 m6\">\n            <select formControlName='expenseType' class='form-control' name=\"expense_type\" id=\"expense_type\">\n                <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}\n                </option>\n            </select>\n            <label for=\"expense_type\">Expense Type</label>\n        </div>\n        <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"form-control\" id=\"remarks\"\n                formControlName=\"remarks\" />\n            <label for=\"remarks\">Remarks</label>\n        </div>\n        <div class=\"col s12\">\n                <button type=\"submit\" class=\"btn  waves-effect waves-light\" [disabled]='expenseForm.invalid'\n                (click)='onCreateButtonClicked()'>Create</button>\n        </div>\n        \n    </form>\n</div>"
+module.exports = "<style>\n    #expenseform {\n        margin: 0 15px;\n        width: 80vw;\n    }\n    select {\n        display: inline-block !important;\n    }\n</style>\n<div id=\"expenseform\" class=\"row\">\n    <h4>Create New Expense</h4>\n    <div *ngIf='showMsg' class=\"alert col s12 m6 green white-text\">\n        Expense saved successfully\n    </div>\n    <div *ngIf=\"isLoading\">Loading...</div>\n    <form *ngIf=\"!isLoading\" [formGroup]='expenseForm'>\n        <div class=\"input-field col s12 m6\">\n            <!-- <dp-date-picker formControlName=\"date\" #dayPicker></dp-date-picker> -->\n            <input type=\"text\" class=\" datepicker\" formControlName=\"date\" id=\"date\" />\n            <label for=\"date\" class=\"active\">Expense Date</label>\n\n        </div>\n        <div class=\"input-field col s12 m6\">\n            <input type=\"text\" class=\"form-control\" id=\"description\" formControlName=\"description\" />\n            <label for=\"description\">Expense Description</label>\n            <span class=\"alert white-text red\"\n                *ngIf='expenseForm.controls.description.touched && expenseForm.controls.description.errors?.required'>Expense\n                Description is required</span>\n        </div>\n        <div class=\"input-field col s12 m6\">\n            <input type=\"number\" class=\"form-control\" id=\"description\" formControlName=\"amount\" />\n            <label for=\"description\">Amount</label>\n            <span class=\"alert white-text red\"\n                *ngIf='expenseForm.controls.amount.touched && expenseForm.controls.amount.errors?.required'>Amount is\n                required</span>\n\n        </div>\n        <div class=\"col s12 m6\">\n            <select formControlName='expenseType' class='form-control' name=\"expense_type\" id=\"expense_type\">\n                <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.id\">{{expenseType.name}}\n                </option>\n            </select>\n            <label for=\"expense_type\">Expense Type</label>\n        </div>\n        <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"form-control\" id=\"remarks\"\n                formControlName=\"remarks\" />\n            <label for=\"remarks\">Remarks</label>\n        </div>\n        <div class=\"col s12\">\n                <button type=\"submit\" class=\"btn  waves-effect waves-light\" [disabled]='expenseForm.invalid'\n                (click)='onCreateButtonClicked()'>Create</button>\n        </div>\n        \n    </form>\n</div>"
 
 /***/ }),
 
@@ -773,11 +779,21 @@ var ExpenseListComponent = /** @class */ (function () {
         this.isLoading = false;
     }
     ExpenseListComponent.prototype.ngOnInit = function () {
-        this.expenseTypes = this.expenseType.getExpenseTypes();
+        var _this = this;
+        this.expenseType.getExpenseTypes()
+            .then(function (res) {
+            if (res.data.items) {
+                _this.expenseTypes = res.data.items;
+            }
+            else if (res.errors) {
+                M.toast({ html: res.errors[0].message });
+            }
+        });
         this.getExpensesData();
         $('.collapsible').collapsible();
     };
-    ExpenseListComponent.prototype.ngDoCheck = function () {
+    ExpenseListComponent.prototype.toLocale = function (data) {
+        return parseInt(data).toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
     };
     ExpenseListComponent.prototype.getExpensesData = function () {
         var _this = this;
@@ -787,49 +803,48 @@ var ExpenseListComponent = /** @class */ (function () {
         var _d = new Date();
         this.years.push(_d.getFullYear());
         this.expenseService.getExpensesByYearAndMonth(_d.getFullYear(), this.months[_d.getMonth()])
-            .then(function (snapshot) {
-            var data = snapshot.val();
-            for (var d in data) {
-                if (d !== 'earning') {
-                    _this.expenses.push(data[d]);
-                    _this._data = _this.expenses;
-                    _this.total = _this.calculateTotal();
-                }
+            .then(function (res) {
+            if (res.data.items) {
+                _this.expenses = res.data.items;
+                _this._data = _this.expenses;
+                _this.total = _this.calculateTotal();
+                _this.setmonthDropdownToCurrentMonth();
+                _this.isLoading = false;
+                // setTimeout(()=>{
+                //     var elems = document.querySelectorAll('select');
+                //     var instances = M.FormSelect.init(elems, {});
+                // }, 2000);
+                setTimeout(function () {
+                    _this.fetchAllDataInBackground();
+                }, 0);
             }
-            _this.setmonthDropdownToCurrentMonth();
-            _this.isLoading = false;
-            // setTimeout(()=>{
-            //     var elems = document.querySelectorAll('select');
-            //     var instances = M.FormSelect.init(elems, {});
-            // }, 2000);
+            else if (res.errors) {
+                M.toast({ html: res.errors[0].message });
+            }
         });
-        setTimeout(function () {
-            _this.fetchAllDataInBackground();
-        }, 0);
     };
     ExpenseListComponent.prototype.fetchAllDataInBackground = function () {
         var _this = this;
         this.years = [];
         this.expenseService.getAllExpenses()
-            .then(function (snapshot) {
-            var data = snapshot.val();
-            var _expenses = [];
-            for (var year in data) {
-                _this.years.push(year);
-                for (var month in data[year]) {
-                    for (var _d in data[year][month]) {
-                        if (_d !== 'earning') {
-                            _expenses.push(data[year][month][_d]);
-                            _this._data = _expenses;
-                        }
+            .then(function (res) {
+            if (res.data.items) {
+                var data = res.data.items;
+                res.data.items.forEach(function (item) {
+                    if (_this.years.indexOf(item.year) == -1) {
+                        _this.years.push(item.year);
                     }
-                }
+                });
+                _this._data = data;
+                // setTimeout(()=>{
+                //     // var elems = document.querySelectorAll('select');
+                //     // var instances = M.FormSelect.init(elems, {});
+                //     // $(elems).formSelect();
+                // }, 2000);
             }
-            setTimeout(function () {
-                // var elems = document.querySelectorAll('select');
-                // var instances = M.FormSelect.init(elems, {});
-                // $(elems).formSelect();
-            }, 2000);
+            else if (res.errors) {
+                M.toast({ html: res.errors[0].message });
+            }
         });
     };
     ExpenseListComponent.prototype.setmonthDropdownToCurrentMonth = function () {
@@ -851,7 +866,7 @@ var ExpenseListComponent = /** @class */ (function () {
         if (year) {
             data = this._data.filter(function (_d) { return _d.year.toString() === year; });
         }
-        this.expenses = month ? data.filter(function (_d) { return _d.month.toString() === month; }) : data;
+        this.expenses = month ? data.filter(function (_d) { return _d.month.toString() === month.toUpperCase(); }) : data;
         this.expenses = this.sortDataByDate(this.expenses);
         this.total = this.calculateTotal();
     };
@@ -861,7 +876,7 @@ var ExpenseListComponent = /** @class */ (function () {
             data = this._data.filter(function (_d) { return _d.year.toString() === year; });
         }
         if (month) {
-            data = data.filter(function (_d) { return _d.month.toString() === month; });
+            data = data.filter(function (_d) { return _d.month.toString() === month.toUpperCase(); });
         }
         this.expenses = type ? data.filter(function (_d) { return _d.expenseType === type; }) : data;
         this.expenses = this.sortDataByDate(this.expenses);
@@ -873,7 +888,7 @@ var ExpenseListComponent = /** @class */ (function () {
             data = data.filter(function (_d) { return _d.year.toString() === year; });
         }
         if (month) {
-            data = data.filter(function (_d) { return _d.month.toString() === month; });
+            data = data.filter(function (_d) { return _d.month.toString() === month.toUpperCase(); });
         }
         if (type) {
             data = data.filter(function (_d) { return _d.expenseType === type; });
@@ -908,12 +923,29 @@ var ExpenseListComponent = /** @class */ (function () {
         });
     };
     ExpenseListComponent.prototype.ondeleteButtonClicked = function (expense) {
+        var _this = this;
         var res = confirm("Are you sure you want to delete this record?");
         if (res) {
-            this.expenseService.deleteExpense(expense);
-            this.getExpensesData();
-            M.toast({ html: 'Expense Deleted Successfuly!' });
+            this.expenseService.deleteExpense(expense)
+                .then(function (res) {
+                if (res.errors) {
+                    console.log(res.errors);
+                }
+                else {
+                    _this.getExpensesData();
+                    M.toast({ html: 'Expense Deleted Successfuly!' });
+                }
+            });
         }
+    };
+    ExpenseListComponent.prototype.getExpenseTypeString = function (expenseType) {
+        if (expenseType && this.expenseTypes) {
+            var expenseTypeItem = this.expenseTypes.find(function (item) { return item.id == expenseType; });
+            if (expenseTypeItem) {
+                return expenseTypeItem.name;
+            }
+        }
+        return 'Not Available';
     };
     ExpenseListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -935,7 +967,7 @@ var ExpenseListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<style>\n    .delete_icon {\n        position: relative;\n        top: 5px;\n        left: 5px;\n    }\n    .collapsible-body{\n        /* overflow: hidden; */\n    }\n    select {\n        display: inline-block !important;\n    }\n</style>\n<div class=\"row\">\n    <br />\n    <div class=\"col s12\">\n        <ul class=\"collapsible\">\n            <li>\n                <div class=\"collapsible-header\"><i class=\"material-icons\">filter_list</i>Apply FIlter</div>\n                <div class=\"collapsible-body\">\n                        <div class=\"row\">\n                            <div class=\"col s12 m4\">\n                                    <select class=\"form-control\" name=\"year\" id=\"year\" #year\n                                        (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                        <option value=\"\">Choose Year</option>\n                                        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n                                    </select>\n                                    <label for=\"year\">Year </label>\n                            </div>\n                            <div class=\"col s12 m4\">\n                                <select class=\"form-control\" name=\"month\" id=\"month\" #month\n                                    (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                    <option value=\"\">Choose Month</option>\n                                    <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n                                </select>\n                                <label for=\"month\">Month </label>&nbsp;\n                            </div>\n                            <div class=\"col s12 m4\">\n                                <select class=\"form-control\" name=\"expenseType\" id=\"expenseType\" #expenseType\n                                    (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                    <option value=\"\">Choose Type</option>\n                                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.value\">{{expenseType.name}}\n                                    </option>\n                                </select>\n                                <label for=\"expenseType\">Expense Type </label>&nbsp;\n                            </div>\n                        </div>\n                </div>\n            </li>\n        </ul>\n        \n\n\n    </div>\n    <div class=\"col s12 table-responsive\">\n        <table class=\"table striped\">\n            <thead>\n                <tr>\n                    <th>Expense Name</th>\n                    <th>Amount</th>\n                    <th class=\"hide-on-small-only\">Year</th>\n                    <th class=\"hide-on-small-only\">Month</th>\n                    <th>Date</th>\n                    <th class=\"hide-on-small-only\">Expense Type</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr class=\"cyan darken-1\">\n                    <td colspan='6' class='white-text text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n                </tr>\n                <tr>\n                    <td colspan='6' *ngIf='isLoading'>Loading...</td>\n                </tr>\n                <tr *ngFor='let expense of expenses'>\n                    <td>\n                        <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                        <span class=\"material-icons red-text delete_icon\"\n                            (click)=\"ondeleteButtonClicked(expense)\">delete</span>\n                    </td>\n                    <td>Rs. {{expense.amount}}</td>\n                    <td class=\"hide-on-small-only\">{{expense.year}}</td>\n                    <td class=\"hide-on-small-only\">{{expense.month}}</td>\n                    <td>{{expense.date}}</td>\n                    <td class=\"hide-on-small-only\">{{expense.expenseType}}</td>\n                </tr>\n                <tr class=\"cyan darken-1\">\n                    <td colspan='6' class='white-text text-bold'>Total : <strong>Rs. {{total}}</strong></td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>"
+module.exports = "<style>\n    .delete_icon {\n        position: relative;\n        top: 5px;\n        left: 5px;\n    }\n    .collapsible-body{\n        /* overflow: hidden; */\n    }\n    select {\n        display: inline-block !important;\n    }\n    .cursor{\n        cursor: pointer;\n    }\n</style>\n<div class=\"row\">\n    <br />\n    <div class=\"col s12\">\n        <ul class=\"collapsible\">\n            <li>\n                <div class=\"collapsible-header\"><i class=\"material-icons\">filter_list</i>Apply FIlter</div>\n                <div class=\"collapsible-body\">\n                        <div class=\"row\">\n                            <div class=\"col s12 m4\">\n                                    <select class=\"form-control\" name=\"year\" id=\"year\" #year\n                                        (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                        <option value=\"\">Choose Year</option>\n                                        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n                                    </select>\n                                    <label for=\"year\">Year </label>\n                            </div>\n                            <div class=\"col s12 m4\">\n                                <select class=\"form-control\" name=\"month\" id=\"month\" #month\n                                    (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                    <option value=\"\">Choose Month</option>\n                                    <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n                                </select>\n                                <label for=\"month\">Month </label>&nbsp;\n                            </div>\n                            <div class=\"col s12 m4\">\n                                <select class=\"form-control\" name=\"expenseType\" id=\"expenseType\" #expenseType\n                                    (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                    <option value=\"\">Choose Type</option>\n                                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.id\">{{expenseType.name}}\n                                    </option>\n                                </select>\n                                <label for=\"expenseType\">Expense Type </label>&nbsp;\n                            </div>\n                        </div>\n                </div>\n            </li>\n        </ul>\n        \n\n\n    </div>\n    <div class=\"col s12 table-responsive\">\n        <table class=\"table striped\">\n            <thead>\n                <tr>\n                    <th>Expense Name</th>\n                    <th>Amount</th>\n                    <th class=\"hide-on-small-only\">Year</th>\n                    <th class=\"hide-on-small-only\">Month</th>\n                    <th>Date</th>\n                    <th class=\"hide-on-small-only\">Expense Type</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr class=\"cyan darken-1\">\n                    <td colspan='6' class='white-text text-bold'>Total Expenditure: <strong>{{toLocale(total)}}</strong></td>\n                </tr>\n                <tr>\n                    <td colspan='6' *ngIf='isLoading'>Loading...</td>\n                </tr>\n                <tr *ngFor='let expense of expenses'>\n                    <td>\n                        <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                        <span class=\"cursor material-icons red-text delete_icon\"\n                            (click)=\"ondeleteButtonClicked(expense)\">delete</span>\n                    </td>\n                    <td>{{toLocale(expense.amount)}}</td>\n                    <td class=\"hide-on-small-only\">{{expense.year}}</td>\n                    <td class=\"hide-on-small-only\">{{expense.month}}</td>\n                    <td>{{expense.date}}</td>\n                    <td class=\"hide-on-small-only\">{{getExpenseTypeString(expense.expenseType)}}</td>\n                </tr>\n                <tr class=\"cyan darken-1\">\n                    <td colspan='6' class='white-text text-bold'>Total Expenditure: <strong>{{toLocale(total)}}</strong></td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -943,12 +975,11 @@ module.exports = "<style>\n    .delete_icon {\n        position: relative;\n    
 /*!****************************************************!*\
   !*** ./src/app/components/expenses/expenseType.ts ***!
   \****************************************************/
-/*! exports provided: EXPENSETYPE, ExpenseType */
+/*! exports provided: ExpenseType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EXPENSETYPE", function() { return EXPENSETYPE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpenseType", function() { return ExpenseType; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -958,41 +989,20 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var EXPENSETYPE;
-(function (EXPENSETYPE) {
-    EXPENSETYPE["OTHERS"] = "Others";
-    EXPENSETYPE["RENT"] = "Rent";
-    EXPENSETYPE["ONLINE_PAYMENT"] = "Online Payment";
-    EXPENSETYPE["MAID"] = "Maid";
-    EXPENSETYPE["GROCERIES"] = "Groceries";
-    EXPENSETYPE["SHOPPING"] = "Shopping";
-    EXPENSETYPE["DINNER"] = "Dinner";
-    EXPENSETYPE["LUNCH"] = "Lunch";
-    EXPENSETYPE["MUTUAL_FUND"] = "Mutual Fund";
-    EXPENSETYPE["SNACKS"] = "Snacks";
-    EXPENSETYPE["LOAN_EMI"] = "LOAN EMI";
-    EXPENSETYPE["TICKETS"] = "Tickets";
-    EXPENSETYPE["CABS"] = "Cabs";
-    EXPENSETYPE["EATING_OUTSIDE"] = "Eating Outside";
-    EXPENSETYPE["RATION"] = "Ration";
-    EXPENSETYPE["BILLS"] = "BILLS";
-	    EXPENSETYPE["MEDICAL"] = "Medical";
-	
-})(EXPENSETYPE || (EXPENSETYPE = {}));
-;
 var ExpenseType = /** @class */ (function () {
     function ExpenseType() {
-        this.expenseTypes = [];
+        this.expenseTypeUrl = "expensetype";
     }
     ExpenseType.prototype.getExpenseTypes = function () {
-        this.expenseTypes = [];
-        for (var type in EXPENSETYPE) {
-            this.expenseTypes.push({
-                name: type,
-                value: EXPENSETYPE[type]
-            });
-        }
-        return this.expenseTypes;
+        var baseUrl = sessionStorage.getItem('apiBaseUrl');
+        var url = baseUrl + "/" + this.expenseTypeUrl;
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        }).then(function (res) { return res.json(); });
     };
     ExpenseType = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
@@ -1009,7 +1019,7 @@ var ExpenseType = /** @class */ (function () {
 /*!**********************************************!*\
   !*** ./src/app/components/expenses/index.ts ***!
   \**********************************************/
-/*! exports provided: CreateExpenseComponent, ExpenseComponent, ExpenseListComponent, EXPENSETYPE, ExpenseType */
+/*! exports provided: CreateExpenseComponent, ExpenseComponent, ExpenseListComponent, ExpenseType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1024,8 +1034,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ExpenseListComponent", function() { return _ExpenseList_component__WEBPACK_IMPORTED_MODULE_2__["ExpenseListComponent"]; });
 
 /* harmony import */ var _expenseType__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./expenseType */ "./src/app/components/expenses/expenseType.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EXPENSETYPE", function() { return _expenseType__WEBPACK_IMPORTED_MODULE_3__["EXPENSETYPE"]; });
-
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ExpenseType", function() { return _expenseType__WEBPACK_IMPORTED_MODULE_3__["ExpenseType"]; });
 
 
@@ -1091,7 +1099,7 @@ var LoginComponent = /** @class */ (function () {
         var _this = this;
         e.preventDefault();
         if (email && password) {
-            firebase.auth().signInWithEmailAndPassword(email, password)
+            this.authService.login(email, password)
                 .then(function (data) {
                 _this.loginError = false;
                 sessionStorage.setItem('isLoggedIn', JSON.stringify(true));
@@ -1151,7 +1159,12 @@ var ReportsComponent = /** @class */ (function () {
         this.expenseService = expenseService;
         this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         this.years = ['2018', '2019', '2020', '2021', '2022'];
-        this.reportData = [];
+        this.reportData = {
+            expensesByType: [],
+            expensesByMonth: [],
+            totalIncome: 0,
+            totalExpenditure: 0
+        };
         this.lineChartData = [];
         this.chart = null;
         this.year = null;
@@ -1171,82 +1184,29 @@ var ReportsComponent = /** @class */ (function () {
             this.chart.destroy();
         }
         this.lineChartData = null;
-        this.expenseService.getExpensesByYearAndMonth(this.year, this.month)
-            .then(function (snapshot) {
-            var data = snapshot.val();
-            var earningsSum = null;
-            if (!_this.month) {
-                _this.prepareLineChartData(data);
-                earningsSum = 0;
-                var _temp = {};
-                for (var _d in data) {
-                    for (var _i in data[_d]) {
-                        if (_i == 'earning') {
-                            earningsSum += parseInt(data[_d][_i].earning, 10);
-                        }
-                        _temp[_i] = (data[_d][_i]);
-                    }
-                }
-                data = _temp;
+        this.expenseService.getExpenseReport(this.year, this.month)
+            .then(function (res) {
+            if (res.errors) {
+                console.log(res.errors);
             }
-            var _dataArr = [];
-            var earningData = null;
-            for (var _d in data) {
-                if (_d !== 'earning') {
-                    _dataArr.push(data[_d]);
+            else {
+                _this.reportData = res.data;
+                if (!_this.month && _this.reportData.expensesByMonth) {
+                    _this.prepareLineChartData();
                 }
-                else {
-                    if (!earningData) {
-                        earningData = data[_d];
-                    }
-                }
+                _this.generateReport();
             }
-            if (earningsSum) {
-                earningData.earning = earningsSum;
-            }
-            _this.generateReport(_dataArr, earningData);
         });
     };
-    ReportsComponent.prototype.generateReport = function (data, earningData) {
-        this.reportData = [];
-        var _groupedData = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["groupBy"])(data, function (_d) { return _d.expenseType; });
-        console.log(_groupedData);
-        var grandTotal = 0;
-        var _loop_1 = function (group) {
-            var _total = 0;
-            _groupedData[group].forEach(function (_d) {
-                _total += _d.amount;
-            });
-            grandTotal += _total;
-            this_1.reportData.push({ name: group, total: _total });
-        };
-        var this_1 = this;
-        for (var group in _groupedData) {
-            _loop_1(group);
-        }
-        this.reportData.push({ name: "Total Expense Amount", total: grandTotal });
-        if (earningData) {
-            this.reportData.push({ name: 'Total Earnings', total: earningData.earning });
-        }
+    ReportsComponent.prototype.generateReport = function () {
         this.generateChart();
     };
-    ReportsComponent.prototype.prepareLineChartData = function (data) {
+    ReportsComponent.prototype.prepareLineChartData = function () {
+        var _this = this;
         this.lineChartData = [];
-        var sum = 0;
-        var _earning = 0;
-        for (var _month in data) {
-            _earning = 0;
-            sum = 0;
-            for (var _row in data[_month]) {
-                if (_row != 'earning') {
-                    sum += parseInt(data[_month][_row].amount, 10);
-                }
-                else {
-                    _earning = parseInt(data[_month][_row].earning, 10);
-                }
-            }
-            this.lineChartData.push({ month: _month, earning: _earning, expenses: sum, savings: (_earning - sum) < 0 ? 0 : (_earning - sum) });
-        }
+        this.reportData.expensesByMonth.forEach(function (item) {
+            _this.lineChartData.push({ month: item.month, earning: item.income, expenses: item.expenditure, savings: item.saving });
+        });
     };
     ReportsComponent.prototype.generateChart = function () {
         var ctx = document.getElementById('myChart')['getContext']('2d');
@@ -1293,18 +1253,10 @@ var ReportsComponent = /** @class */ (function () {
             });
             return;
         }
-        var reportData = JSON.parse(JSON.stringify(this.reportData));
-        if (reportData[reportData.length - 1].name == 'Total Earnings') {
-            reportData.splice(reportData.length - 2, 2);
-        }
-        else {
-            reportData.splice(reportData.length - 1, 1);
-        }
-        labels = reportData.map(function (_d) { return _d.name; });
-        var _data = reportData.map(function (_d) { return _d.total; });
-        var _total = 0;
-        reportData.forEach(function (_d) { _total += _d.total; });
-        data = reportData.map(function (_d) { return _d.total / _total * 100; });
+        labels = this.reportData.expensesByType.map(function (_d) { return _d.expenseType; });
+        var _data = this.reportData.expensesByType.map(function (_d) { return _d.total; });
+        var _total = this.reportData.totalExpenditure;
+        data = _data.map(function (_d) { return _d / _total * 100; });
         this.chart = new Chart(ctx, {
             // The type of chart we want to create
             type: 'doughnut',
@@ -1346,58 +1298,66 @@ var ReportsComponent = /** @class */ (function () {
     ReportsComponent.prototype.onSaveEarningBtnClicked = function () {
         console.log(this.earn_month, this.earn_year, this.earning);
         this.expenseService.setEarning(this.earn_year, this.earn_month, this.earning)
-            .then(function (snapshot) {
-            alert('Earnings updated successfuly');
+            .then(function (res) {
+            if (res.errors) {
+                console.log(res.errors);
+            }
+            else {
+                M.toast({ html: 'Earnings updated successfuly' });
+            }
         });
+    };
+    ReportsComponent.prototype.toLocale = function (data) {
+        return parseInt(data).toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
     };
     ReportsComponent.prototype.MonthToNumber = function (month) {
         var ret = 0;
-        switch (month) {
-            case 'Jan': {
+        switch (month.toLowerCase()) {
+            case 'jan': {
                 ret = 1;
                 break;
             }
-            case 'Feb': {
+            case 'feb': {
                 ret = 2;
                 break;
             }
-            case 'Mar': {
+            case 'mar': {
                 ret = 3;
                 break;
             }
-            case 'Apr': {
+            case 'apr': {
                 ret = 4;
                 break;
             }
-            case 'May': {
+            case 'may': {
                 ret = 5;
                 break;
             }
-            case 'Jun': {
+            case 'jun': {
                 ret = 6;
                 break;
             }
-            case 'Jul': {
+            case 'jul': {
                 ret = 7;
                 break;
             }
-            case 'Aug': {
+            case 'aug': {
                 ret = 8;
                 break;
             }
-            case 'Sep': {
+            case 'sep': {
                 ret = 9;
                 break;
             }
-            case 'Oct': {
+            case 'oct': {
                 ret = 10;
                 break;
             }
-            case 'Nov': {
+            case 'nov': {
                 ret = 11;
                 break;
             }
-            case 'Dec': {
+            case 'dec': {
                 ret = 12;
                 break;
             }
@@ -1424,7 +1384,7 @@ var ReportsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <style>\n\n    table tbody tr:nth-last-child(2) {\n      background-color: #00acc1;\n      color: #fff;\n    }\n\n    table tbody tr:last-child {\n      color: #fff;\n      background-color: #43A047;\n    }\n\n    #earnings_form>div {\n      margin: 7px 0;\n    }\n\n    select {\n        display: inline-block !important;\n    }\n  </style>\n  <div class=\"col s12\" id=\"earnings_form\">\n    <h4>Set Earnings</h4>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"earn_year\">Year</label>\n    </div>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\n        <option value=\"\">Choose Month</option>\n        <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n      </select>\n      <label for=\"earn_month\">Month</label>\n    </div>\n    <div class=\"input-field col s12\">\n      <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\"\n        (input)='onEarningChange($event)' />\n        <label for=\"earning\">Earnings (INR)</label>\n    </div>\n    <div class=\"col s12\">\n      <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isEarningFormValid()\"\n        (click)='onSaveEarningBtnClicked()'>Save</button>\n    </div>\n  </div>\n\n\n  <div class=\"col s12\">\n    <h4>Monthly Reports</h4>\n    <!-- Generate Report For: -->\n    <div class=\"col s12\">\n      <select class=\"\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"year\">Year</label>\n      </div>\n      <div class=\"col s12\">\n          <select class=\"\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n              <option value=\"\">Choose Month</option>\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <label for=\"month\">Month</label>\n      </div>\n      <div class=\"col s12\">\n          <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate\n              Report</button>\n      </div>\n      \n  </div>\n  <br>\n  <div class=\"col s12\">\n    <table *ngIf=\"reportData.length>0\" class=\"striped table table-bordered table-condensed\">\n      <thead>\n        <tr>\n          <th>Category</th>\n          <th>Expense Amount</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr id=\"{{report.name}}\" *ngFor=\"let report of reportData\">\n          <td>{{report.name}}</td>\n          <td>Rs. {{report.total}}</td>\n        </tr>\n      </tbody>\n    </table>\n    <div class=\"chart-container\" style=\"\">\n      <canvas id=\"myChart\"></canvas>\n    </div>\n\n  </div>\n</div>"
+module.exports = "<div class=\"row\">\n  <style>\n\n    table tbody tr:nth-last-child(2) {\n      background-color: #00acc1;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    table tbody tr:last-child {\n      color: #fff;\n      background-color: #43A047;\n      font-size: 20px;\n      font-weight: 600;\n    }\n    table tbody tr:nth-last-child(3) {\n      background-color: #d24c51;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    #earnings_form>div {\n      margin: 7px 0;\n      \n    }\n\n    select {\n        display: inline-block !important;\n    }\n  </style>\n  <div class=\"col s12\" id=\"earnings_form\">\n    <h4>Set Earnings</h4>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"earn_year\">Year</label>\n    </div>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\n        <option value=\"\">Choose Month</option>\n        <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n      </select>\n      <label for=\"earn_month\">Month</label>\n    </div>\n    <div class=\"input-field col s12\">\n      <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\"\n        (input)='onEarningChange($event)' />\n        <label for=\"earning\">Earnings (INR)</label>\n    </div>\n    <div class=\"col s12\">\n      <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isEarningFormValid()\"\n        (click)='onSaveEarningBtnClicked()'>Save</button>\n    </div>\n  </div>\n\n\n  <div class=\"col s12\">\n    <h4>Monthly Reports</h4>\n    <!-- Generate Report For: -->\n    <div class=\"col s12\">\n      <select class=\"\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"year\">Year</label>\n      </div>\n      <div class=\"col s12\">\n          <select class=\"\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n              <option value=\"\">Choose Month</option>\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <label for=\"month\">Month</label>\n      </div>\n      <div class=\"col s12\">\n          <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate\n              Report</button>\n      </div>\n      \n  </div>\n  <br>\n  <div class=\"col s12\">\n    <table *ngIf=\"reportData.expensesByType.length>0\" class=\"striped table table-bordered table-condensed\">\n      <thead>\n        <tr>\n          <th>Category</th>\n          <th>Expense Amount</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr id=\"{{report.expenseType}}\" *ngFor=\"let report of reportData.expensesByType\">\n          <td>{{report.expenseType}}</td>\n          <td>{{toLocale(report.total)}}</td>\n        </tr>\n        <tr>\n          <td>Expenditure</td>\n          <td>{{toLocale(reportData.totalExpenditure)}}</td>\n        </tr>\n        <tr>\n          <td>Earnings</td>\n          <td>{{toLocale(reportData.totalIncome)}}</td>\n        </tr>\n        <tr>\n          <td>Saved</td>\n          <td>{{toLocale(reportData.totalIncome-reportData.totalExpenditure)}}</td>\n        </tr>\n        \n      </tbody>\n    </table>\n    <div class=\"chart-container\" style=\"\">\n      <canvas id=\"myChart\"></canvas>\n    </div>\n\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1449,6 +1409,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var AuthGuard = /** @class */ (function () {
     function AuthGuard() {
         this.loginEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.loginUrl = "login";
     }
     AuthGuard.prototype.canActivate = function (route, state) {
         return this.isUserLoggedIn();
@@ -1456,6 +1417,20 @@ var AuthGuard = /** @class */ (function () {
     AuthGuard.prototype.isUserLoggedIn = function () {
         var isLoggedIn = sessionStorage.getItem('isLoggedIn');
         return JSON.parse(isLoggedIn);
+    };
+    AuthGuard.prototype.login = function (username, password) {
+        var payload = {
+            username: username, password: password
+        };
+        var baseUrl = sessionStorage.getItem('apiBaseUrl');
+        var url = baseUrl + "/" + this.loginUrl;
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).then(function (res) { return res.json(); });
     };
     AuthGuard = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
@@ -1478,29 +1453,40 @@ var AuthGuard = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExpenseService", function() { return ExpenseService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! uuid */ "./node_modules/uuid/index.js");
-/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_1__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
 var ExpenseService = /** @class */ (function () {
     function ExpenseService() {
-        this.db = firebase.database();
+        this.baseUrl = '';
+        this.expenseUrl = 'expense';
+        this.incomeUrl = 'income';
+        this.reportUrl = 'report';
+        this.baseUrl = sessionStorage.getItem('apiBaseUrl');
     }
     ExpenseService.prototype.saveExpense = function (expense) {
         var dateParts = expense.date.split('-');
         var _d = new Date(Date.UTC(dateParts[2], dateParts[1] - 1, dateParts[0])); //new Date();
-        expense.id = uuid__WEBPACK_IMPORTED_MODULE_1__();
+        // expense.id = uuid();
         var _rootRefYear = _d.getFullYear();
         var _rootRefMonth = this.getMonthString(_d.getMonth());
         expense.year = _rootRefYear;
-        expense.month = _rootRefMonth;
-        return this.db.ref().child(_rootRefYear + "/" + _rootRefMonth + "/" + expense.id).update(expense);
+        expense.month = _rootRefMonth.toUpperCase();
+        var url = this.baseUrl + "/" + this.expenseUrl;
+        return fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(expense)
+        }).then(function (res) { return res.json(); });
     };
     ExpenseService.prototype.getMonthString = function (month) {
         var result;
@@ -1545,31 +1531,78 @@ var ExpenseService = /** @class */ (function () {
         return result;
     };
     ExpenseService.prototype.getAllExpenses = function () {
-        return this.db.ref().once('value');
+        var url = this.baseUrl + "/" + this.expenseUrl;
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (res) { return res.json(); });
     };
     ExpenseService.prototype.getExpensesByYear = function (year) {
-        return this.db.ref("" + year).once('value');
+        var url = this.baseUrl + "/" + this.expenseUrl + "?year=" + year;
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (res) { return res.json(); });
     };
     ExpenseService.prototype.getExpensesByYearAndMonth = function (year, month) {
-        if (!month) {
-            return this.db.ref("" + year).once('value');
+        var url = this.baseUrl + "/" + this.expenseUrl + "?year=" + year;
+        if (month) {
+            url += "&month=" + month;
         }
-        else {
-            return this.db.ref(year + "/" + month).once('value');
-        }
+        return fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (res) { return res.json(); });
     };
     ExpenseService.prototype.deleteExpense = function (expense) {
-        return this.db.ref().child(expense.year + "/" + expense.month + "/" + expense.id).remove();
+        var url = this.baseUrl + "/" + this.expenseUrl + "/" + expense.id;
+        return fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (res) { return res.json(); });
     };
     ExpenseService.prototype.setEarning = function (year, month, earning) {
-        return this.db.ref().child(year + "/" + month + "/earning").update({
+        var payload = {
             year: year,
-            month: month,
-            earning: earning
-        });
+            month: month.toUpperCase(),
+            amount: earning
+        };
+        var url = this.baseUrl + "/" + this.incomeUrl;
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).then(function (res) { return res.json(); });
+    };
+    ExpenseService.prototype.getExpenseReport = function (year, month) {
+        var payload = {
+            filter: {
+                year: parseInt(year, 10),
+                month: month ? month : null
+            }
+        };
+        var url = this.baseUrl + "/" + this.reportUrl;
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).then(function (res) { return res.json(); });
     };
     ExpenseService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [])
     ], ExpenseService);
     return ExpenseService;
 }());

@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
   <meta charset="utf-8">
   <title>Expenseapp</title>
-  <base href="/expensemanager/">
+  <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -21,19 +21,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
        
-  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+  <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBzWIm7CGo8lCXsy39geJys5rQY-QKKfcM",
-    authDomain: "expensemanager-fe1cd.firebaseapp.com",
-    databaseURL: "https://expensemanager-fe1cd.firebaseio.com",
-    projectId: "expensemanager-fe1cd",
-    storageBucket: "expensemanager-fe1cd.appspot.com",
-    messagingSenderId: "632527734270"
-  };
-  firebase.initializeApp(config);
+  sessionStorage.setItem("apiBaseUrl", "https://expensemanagerv2.herokuapp.com");
 </script>
 
 
