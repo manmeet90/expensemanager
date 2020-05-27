@@ -612,34 +612,95 @@ var CreateExpenseComponent = /** @class */ (function () {
     CreateExpenseComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isLoading = true;
-        this.expenseType.getExpenseTypes()
+        this.getExpenseTypes()
+            .then(function (res) {
+            // start init of component
+            _this.expenseForm = _this.fb.group({
+                date: [_this.today()],
+                description: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                amount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                expenseType: [_this.expenseTypes[0].id, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+                remarks: ['']
+            });
+            _this.expenseTypeForm = _this.fb.group({
+                newExpenseType: [''],
+                newName: [''],
+                expenseType: [_this.expenseTypes[0].id]
+            });
+            _this.isLoading = false;
+            setTimeout(function () {
+                var elems = document.querySelector('.datepicker');
+                var instances = M.Datepicker.init(elems, {
+                    format: "dd-mm-yyyy",
+                    onSelect: function (date) {
+                        var _d = new Date(date);
+                        _this.expenseForm.get('date').setValue(_d.getDate() + "-" + (_d.getMonth() + 1) + "-" + _d.getFullYear());
+                    }
+                });
+                var elemsForModal = document.querySelectorAll('.modal');
+                var instances = M.Modal.init(elemsForModal, {});
+                // $('select').formSelect();
+            }, 1000);
+        });
+    };
+    CreateExpenseComponent.prototype.getExpenseTypes = function () {
+        var _this = this;
+        return this.expenseType.getExpenseTypes()
             .then(function (res) {
             if (res.data.items) {
                 _this.expenseTypes = res.data.items;
-                // start init of component
-                _this.expenseForm = _this.fb.group({
-                    date: [_this.today()],
-                    description: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-                    amount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-                    expenseType: [_this.expenseTypes[0].id, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-                    remarks: ['']
-                });
-                _this.isLoading = false;
-                setTimeout(function () {
-                    var elems = document.querySelector('.datepicker');
-                    var instances = M.Datepicker.init(elems, {
-                        format: "dd-mm-yyyy",
-                        onSelect: function (date) {
-                            var _d = new Date(date);
-                            _this.expenseForm.get('date').setValue(_d.getDate() + "-" + (_d.getMonth() + 1) + "-" + _d.getFullYear());
-                        }
-                    });
-                    // $('select').formSelect();
-                }, 1000);
             }
             else if (res.errors) {
                 M.toast({ html: res.errors[0].message });
                 _this.isLoading = false;
+            }
+        });
+    };
+    CreateExpenseComponent.prototype.onCreateExpenseTypeBtnClicked = function () {
+        var _this = this;
+        if (!this.expenseTypeForm.value.newExpenseType) {
+            return;
+        }
+        this.expenseService.createExpenseType(this.expenseTypeForm.value.newExpenseType)
+            .then(function (res) {
+            if (res.errors) {
+                console.log(res.errors);
+            }
+            else {
+                M.toast({ html: "expense type created successfully" });
+                _this.getExpenseTypes();
+            }
+        });
+    };
+    CreateExpenseComponent.prototype.onUpdateExpenseTypeBtnClicked = function () {
+        var _this = this;
+        if (!this.expenseTypeForm.value.expenseType || !this.expenseTypeForm.value.newName) {
+            return;
+        }
+        this.expenseService.updateExpenseType(this.expenseTypeForm.value.expenseType, this.expenseTypeForm.value.newName)
+            .then(function (res) {
+            if (res.errors) {
+                M.toast({ html: "" + res.errors[0].message });
+            }
+            else {
+                M.toast({ html: "expense type updated successfully" });
+                _this.getExpenseTypes();
+            }
+        });
+    };
+    CreateExpenseComponent.prototype.onDeleteExpenseTypeBtnClicked = function () {
+        var _this = this;
+        if (!this.expenseTypeForm.value.expenseType) {
+            return;
+        }
+        this.expenseService.deleteExpenseType(this.expenseTypeForm.value.expenseType)
+            .then(function (res) {
+            if (res.errors) {
+                console.log(res.errors);
+            }
+            else {
+                M.toast({ html: "expense type deleted successfully" });
+                _this.getExpenseTypes();
             }
         });
     };
@@ -692,7 +753,7 @@ var CreateExpenseComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<style>\n    #expenseform {\n        margin: 0 15px;\n        width: 80vw;\n    }\n    select {\n        display: inline-block !important;\n    }\n</style>\n<div id=\"expenseform\" class=\"row\">\n    <h4>Create New Expense</h4>\n    <div *ngIf='showMsg' class=\"alert col s12 m6 green white-text\">\n        Expense saved successfully\n    </div>\n    <div *ngIf=\"isLoading\">Loading...</div>\n    <form *ngIf=\"!isLoading\" [formGroup]='expenseForm'>\n        <div class=\"input-field col s12 m6\">\n            <!-- <dp-date-picker formControlName=\"date\" #dayPicker></dp-date-picker> -->\n            <input type=\"text\" class=\" datepicker\" formControlName=\"date\" id=\"date\" />\n            <label for=\"date\" class=\"active\">Expense Date</label>\n\n        </div>\n        <div class=\"input-field col s12 m6\">\n            <input type=\"text\" class=\"form-control\" id=\"description\" formControlName=\"description\" />\n            <label for=\"description\">Expense Description</label>\n            <span class=\"alert white-text red\"\n                *ngIf='expenseForm.controls.description.touched && expenseForm.controls.description.errors?.required'>Expense\n                Description is required</span>\n        </div>\n        <div class=\"input-field col s12 m6\">\n            <input type=\"number\" class=\"form-control\" id=\"description\" formControlName=\"amount\" />\n            <label for=\"description\">Amount</label>\n            <span class=\"alert white-text red\"\n                *ngIf='expenseForm.controls.amount.touched && expenseForm.controls.amount.errors?.required'>Amount is\n                required</span>\n\n        </div>\n        <div class=\"col s12 m6\">\n            <select formControlName='expenseType' class='form-control' name=\"expense_type\" id=\"expense_type\">\n                <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.id\">{{expenseType.name}}\n                </option>\n            </select>\n            <label for=\"expense_type\">Expense Type</label>\n        </div>\n        <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"form-control\" id=\"remarks\"\n                formControlName=\"remarks\" />\n            <label for=\"remarks\">Remarks</label>\n        </div>\n        <div class=\"col s12\">\n                <button type=\"submit\" class=\"btn  waves-effect waves-light\" [disabled]='expenseForm.invalid'\n                (click)='onCreateButtonClicked()'>Create</button>\n        </div>\n        \n    </form>\n</div>"
+module.exports = "<style>\n    #expenseform {\n        margin: 0 15px;\n        width: 80vw;\n    }\n    #expensetype_form_wrapper{\n        overflow:hidden;\n    }\n    select {\n        display: inline-block !important;\n    }\n    @media only screen and (max-width: 600px) {\n        .expensetypeBtn{\n            margin-top : 10px;\n        }\n    }\n    \n</style>\n<div id=\"expenseform\" class=\"row\">\n    <h4>Create New Expense</h4>\n    <div *ngIf='showMsg' class=\"alert col s12 m6 green white-text\">\n        Expense saved successfully\n    </div>\n    <div *ngIf=\"isLoading\">Loading...</div>\n    <form *ngIf=\"!isLoading\" [formGroup]='expenseForm'>\n        <div class=\"input-field col s12 m6\">\n            <!-- <dp-date-picker formControlName=\"date\" #dayPicker></dp-date-picker> -->\n            <input type=\"text\" class=\" datepicker\" formControlName=\"date\" id=\"date\" />\n            <label for=\"date\" class=\"active\">Expense Date</label>\n\n        </div>\n        <div class=\"input-field col s12 m6\">\n            <input type=\"text\" class=\"form-control\" id=\"description\" formControlName=\"description\" />\n            <label for=\"description\">Expense Description</label>\n            <span class=\"alert white-text red\"\n                *ngIf='expenseForm.controls.description.touched && expenseForm.controls.description.errors?.required'>Expense\n                Description is required</span>\n        </div>\n        <div class=\"input-field col s12 m6\">\n            <input type=\"number\" class=\"form-control\" id=\"description\" formControlName=\"amount\" />\n            <label for=\"description\">Amount</label>\n            <span class=\"alert white-text red\"\n                *ngIf='expenseForm.controls.amount.touched && expenseForm.controls.amount.errors?.required'>Amount is\n                required</span>\n\n        </div>\n        <div class=\"col s12 m6\">\n            <select formControlName='expenseType' class='form-control' name=\"expense_type\" id=\"expense_type\">\n                <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.id\">{{expenseType.name}}\n                </option>\n            </select>\n            <label for=\"expense_type\">Expense Type</label>\n        </div>\n        <div class=\"input-field col s12\">\n            <input type=\"text\" class=\"form-control\" id=\"remarks\"\n                formControlName=\"remarks\" />\n            <label for=\"remarks\">Remarks</label>\n        </div>\n        <div class=\"col s12\">\n            <div class=\"row\">\n                <div class='col m2 s12 '>\n                    <button type=\"submit\" class=\"btn waves-effect waves-light\" [disabled]='expenseForm.invalid'\n                (click)='onCreateButtonClicked()'>Create</button>\n                </div>\n                <div class='col m4 s12 '>\n                    <button type=\"button\" data-target=\"createExpenseTypeDialog\" class=\" modal-trigger btn waves-effect waves-light expensetypeBtn blue darken-1\">\n                        Manage Expense Type\n                    </button>\n                </div>\n                \n                \n            </div>\n                \n        </div>\n        \n    </form>\n    <div id=\"createExpenseTypeDialog\" class=\"modal\">\n        <div class=\"modal-content\">\n          <h4>Manage Expense Types</h4>\n          <div id=\"expensetype_form_wrapper\">\n              <form *ngIf=\"!isLoading\" [formGroup]='expenseTypeForm'>\n                <div class=\"input-field col s12\">\n                    <input type=\"text\" class=\"form-control\" id=\"newExpenseType\"\n                        formControlName=\"newExpenseType\" />\n                    <label for=\"newExpenseType\">Expense Type to create</label>\n                </div>\n                <hr />\n                <div class=\"col s12\">\n                    <select formControlName='expenseType' class='form-control' name=\"expenseType\" id=\"expenseType\">\n                        <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.id\">{{expenseType.name}}\n                        </option>\n                    </select>\n                    <label for=\"expenseType\">Expense Type to delete</label>\n                </div>\n                <div class=\"input-field col s12\">\n                    <input type=\"text\" class=\"form-control\" id=\"newName\"\n                        formControlName=\"newName\" />\n                    <label for=\"newName\">Expense Type updated name</label>\n                </div>\n              </form>\n          </div>\n        </div>\n        <div class=\"modal-footer\">\n            <div class=\"row\">\n                <div class=\"col s12 m2\">\n                    <button class=\"modal-close waves-effect btn waves-red\" (click)=\"onDeleteExpenseTypeBtnClicked()\">Delete</button>\n                </div>\n                <div class=\"col s12 m2\">\n                    <button class=\"modal-close waves-effect btn waves-green\" (click)=\"onUpdateExpenseTypeBtnClicked()\">Update</button>\n                </div>\n                <div class=\"col s12 m2\">\n                    <button class=\"modal-close waves-effect btn waves-green\" (click)=\"onCreateExpenseTypeBtnClicked()\">Create</button>\n                </div>\n            </div>\n        </div>\n      </div>\n</div>"
 
 /***/ }),
 
@@ -1469,8 +1530,38 @@ var ExpenseService = /** @class */ (function () {
         this.expenseUrl = 'expense';
         this.incomeUrl = 'income';
         this.reportUrl = 'report';
+        this.expenseTypeUrl = 'expensetype';
         this.baseUrl = sessionStorage.getItem('apiBaseUrl');
     }
+    ExpenseService.prototype.createExpenseType = function (expenseType) {
+        var url = this.baseUrl + "/" + this.expenseTypeUrl;
+        return fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ expenseType: expenseType })
+        }).then(function (res) { return res.json(); });
+    };
+    ExpenseService.prototype.deleteExpenseType = function (expenseTypeToDelete) {
+        var url = this.baseUrl + "/" + this.expenseTypeUrl + "/" + expenseTypeToDelete;
+        return fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (res) { return res.json(); });
+    };
+    ExpenseService.prototype.updateExpenseType = function (expenseType, newName) {
+        var url = this.baseUrl + "/" + this.expenseTypeUrl;
+        return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ expenseType: expenseType, newName: newName })
+        }).then(function (res) { return res.json(); });
+    };
     ExpenseService.prototype.saveExpense = function (expense) {
         var dateParts = expense.date.split('-');
         var _d = new Date(Date.UTC(dateParts[2], dateParts[1] - 1, dateParts[0])); //new Date();
