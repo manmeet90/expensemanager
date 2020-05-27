@@ -624,18 +624,18 @@ var CreateExpenseComponent = /** @class */ (function () {
                     expenseType: [_this.expenseTypes[0].id, _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
                     remarks: ['']
                 });
-                var elems = document.querySelector('.datepicker');
-                var instances = M.Datepicker.init(elems, {
-                    format: "dd-mm-yyyy",
-                    onSelect: function (date) {
-                        var _d = new Date(date);
-                        _this.expenseForm.get('date').setValue(_d.getDate() + "-" + (_d.getMonth() + 1) + "-" + _d.getFullYear());
-                    }
-                });
+                _this.isLoading = false;
                 setTimeout(function () {
+                    var elems = document.querySelector('.datepicker');
+                    var instances = M.Datepicker.init(elems, {
+                        format: "dd-mm-yyyy",
+                        onSelect: function (date) {
+                            var _d = new Date(date);
+                            _this.expenseForm.get('date').setValue(_d.getDate() + "-" + (_d.getMonth() + 1) + "-" + _d.getFullYear());
+                        }
+                    });
                     // $('select').formSelect();
                 }, 1000);
-                _this.isLoading = false;
             }
             else if (res.errors) {
                 M.toast({ html: res.errors[0].message });
