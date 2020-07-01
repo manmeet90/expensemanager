@@ -835,7 +835,7 @@ var ExpenseListComponent = /** @class */ (function () {
         this.expenseType = expenseType;
         this._data = [];
         this.expenses = [];
-        this.years = [];
+        this.years = [new Date().getFullYear()];
         this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         this.isLoading = false;
     }
@@ -862,7 +862,9 @@ var ExpenseListComponent = /** @class */ (function () {
         this._data = [];
         this.isLoading = true;
         var _d = new Date();
-        this.years.push(_d.getFullYear());
+        if (this.years.indexOf(_d.getFullYear()) == -1) {
+            this.years.push(_d.getFullYear());
+        }
         this.expenseService.getExpensesByYearAndMonth(_d.getFullYear(), this.months[_d.getMonth()])
             .then(function (res) {
             if (res.data.items) {
@@ -1147,6 +1149,8 @@ var LoginComponent = /** @class */ (function () {
         this.router = router;
         this.disableLoginBtn = true;
         this.loginError = false;
+        this.loginInProgress = false;
+        this.loginButtonText = "Login";
     }
     LoginComponent.prototype.updateLoginBtnState = function (email, password) {
         if (email && password) {
@@ -1160,15 +1164,21 @@ var LoginComponent = /** @class */ (function () {
         var _this = this;
         e.preventDefault();
         if (email && password) {
+            this.loginInProgress = true;
+            this.loginButtonText = "logging in...";
             this.authService.login(email, password)
                 .then(function (data) {
                 _this.loginError = false;
+                _this.loginInProgress = false;
+                _this.loginButtonText = "Login";
                 sessionStorage.setItem('isLoggedIn', JSON.stringify(true));
                 _this.authService.loginEvent.emit('login');
                 _this.router.navigate(['expenses']);
             })
                 .catch(function (error) {
                 // Handle Errors here.
+                _this.loginInProgress = false;
+                _this.loginButtonText = "Login";
                 _this.loginError = true;
                 _this.message = error.message;
                 console.log(error);
