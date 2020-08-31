@@ -899,6 +899,7 @@ var ExpenseListComponent = /** @class */ (function () {
                     }
                 });
                 _this._data = data;
+                _this.setmonthDropdownToCurrentMonth();
                 // setTimeout(()=>{
                 //     // var elems = document.querySelectorAll('select');
                 //     // var instances = M.FormSelect.init(elems, {});
