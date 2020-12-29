@@ -935,7 +935,7 @@ var ExpenseListComponent = /** @class */ (function () {
         var d = new Date();
         if (this.queryParams && this.queryParams.year) {
             var year_1 = this.queryParams.year;
-            var month_1 = this.queryParams.month || this.months[d.getMonth()];
+            var month_1 = this.queryParams.month || '';
             var expenseType_1 = this.getExpenseTypeId(this.queryParams.expenseType) || '';
             setTimeout(function () {
                 $('#month').val(month_1);
@@ -1005,17 +1005,17 @@ var ExpenseListComponent = /** @class */ (function () {
         return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"])(data, function (_d) {
             if (_d.date) {
                 var parts = _d.date.split('-');
-                if (parts[0].length === 1) {
-                    parts[0] = "0" + parts[0];
-                }
-                if (parts[1].length === 1) {
-                    parts[1] = "0" + parts[1];
-                }
-                var md = parts[0] + parts[1];
-                return md;
+                // if(parts[0].length === 1) {
+                //     parts[0] = `0${parts[0]}`;
+                // }
+                // if(parts[1].length === 1) {
+                //     parts[1] = `0${parts[1]}`;
+                // }
+                // let md = parts[0]+parts[1];
+                return new Date(parts[2], Number(parts[1]) - 1, parts[0]).getTime();
             }
             else {
-                return '';
+                return -1;
             }
         });
     };
