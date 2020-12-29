@@ -816,6 +816,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _expenseType__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./expenseType */ "./src/app/components/expenses/expenseType.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -829,15 +830,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ExpenseListComponent = /** @class */ (function () {
-    function ExpenseListComponent(expenseService, expenseType) {
+    function ExpenseListComponent(expenseService, expenseType, route, router) {
         this.expenseService = expenseService;
         this.expenseType = expenseType;
+        this.route = route;
+        this.router = router;
         this._data = [];
         this.expenses = [];
         this.years = [new Date().getFullYear()];
         this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         this.isLoading = false;
+        this.sub = null;
+        this.queryParams = null;
     }
     ExpenseListComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -851,7 +857,20 @@ var ExpenseListComponent = /** @class */ (function () {
             }
         });
         this.getExpensesData();
+        this.sub = this.route
+            .queryParams
+            .subscribe(function (params) {
+            // Defaults to 0 if no query param provided.
+            _this.queryParams = params;
+        });
         $('.collapsible').collapsible();
+    };
+    ExpenseListComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
+    };
+    ExpenseListComponent.prototype.onBackToReportsLinkClicked = function (e) {
+        e.preventDefault();
+        this.router.navigate(['reports'], { queryParams: this.queryParams });
     };
     ExpenseListComponent.prototype.toLocale = function (data) {
         return parseInt(data).toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
@@ -914,11 +933,25 @@ var ExpenseListComponent = /** @class */ (function () {
     ExpenseListComponent.prototype.setmonthDropdownToCurrentMonth = function () {
         var _this = this;
         var d = new Date();
-        setTimeout(function () {
-            $('#month').val(_this.months[d.getMonth()]);
-            $("#year").val(d.getFullYear());
-        }, 1000);
-        this.filterList(d.getFullYear().toString(), this.months[d.getMonth()]);
+        if (this.queryParams && this.queryParams.year) {
+            var year_1 = this.queryParams.year;
+            var month_1 = this.queryParams.month || this.months[d.getMonth()];
+            var expenseType_1 = this.getExpenseTypeId(this.queryParams.expenseType) || '';
+            setTimeout(function () {
+                $('#month').val(month_1);
+                $("#year").val(year_1);
+                $('#expenseType').val(expenseType_1);
+            }, 100);
+            console.log("filtering by year: " + year_1 + ", month: " + month_1 + " ,expensetype: " + expenseType_1);
+            this.filterList(year_1, month_1, expenseType_1);
+        }
+        else {
+            setTimeout(function () {
+                $('#month').val(_this.months[d.getMonth()]);
+                $("#year").val(d.getFullYear());
+            }, 100);
+            this.filterList(d.getFullYear().toString(), this.months[d.getMonth()]);
+        }
     };
     ExpenseListComponent.prototype.filterListByYear = function (year) {
         this.expenses = year ? this._data.filter(function (_d) { return _d.year.toString() === year; }) : this._data;
@@ -1011,11 +1044,23 @@ var ExpenseListComponent = /** @class */ (function () {
         }
         return 'Not Available';
     };
+    ExpenseListComponent.prototype.getExpenseTypeId = function (expenseTypeName) {
+        if (expenseTypeName && this.expenseTypes) {
+            var expenseTypeItem = this.expenseTypes.find(function (item) { return item.value == expenseTypeName; });
+            if (expenseTypeItem) {
+                return expenseTypeItem.id;
+            }
+        }
+        return null;
+    };
     ExpenseListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./ExpenseList.html */ "./src/app/components/expenses/ExpenseList.html")
         }),
-        __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"], _expenseType__WEBPACK_IMPORTED_MODULE_3__["ExpenseType"]])
+        __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"],
+            _expenseType__WEBPACK_IMPORTED_MODULE_3__["ExpenseType"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], ExpenseListComponent);
     return ExpenseListComponent;
 }());
@@ -1031,7 +1076,7 @@ var ExpenseListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<style>\n    .delete_icon {\n        position: relative;\n        top: 5px;\n        left: 5px;\n    }\n    .collapsible-body{\n        /* overflow: hidden; */\n    }\n    select {\n        display: inline-block !important;\n    }\n    .cursor{\n        cursor: pointer;\n    }\n</style>\n<div class=\"row\">\n    <br />\n    <div class=\"col s12\">\n        <ul class=\"collapsible\">\n            <li>\n                <div class=\"collapsible-header\"><i class=\"material-icons\">filter_list</i>Apply FIlter</div>\n                <div class=\"collapsible-body\">\n                        <div class=\"row\">\n                            <div class=\"col s12 m4\">\n                                    <select class=\"form-control\" name=\"year\" id=\"year\" #year\n                                        (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                        <option value=\"\">Choose Year</option>\n                                        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n                                    </select>\n                                    <label for=\"year\">Year </label>\n                            </div>\n                            <div class=\"col s12 m4\">\n                                <select class=\"form-control\" name=\"month\" id=\"month\" #month\n                                    (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                    <option value=\"\">Choose Month</option>\n                                    <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n                                </select>\n                                <label for=\"month\">Month </label>&nbsp;\n                            </div>\n                            <div class=\"col s12 m4\">\n                                <select class=\"form-control\" name=\"expenseType\" id=\"expenseType\" #expenseType\n                                    (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                    <option value=\"\">Choose Type</option>\n                                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.id\">{{expenseType.name}}\n                                    </option>\n                                </select>\n                                <label for=\"expenseType\">Expense Type </label>&nbsp;\n                            </div>\n                        </div>\n                </div>\n            </li>\n        </ul>\n        \n\n\n    </div>\n    <div class=\"col s12 table-responsive\">\n        <table class=\"table striped\">\n            <thead>\n                <tr>\n                    <th>Expense Name</th>\n                    <th>Amount</th>\n                    <th class=\"hide-on-small-only\">Year</th>\n                    <th class=\"hide-on-small-only\">Month</th>\n                    <th>Date</th>\n                    <th class=\"hide-on-small-only\">Expense Type</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr class=\"cyan darken-1\">\n                    <td colspan='6' class='white-text text-bold'>Total Expenditure: <strong>{{toLocale(total)}}</strong></td>\n                </tr>\n                <tr>\n                    <td colspan='6' *ngIf='isLoading'>Loading...</td>\n                </tr>\n                <tr *ngFor='let expense of expenses'>\n                    <td>\n                        <a routerLink=\"{{expense.id}}\">{{expense.description}}</a>\n                        <span class=\"cursor material-icons red-text delete_icon\"\n                            (click)=\"ondeleteButtonClicked(expense)\">delete</span>\n                    </td>\n                    <td>{{toLocale(expense.amount)}}</td>\n                    <td class=\"hide-on-small-only\">{{expense.year}}</td>\n                    <td class=\"hide-on-small-only\">{{expense.month}}</td>\n                    <td>{{expense.date}}</td>\n                    <td class=\"hide-on-small-only\">{{getExpenseTypeString(expense.expenseType)}}</td>\n                </tr>\n                <tr class=\"cyan darken-1\">\n                    <td colspan='6' class='white-text text-bold'>Total Expenditure: <strong>{{toLocale(total)}}</strong></td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>"
+module.exports = "<style>\n    .delete_icon {\n        position: relative;\n        top: 5px;\n        left: 5px;\n    }\n    .collapsible-body{\n        /* overflow: hidden; */\n    }\n    select {\n        display: inline-block !important;\n    }\n    .cursor{\n        cursor: pointer;\n    }\n</style>\n<div class=\"row\">\n    <br />\n    <div class=\"col s12\">\n        <ul class=\"collapsible\">\n            <li>\n                <div class=\"collapsible-header\"><i class=\"material-icons\">filter_list</i>Apply FIlter</div>\n                <div class=\"collapsible-body\">\n                        <div class=\"row\">\n                            <div class=\"col s12 m4\">\n                                    <select class=\"form-control\" name=\"year\" id=\"year\" #year\n                                        (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                        <option value=\"\">Choose Year</option>\n                                        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n                                    </select>\n                                    <label for=\"year\">Year </label>\n                            </div>\n                            <div class=\"col s12 m4\">\n                                <select class=\"form-control\" name=\"month\" id=\"month\" #month\n                                    (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                    <option value=\"\">Choose Month</option>\n                                    <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n                                </select>\n                                <label for=\"month\">Month </label>&nbsp;\n                            </div>\n                            <div class=\"col s12 m4\">\n                                <select class=\"form-control\" name=\"expenseType\" id=\"expenseType\" #expenseType\n                                    (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                    <option value=\"\">Choose Type</option>\n                                    <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.id\">{{expenseType.name}}\n                                    </option>\n                                </select>\n                                <label for=\"expenseType\">Expense Type </label>&nbsp;\n                            </div>\n                        </div>\n                </div>\n            </li>\n        </ul>\n    </div>\n    <div *ngIf=\"this.queryParams && this.queryParams.year\" class=\"col s12\">\n        <a class=\"cursor\" (click)=\"onBackToReportsLinkClicked($event)\">Back To Reports</a>\n    </div>\n    <div class=\"col s12 table-responsive\">\n        <table class=\"table striped\">\n            <thead>\n                <tr>\n                    <th>Expense Name</th>\n                    <th>Amount</th>\n                    <th class=\"hide-on-small-only\">Year</th>\n                    <th class=\"hide-on-small-only\">Month</th>\n                    <th>Date</th>\n                    <th class=\"hide-on-small-only\">Expense Type</th>\n                </tr>\n            </thead>\n            <tbody>\n                <tr class=\"cyan darken-1\">\n                    <td colspan='6' class='white-text text-bold'>Total Expenditure: <strong>{{toLocale(total)}}</strong></td>\n                </tr>\n                <tr>\n                    <td colspan='6' *ngIf='isLoading'>Loading...</td>\n                </tr>\n                <tr *ngFor='let expense of expenses'>\n                    <td>\n                        <a>{{expense.description}}</a>\n                        <span class=\"cursor material-icons red-text delete_icon\"\n                            (click)=\"ondeleteButtonClicked(expense)\">delete</span>\n                    </td>\n                    <td>{{toLocale(expense.amount)}}</td>\n                    <td class=\"hide-on-small-only\">{{expense.year}}</td>\n                    <td class=\"hide-on-small-only\">{{expense.month}}</td>\n                    <td>{{expense.date}}</td>\n                    <td class=\"hide-on-small-only\">{{getExpenseTypeString(expense.expenseType)}}</td>\n                </tr>\n                <tr class=\"cyan darken-1\">\n                    <td colspan='6' class='white-text text-bold'>Total Expenditure: <strong>{{toLocale(total)}}</strong></td>\n                </tr>\n            </tbody>\n        </table>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -1214,6 +1259,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/expense.service */ "./src/app/services/expense.service.ts");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1226,9 +1272,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ReportsComponent = /** @class */ (function () {
-    function ReportsComponent(expenseService) {
+    function ReportsComponent(expenseService, router, route) {
         this.expenseService = expenseService;
+        this.router = router;
+        this.route = route;
         this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
         this.years = ['2018', '2019', '2020', '2021', '2022'];
         this.reportData = {
@@ -1244,11 +1293,34 @@ var ReportsComponent = /** @class */ (function () {
         this.earn_year = null;
         this.earn_month = null;
         this.earning = null;
+        this.sub = null;
+        this.queryParams = null;
     }
     ReportsComponent.prototype.ngOnInit = function () {
+        var _this = this;
         setTimeout(function () {
             // $('select').formSelect();
         }, 1000);
+        this.sub = this.route
+            .queryParams
+            .subscribe(function (params) {
+            // Defaults to 0 if no query param provided.
+            _this.queryParams = params;
+            if (_this.queryParams && _this.queryParams.year) {
+                setTimeout(function () {
+                    $('#year').val(_this.queryParams.year);
+                    _this.year = _this.queryParams.year;
+                    if (_this.queryParams.month) {
+                        $('#month').val(_this.queryParams.month);
+                        _this.month = _this.queryParams.month;
+                    }
+                    _this.generateReportBtnClicked();
+                }, 100);
+            }
+        });
+    };
+    ReportsComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
     };
     ReportsComponent.prototype.generateReportBtnClicked = function () {
         var _this = this;
@@ -1367,6 +1439,10 @@ var ReportsComponent = /** @class */ (function () {
     ReportsComponent.prototype.isEarningFormValid = function () {
         return (this.earn_year && this.earn_month && this.earning);
     };
+    ReportsComponent.prototype.onExepenseCategoryRowClicked = function (e, expenseType) {
+        e.preventDefault();
+        this.router.navigate(['expenses'], { queryParams: { year: this.year, month: this.month, expenseType: expenseType } });
+    };
     ReportsComponent.prototype.onSaveEarningBtnClicked = function () {
         console.log(this.earn_month, this.earn_year, this.earning);
         this.expenseService.setEarning(this.earn_year, this.earn_month, this.earning)
@@ -1440,7 +1516,7 @@ var ReportsComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./Reports.html */ "./src/app/components/reports/Reports.html")
         }),
-        __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"]])
+        __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
     ], ReportsComponent);
     return ReportsComponent;
 }());
@@ -1456,7 +1532,7 @@ var ReportsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <style>\n\n    table tbody tr:nth-last-child(2) {\n      background-color: #00acc1;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    table tbody tr:last-child {\n      color: #fff;\n      background-color: #43A047;\n      font-size: 20px;\n      font-weight: 600;\n    }\n    table tbody tr:nth-last-child(3) {\n      background-color: #d24c51;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    #earnings_form>div {\n      margin: 7px 0;\n      \n    }\n\n    select {\n        display: inline-block !important;\n    }\n  </style>\n  <div class=\"col s12\" id=\"earnings_form\">\n    <h4>Set Earnings</h4>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"earn_year\">Year</label>\n    </div>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\n        <option value=\"\">Choose Month</option>\n        <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n      </select>\n      <label for=\"earn_month\">Month</label>\n    </div>\n    <div class=\"input-field col s12\">\n      <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\"\n        (input)='onEarningChange($event)' />\n        <label for=\"earning\">Earnings (INR)</label>\n    </div>\n    <div class=\"col s12\">\n      <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isEarningFormValid()\"\n        (click)='onSaveEarningBtnClicked()'>Save</button>\n    </div>\n  </div>\n\n\n  <div class=\"col s12\">\n    <h4>Monthly Reports</h4>\n    <!-- Generate Report For: -->\n    <div class=\"col s12\">\n      <select class=\"\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"year\">Year</label>\n      </div>\n      <div class=\"col s12\">\n          <select class=\"\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n              <option value=\"\">Choose Month</option>\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <label for=\"month\">Month</label>\n      </div>\n      <div class=\"col s12\">\n          <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate\n              Report</button>\n      </div>\n      \n  </div>\n  <br>\n  <div class=\"col s12\">\n    <table *ngIf=\"reportData.expensesByType.length>0\" class=\"striped table table-bordered table-condensed\">\n      <thead>\n        <tr>\n          <th>Category</th>\n          <th>Expense Amount</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr id=\"{{report.expenseType}}\" *ngFor=\"let report of reportData.expensesByType\">\n          <td>{{report.expenseType}}</td>\n          <td>{{toLocale(report.total)}}</td>\n        </tr>\n        <tr>\n          <td>Expenditure</td>\n          <td>{{toLocale(reportData.totalExpenditure)}}</td>\n        </tr>\n        <tr>\n          <td>Earnings</td>\n          <td>{{toLocale(reportData.totalIncome)}}</td>\n        </tr>\n        <tr>\n          <td>Saved</td>\n          <td>{{toLocale(reportData.totalIncome-reportData.totalExpenditure)}}</td>\n        </tr>\n        \n      </tbody>\n    </table>\n    <div class=\"chart-container\" style=\"\">\n      <canvas id=\"myChart\"></canvas>\n    </div>\n\n  </div>\n</div>"
+module.exports = "<div class=\"row\">\n  <style>\n\n    table tbody tr:nth-last-child(2) {\n      background-color: #00acc1;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    table tbody tr:last-child {\n      color: #fff;\n      background-color: #43A047;\n      font-size: 20px;\n      font-weight: 600;\n    }\n    table tbody tr:nth-last-child(3) {\n      background-color: #d24c51;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    #earnings_form>div {\n      margin: 7px 0;\n      \n    }\n\n    select {\n        display: inline-block !important;\n    }\n\n    .cursor{\n      cursor: pointer;\n    }\n  </style>\n  <div class=\"col s12\" id=\"earnings_form\">\n    <h4>Set Earnings</h4>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"earn_year\">Year</label>\n    </div>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\n        <option value=\"\">Choose Month</option>\n        <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n      </select>\n      <label for=\"earn_month\">Month</label>\n    </div>\n    <div class=\"input-field col s12\">\n      <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\"\n        (input)='onEarningChange($event)' />\n        <label for=\"earning\">Earnings (INR)</label>\n    </div>\n    <div class=\"col s12\">\n      <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isEarningFormValid()\"\n        (click)='onSaveEarningBtnClicked()'>Save</button>\n    </div>\n  </div>\n\n\n  <div class=\"col s12\">\n    <h4>Monthly Reports</h4>\n    <!-- Generate Report For: -->\n    <div class=\"col s12\">\n      <select class=\"\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"year\">Year</label>\n      </div>\n      <div class=\"col s12\">\n          <select class=\"\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n              <option value=\"\">Choose Month</option>\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <label for=\"month\">Month</label>\n      </div>\n      <div class=\"col s12\">\n          <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate\n              Report</button>\n      </div>\n      \n  </div>\n  <br>\n  <div class=\"col s12\">\n    <table *ngIf=\"reportData.expensesByType.length>0\" class=\"striped table table-bordered table-condensed\">\n      <thead>\n        <tr>\n          <th>Category</th>\n          <th>Expense Amount</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr id=\"{{report.expenseType}}\" *ngFor=\"let report of reportData.expensesByType\">\n          <td>{{report.expenseType}}</td>\n          <td><a class=\"cursor\" (click)=\"onExepenseCategoryRowClicked($event, report.expenseType)\">{{toLocale(report.total)}}</a></td>\n        </tr>\n        <tr>\n          <td>Expenditure</td>\n          <td>{{toLocale(reportData.totalExpenditure)}}</td>\n        </tr>\n        <tr>\n          <td>Earnings</td>\n          <td>{{toLocale(reportData.totalIncome)}}</td>\n        </tr>\n        <tr>\n          <td>Saved</td>\n          <td>{{toLocale(reportData.totalIncome-reportData.totalExpenditure)}}</td>\n        </tr>\n        \n      </tbody>\n    </table>\n    <div class=\"chart-container\" style=\"\">\n      <canvas id=\"myChart\"></canvas>\n    </div>\n\n  </div>\n</div>"
 
 /***/ }),
 
