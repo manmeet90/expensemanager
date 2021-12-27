@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* You can add global styles to this file, and also import other style files */\n.dp-calendar-nav-right, .dp-calendar-nav-left{\n    background-color: #196ab2;\n    color: #fff;\n    padding: 7px;\n    width: 26px !important;\n}\n.dp-calendar-nav-right{\n    margin: 0 -5px 0 5px;\n}\n.dp-calendar-nav-left{\n    margin: 0 5px;\n}\n.dp-current-day{\n    background-color: #5bc0de;\n    color: #fff;\n    border-radius: 50%;\n}\n.dp-nav-header-btn{\n    background-color: #5cb85c;\n    color: #fff;\n    margin-left: -4px;\n}\n.dp-calendar-wrapper .dp-weekdays {\n    font-size: 13px;\n}\n.dp-calendar-month.dp-current-month{\n    color: #fff;\n    background-color: #196ab2;\n}\n.alert{\n    padding: 7px !important;\n    margin: 7px 0;\n}\n#mob_title{\n    display: inline-block;\n    position: absolute;\n    width: 100vw;\n}\n@media only screen and (min-width: 992px){\n    #mob_title {\n        display: none;\n    }\n}"
+module.exports = "/* You can add global styles to this file, and also import other style files */\n"
 
 /***/ }),
 
@@ -539,7 +539,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/manmeetg/Documents/mystuffs/expensemanager/expenseapp/src/styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! /Users/manmeetg/Projects/expensemanagerSource/src/styles.css */"./src/styles.css");
 
 
 /***/ })

@@ -33,6 +33,8 @@ var map = {
 	"./bm": "./node_modules/moment/locale/bm.js",
 	"./bm.js": "./node_modules/moment/locale/bm.js",
 	"./bn": "./node_modules/moment/locale/bn.js",
+	"./bn-bd": "./node_modules/moment/locale/bn-bd.js",
+	"./bn-bd.js": "./node_modules/moment/locale/bn-bd.js",
 	"./bn.js": "./node_modules/moment/locale/bn.js",
 	"./bo": "./node_modules/moment/locale/bo.js",
 	"./bo.js": "./node_modules/moment/locale/bo.js",
@@ -70,13 +72,19 @@ var map = {
 	"./en-ie.js": "./node_modules/moment/locale/en-ie.js",
 	"./en-il": "./node_modules/moment/locale/en-il.js",
 	"./en-il.js": "./node_modules/moment/locale/en-il.js",
+	"./en-in": "./node_modules/moment/locale/en-in.js",
+	"./en-in.js": "./node_modules/moment/locale/en-in.js",
 	"./en-nz": "./node_modules/moment/locale/en-nz.js",
 	"./en-nz.js": "./node_modules/moment/locale/en-nz.js",
+	"./en-sg": "./node_modules/moment/locale/en-sg.js",
+	"./en-sg.js": "./node_modules/moment/locale/en-sg.js",
 	"./eo": "./node_modules/moment/locale/eo.js",
 	"./eo.js": "./node_modules/moment/locale/eo.js",
 	"./es": "./node_modules/moment/locale/es.js",
 	"./es-do": "./node_modules/moment/locale/es-do.js",
 	"./es-do.js": "./node_modules/moment/locale/es-do.js",
+	"./es-mx": "./node_modules/moment/locale/es-mx.js",
+	"./es-mx.js": "./node_modules/moment/locale/es-mx.js",
 	"./es-us": "./node_modules/moment/locale/es-us.js",
 	"./es-us.js": "./node_modules/moment/locale/es-us.js",
 	"./es.js": "./node_modules/moment/locale/es.js",
@@ -88,6 +96,8 @@ var map = {
 	"./fa.js": "./node_modules/moment/locale/fa.js",
 	"./fi": "./node_modules/moment/locale/fi.js",
 	"./fi.js": "./node_modules/moment/locale/fi.js",
+	"./fil": "./node_modules/moment/locale/fil.js",
+	"./fil.js": "./node_modules/moment/locale/fil.js",
 	"./fo": "./node_modules/moment/locale/fo.js",
 	"./fo.js": "./node_modules/moment/locale/fo.js",
 	"./fr": "./node_modules/moment/locale/fr.js",
@@ -98,10 +108,14 @@ var map = {
 	"./fr.js": "./node_modules/moment/locale/fr.js",
 	"./fy": "./node_modules/moment/locale/fy.js",
 	"./fy.js": "./node_modules/moment/locale/fy.js",
+	"./ga": "./node_modules/moment/locale/ga.js",
+	"./ga.js": "./node_modules/moment/locale/ga.js",
 	"./gd": "./node_modules/moment/locale/gd.js",
 	"./gd.js": "./node_modules/moment/locale/gd.js",
 	"./gl": "./node_modules/moment/locale/gl.js",
 	"./gl.js": "./node_modules/moment/locale/gl.js",
+	"./gom-deva": "./node_modules/moment/locale/gom-deva.js",
+	"./gom-deva.js": "./node_modules/moment/locale/gom-deva.js",
 	"./gom-latn": "./node_modules/moment/locale/gom-latn.js",
 	"./gom-latn.js": "./node_modules/moment/locale/gom-latn.js",
 	"./gu": "./node_modules/moment/locale/gu.js",
@@ -121,6 +135,8 @@ var map = {
 	"./is": "./node_modules/moment/locale/is.js",
 	"./is.js": "./node_modules/moment/locale/is.js",
 	"./it": "./node_modules/moment/locale/it.js",
+	"./it-ch": "./node_modules/moment/locale/it-ch.js",
+	"./it-ch.js": "./node_modules/moment/locale/it-ch.js",
 	"./it.js": "./node_modules/moment/locale/it.js",
 	"./ja": "./node_modules/moment/locale/ja.js",
 	"./ja.js": "./node_modules/moment/locale/ja.js",
@@ -136,6 +152,8 @@ var map = {
 	"./kn.js": "./node_modules/moment/locale/kn.js",
 	"./ko": "./node_modules/moment/locale/ko.js",
 	"./ko.js": "./node_modules/moment/locale/ko.js",
+	"./ku": "./node_modules/moment/locale/ku.js",
+	"./ku.js": "./node_modules/moment/locale/ku.js",
 	"./ky": "./node_modules/moment/locale/ky.js",
 	"./ky.js": "./node_modules/moment/locale/ky.js",
 	"./lb": "./node_modules/moment/locale/lb.js",
@@ -176,6 +194,8 @@ var map = {
 	"./nl.js": "./node_modules/moment/locale/nl.js",
 	"./nn": "./node_modules/moment/locale/nn.js",
 	"./nn.js": "./node_modules/moment/locale/nn.js",
+	"./oc-lnc": "./node_modules/moment/locale/oc-lnc.js",
+	"./oc-lnc.js": "./node_modules/moment/locale/oc-lnc.js",
 	"./pa-in": "./node_modules/moment/locale/pa-in.js",
 	"./pa-in.js": "./node_modules/moment/locale/pa-in.js",
 	"./pl": "./node_modules/moment/locale/pl.js",
@@ -220,6 +240,8 @@ var map = {
 	"./tg.js": "./node_modules/moment/locale/tg.js",
 	"./th": "./node_modules/moment/locale/th.js",
 	"./th.js": "./node_modules/moment/locale/th.js",
+	"./tk": "./node_modules/moment/locale/tk.js",
+	"./tk.js": "./node_modules/moment/locale/tk.js",
 	"./tl-ph": "./node_modules/moment/locale/tl-ph.js",
 	"./tl-ph.js": "./node_modules/moment/locale/tl-ph.js",
 	"./tlh": "./node_modules/moment/locale/tlh.js",
@@ -252,6 +274,8 @@ var map = {
 	"./zh-cn.js": "./node_modules/moment/locale/zh-cn.js",
 	"./zh-hk": "./node_modules/moment/locale/zh-hk.js",
 	"./zh-hk.js": "./node_modules/moment/locale/zh-hk.js",
+	"./zh-mo": "./node_modules/moment/locale/zh-mo.js",
+	"./zh-mo.js": "./node_modules/moment/locale/zh-mo.js",
 	"./zh-tw": "./node_modules/moment/locale/zh-tw.js",
 	"./zh-tw.js": "./node_modules/moment/locale/zh-tw.js"
 };
@@ -402,7 +426,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var ng2_date_picker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ng2-date-picker */ "./node_modules/ng2-date-picker/esm5/ng2-date-picker.js");
+/* harmony import */ var ng2_date_picker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ng2-date-picker */ "./node_modules/ng2-date-picker/fesm5/ng2-date-picker.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _app_routing__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.routing */ "./src/app/app.routing.ts");
 /* harmony import */ var _components_login_login_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/login/login.component */ "./src/app/components/login/login.component.ts");
@@ -411,12 +435,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_expenses__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/expenses */ "./src/app/components/expenses/index.ts");
 /* harmony import */ var _services_expense_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/expense.service */ "./src/app/services/expense.service.ts");
 /* harmony import */ var _services_auth_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/auth.service */ "./src/app/services/auth.service.ts");
+/* harmony import */ var _components_expenses_filterBySearchPipe__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/expenses/filterBySearchPipe */ "./src/app/components/expenses/filterBySearchPipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -441,7 +467,8 @@ var AppModule = /** @class */ (function () {
                 _components_reports_Reports_component__WEBPACK_IMPORTED_MODULE_8__["ReportsComponent"],
                 _components_expenses__WEBPACK_IMPORTED_MODULE_9__["CreateExpenseComponent"],
                 _components_expenses__WEBPACK_IMPORTED_MODULE_9__["ExpenseComponent"],
-                _components_expenses__WEBPACK_IMPORTED_MODULE_9__["ExpenseListComponent"]
+                _components_expenses__WEBPACK_IMPORTED_MODULE_9__["ExpenseListComponent"],
+                _components_expenses_filterBySearchPipe__WEBPACK_IMPORTED_MODULE_12__["FilterBySearchPipe"]
             ],
             imports: [
                 _app_routing__WEBPACK_IMPORTED_MODULE_5__["APP_ROUTES"],
@@ -453,7 +480,8 @@ var AppModule = /** @class */ (function () {
             providers: [
                 _components_expenses__WEBPACK_IMPORTED_MODULE_9__["ExpenseType"],
                 _services_expense_service__WEBPACK_IMPORTED_MODULE_10__["ExpenseService"],
-                _services_auth_service__WEBPACK_IMPORTED_MODULE_11__["AuthGuard"]
+                _services_auth_service__WEBPACK_IMPORTED_MODULE_11__["AuthGuard"],
+                _components_expenses_filterBySearchPipe__WEBPACK_IMPORTED_MODULE_12__["FilterBySearchPipe"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
         })
@@ -823,6 +851,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _expenseType__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./expenseType */ "./src/app/components/expenses/expenseType.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/utils */ "./src/app/utils/utils.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -832,6 +861,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -850,6 +880,9 @@ var ExpenseListComponent = /** @class */ (function () {
         this.isLoading = false;
         this.sub = null;
         this.queryParams = null;
+        this.searchTerm = '';
+        this.currentDateSortBy = _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].ASC;
+        this.currentAmountSortBy = _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].ASC;
     }
     ExpenseListComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -893,7 +926,7 @@ var ExpenseListComponent = /** @class */ (function () {
         this.expenseService.getExpensesByYearAndMonth(_d.getFullYear(), this.months[_d.getMonth()])
             .then(function (res) {
             if (res.data.items) {
-                _this.expenses = res.data.items;
+                _this.expenses = _this.normalizeData(res.data.items);
                 _this._data = _this.expenses;
                 _this.total = _this.calculateTotal();
                 _this.setmonthDropdownToCurrentMonth();
@@ -917,7 +950,7 @@ var ExpenseListComponent = /** @class */ (function () {
         this.expenseService.getAllExpenses()
             .then(function (res) {
             if (res.data.items) {
-                var data = res.data.items;
+                var data = _this.normalizeData(res.data.items);
                 res.data.items.forEach(function (item) {
                     if (_this.years.indexOf(item.year) == -1) {
                         _this.years.push(item.year);
@@ -1007,7 +1040,8 @@ var ExpenseListComponent = /** @class */ (function () {
         });
         return total;
     };
-    ExpenseListComponent.prototype.sortDataByDate = function (data) {
+    ExpenseListComponent.prototype.sortDataByDate = function (data, sortOrder) {
+        if (sortOrder === void 0) { sortOrder = this.currentDateSortBy; }
         return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"])(data, function (_d) {
             if (_d.date) {
                 var parts = _d.date.split('-');
@@ -1023,7 +1057,7 @@ var ExpenseListComponent = /** @class */ (function () {
             else {
                 return -1;
             }
-        });
+        }, sortOrder === _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].DSC ? true : false);
     };
     ExpenseListComponent.prototype.ondeleteButtonClicked = function (expense) {
         var _this = this;
@@ -1059,9 +1093,49 @@ var ExpenseListComponent = /** @class */ (function () {
         }
         return null;
     };
+    ExpenseListComponent.prototype.sortByDateClicked = function () {
+        if (this.expenses.length > 0 && this.currentDateSortBy) {
+            this.currentDateSortBy = this.currentDateSortBy === _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].ASC ? _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].DSC : _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].ASC;
+            switch (this.currentDateSortBy) {
+                case _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].DSC: {
+                    this.expenses = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(this.expenses, function (d) { return d.dateInstance.getTime(); }, ['desc']);
+                    break;
+                }
+                default: {
+                    this.expenses = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(this.expenses, function (d) { return d.dateInstance.getTime(); }, ['asc']);
+                }
+            }
+        }
+    };
+    ExpenseListComponent.prototype.sortByAmountClicked = function () {
+        if (this.expenses.length > 0 && this.currentAmountSortBy) {
+            this.currentAmountSortBy = this.currentAmountSortBy === _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].ASC ? _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].DSC : _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].ASC;
+            switch (this.currentAmountSortBy) {
+                case _utils_utils__WEBPACK_IMPORTED_MODULE_5__["SortOrder"].DSC: {
+                    this.expenses = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(this.expenses, function (d) { return d.amount; }, ['desc']);
+                    break;
+                }
+                default: {
+                    this.expenses = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(this.expenses, function (d) { return d.amount; }, ['asc']);
+                }
+            }
+        }
+    };
+    ExpenseListComponent.prototype.normalizeData = function (data) {
+        if (data.length > 0) {
+            data.forEach(function (d) {
+                if (d.date) {
+                    var parts = d.date.split('-');
+                    d.dateInstance = new Date(parts[2], Number(parts[1]) - 1, parts[0]);
+                }
+            });
+        }
+        return data;
+    };
     ExpenseListComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            template: __webpack_require__(/*! ./ExpenseList.html */ "./src/app/components/expenses/ExpenseList.html")
+            template: __webpack_require__(/*! ./ExpenseList.html */ "./src/app/components/expenses/ExpenseList.html"),
+            styles: [__webpack_require__(/*! ./expenseList.css */ "./src/app/components/expenses/expenseList.css")]
         }),
         __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"],
             _expenseType__WEBPACK_IMPORTED_MODULE_3__["ExpenseType"],
@@ -1082,7 +1156,18 @@ var ExpenseListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<style>\n  .delete_icon {\n      position: relative;\n      top: 5px;\n      left: 5px;\n  }\n  .collapsible-body{\n      /* overflow: hidden; */\n  }\n  select {\n      display: inline-block !important;\n  }\n  .cursor{\n      cursor: pointer;\n  }\n</style>\n<div class=\"row\">\n  <br />\n  <div class=\"col s12\">\n      <ul class=\"collapsible\">\n          <li>\n              <div class=\"collapsible-header\"><i class=\"material-icons\">filter_list</i>Apply FIlter</div>\n              <div class=\"collapsible-body\">\n                      <div class=\"row\">\n                          <div class=\"col s12 m4\">\n                                  <select class=\"form-control\" name=\"year\" id=\"year\" #year\n                                      (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                      <option value=\"\">Choose Year</option>\n                                      <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n                                  </select>\n                                  <label for=\"year\">Year </label>\n                          </div>\n                          <div class=\"col s12 m4\">\n                              <select class=\"form-control\" name=\"month\" id=\"month\" #month\n                                  (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                  <option value=\"\">Choose Month</option>\n                                  <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n                              </select>\n                              <label for=\"month\">Month </label>&nbsp;\n                          </div>\n                          <div class=\"col s12 m4\">\n                              <select class=\"form-control\" name=\"expenseType\" id=\"expenseType\" #expenseType\n                                  (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                  <option value=\"\">Choose Type</option>\n                                  <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.id\">{{expenseType.name}}\n                                  </option>\n                              </select>\n                              <label for=\"expenseType\">Expense Type </label>&nbsp;\n                          </div>\n                      </div>\n              </div>\n          </li>\n      </ul>\n  </div>\n  <div *ngIf=\"this.queryParams && this.queryParams.year\" class=\"col s12\">\n      <a class=\"cursor\" (click)=\"onBackToReportsLinkClicked($event)\">Back To Reports</a>\n  </div>\n  <div class=\"col s12 table-responsive\">\n      <table class=\"table striped\">\n          <thead>\n              <tr>\n                  <th>Expense Name</th>\n                  <th>Amount</th>\n                  <th class=\"hide-on-small-only\">Year</th>\n                  <th class=\"hide-on-small-only\">Month</th>\n                  <th>Date</th>\n                  <th class=\"hide-on-small-only\">Expense Type</th>\n              </tr>\n          </thead>\n          <tbody>\n              <tr class=\"cyan darken-1\">\n                  <td colspan='6' class='white-text text-bold'>Total Expenditure: <strong>{{toLocale(total)}}</strong></td>\n              </tr>\n              <tr>\n                  <td colspan='6' *ngIf='isLoading'>Loading...</td>\n              </tr>\n              <tr *ngFor='let expense of expenses'>\n                  <td>\n                      <a>{{expense.description}}</a>\n                      <span class=\"cursor material-icons red-text delete_icon\"\n                          (click)=\"ondeleteButtonClicked(expense)\">delete</span>\n                  </td>\n                  <td>{{toLocale(expense.amount)}}</td>\n                  <td class=\"hide-on-small-only\">{{expense.year}}</td>\n                  <td class=\"hide-on-small-only\">{{expense.month}}</td>\n                  <td>{{expense.date}}</td>\n                  <td class=\"hide-on-small-only\">{{getExpenseTypeString(expense.expenseType)}}</td>\n              </tr>\n              <tr class=\"cyan darken-1\">\n                  <td colspan='6' class='white-text text-bold'>Total Expenditure: <strong>{{toLocale(total)}}</strong></td>\n              </tr>\n          </tbody>\n      </table>\n  </div>\n</div>\n"
+module.exports = "<style>\n  .delete_icon {\n      position: relative;\n      top: 5px;\n      left: 5px;\n  }\n  .collapsible-body{\n      /* overflow: hidden; */\n  }\n  select {\n      display: inline-block !important;\n  }\n  .cursor{\n      cursor: pointer;\n  }\n</style>\n<div class=\"row\">\n  <br />\n  <div class=\"col s12\">\n      <ul class=\"collapsible\">\n          <li>\n              <div class=\"collapsible-header\"><i class=\"material-icons\">filter_list</i>Apply FIlter</div>\n              <div class=\"collapsible-body\">\n                      <div class=\"row\">\n                          <div class=\"col s12 m4\">\n                                  <select class=\"form-control\" name=\"year\" id=\"year\" #year\n                                      (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                      <option value=\"\">Choose Year</option>\n                                      <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n                                  </select>\n                                  <label for=\"year\">Year </label>\n                          </div>\n                          <div class=\"col s12 m4\">\n                              <select class=\"form-control\" name=\"month\" id=\"month\" #month\n                                  (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                  <option value=\"\">Choose Month</option>\n                                  <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n                              </select>\n                              <label for=\"month\">Month </label>&nbsp;\n                          </div>\n                          <div class=\"col s12 m4\">\n                              <select class=\"form-control\" name=\"expenseType\" id=\"expenseType\" #expenseType\n                                  (change)=\"filterList(year.value, month.value, expenseType.value)\">\n                                  <option value=\"\">Choose Type</option>\n                                  <option *ngFor='let expenseType of expenseTypes' [value]=\"expenseType.id\">{{expenseType.name}}\n                                  </option>\n                              </select>\n                              <label for=\"expenseType\">Expense Type </label>&nbsp;\n                          </div>\n                      </div>\n              </div>\n          </li>\n      </ul>\n  </div>\n  <div *ngIf=\"this.queryParams && this.queryParams.year\" class=\"col s12\">\n      <a class=\"cursor\" (click)=\"onBackToReportsLinkClicked($event)\">Back To Reports</a>\n  </div>\n  <div class=\"col s12\">\n    <input type=\"text\" [(ngModel)]=\"searchTerm\" placeholder=\"search by expense name\" />\n  </div>\n  <div class=\"col s12 table-responsive\">\n      <table class=\"table striped\">\n          <thead class=\"sticky sticky-header\">\n              <tr>\n                  <th>Expense Name</th>\n                  <th (click)=\"sortByAmountClicked()\" class=\"sort-icon\">Amount\n                    <i [class.dsc]=\"currentAmountSortBy === 2\" class=\"fas fa-arrow-up\"></i>\n                  </th>\n                  <th class=\"hide-on-small-only\">Year</th>\n                  <th class=\"hide-on-small-only\">Month</th>\n                  <th (click)=\"sortByDateClicked()\" class=\"sort-icon\">Date\n                    <i [class.dsc]=\"currentDateSortBy === 2\" class=\"fas fa-arrow-up\"></i>\n                  </th>\n                  <th class=\"hide-on-small-only\">Expense Type</th>\n              </tr>\n          </thead>\n          <tbody>\n              <tr class=\"cyan darken-1 sticky sticky-amount\">\n                  <td colspan='6' class='white-text text-bold'>Total Expenditure: <strong>{{toLocale(total)}}</strong></td>\n              </tr>\n              <tr>\n                  <td colspan='6' *ngIf='isLoading'>Loading...</td>\n              </tr>\n              <tr *ngFor='let expense of expenses | filterBySearch: searchTerm'>\n                  <td>\n                      <a>{{expense.description}}</a>\n                      <span class=\"cursor material-icons red-text delete_icon\"\n                          (click)=\"ondeleteButtonClicked(expense)\">delete</span>\n                  </td>\n                  <td>{{toLocale(expense.amount)}}</td>\n                  <td class=\"hide-on-small-only\">{{expense.year}}</td>\n                  <td class=\"hide-on-small-only\">{{expense.month}}</td>\n                  <td>{{expense.date}}</td>\n                  <td class=\"hide-on-small-only\">{{getExpenseTypeString(expense.expenseType)}}</td>\n              </tr>\n              <tr class=\"cyan darken-1\">\n                  <td colspan='6' class='white-text text-bold'>Total Expenditure: <strong>{{toLocale(total)}}</strong></td>\n              </tr>\n          </tbody>\n      </table>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/components/expenses/expenseList.css":
+/*!*****************************************************!*\
+  !*** ./src/app/components/expenses/expenseList.css ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".sort-icon{\n    cursor: pointer;\n}\n\n.sort-icon .fas {\n    padding-left: 3px;\n}\n\n.sort-icon .fas.dsc {\n    -webkit-transform: rotateX(180deg);\n            transform: rotateX(180deg);\n}\n\n.sticky {\n    position: -webkit-sticky;\n    position: sticky;\n    z-index:99;\n}\n\n.sticky-header {\n    top: 0;\n    background-color: #fff;\n}\n\n.sticky-amount {\n    top: 50px;\n}"
 
 /***/ }),
 
@@ -1130,11 +1215,49 @@ var ExpenseType = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/expenses/filterBySearchPipe.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/components/expenses/filterBySearchPipe.ts ***!
+  \***********************************************************/
+/*! exports provided: FilterBySearchPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilterBySearchPipe", function() { return FilterBySearchPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var FilterBySearchPipe = /** @class */ (function () {
+    function FilterBySearchPipe() {
+    }
+    FilterBySearchPipe.prototype.transform = function (expenses, searchTerm) {
+        if (searchTerm === void 0) { searchTerm = ''; }
+        if (expenses && expenses.length > 0) {
+            return expenses.filter(function (expense) { return expense.description && expense.description.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1; });
+        }
+        return expenses;
+    };
+    FilterBySearchPipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({ name: 'filterBySearch' })
+    ], FilterBySearchPipe);
+    return FilterBySearchPipe;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/expenses/index.ts":
 /*!**********************************************!*\
   !*** ./src/app/components/expenses/index.ts ***!
   \**********************************************/
-/*! exports provided: CreateExpenseComponent, ExpenseComponent, ExpenseListComponent, ExpenseType */
+/*! exports provided: ExpenseType, CreateExpenseComponent, ExpenseComponent, ExpenseListComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1166,7 +1289,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<style>\r\n  #loginform{\r\n      margin: 0 10px;\r\n  }\r\n</style>\r\n<div class=\"row\">\r\n  <div class=\"col s12 m6 \">\r\n      <form id=\"loginform\">\r\n          <h3>Login</h3>\r\n          <div *ngIf=\"loginError\" class=\"alert col s12 m6 red white-text\">\r\n              {{message}}\r\n          </div>\r\n          <div class=\"input-field col s12\">\r\n            <input #email type=\"text\" class=\"form-control\" (input)=\"updateLoginBtnState(email.value, password.value)\" id=\"emailid\">\r\n            <label for=\"emailid\">Email Address</label>\r\n          </div>\r\n          <div class=\"input-field col s12\">\r\n            <input #password type=\"password\" class=\"form-control\" (input)=\"updateLoginBtnState(email.value, password.value)\" id=\"paswrd\">\r\n            <label for=\"paswrd\">Password</label>\r\n          </div>\r\n          <button type=\"submit\" [disabled]=\"disableLoginBtn || loginInProgress\" class=\"btn waves-effect waves-light\" (click)=\"onLoginButtonClicked($event, email.value, password.value)\">{{loginButtonText ? loginButtonText : 'Login'}}</button>\r\n        </form>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<style>\n  #loginform{\n      margin: 0 10px;\n  }\n</style>\n<div class=\"row\">\n  <div class=\"col s12 m6 \">\n      <form id=\"loginform\">\n          <h3>Login</h3>\n          <div *ngIf=\"loginError\" class=\"alert col s12 m6 red white-text\">\n              {{message}}\n          </div>\n          <div class=\"input-field col s12\">\n            <input #email type=\"text\" class=\"form-control\" (input)=\"updateLoginBtnState(email.value, password.value)\" id=\"emailid\">\n            <label for=\"emailid\">Email Address</label>\n          </div>\n          <div class=\"input-field col s12\">\n            <input #password type=\"password\" class=\"form-control\" (input)=\"updateLoginBtnState(email.value, password.value)\" id=\"paswrd\">\n            <label for=\"paswrd\">Password</label>\n          </div>\n          <button type=\"submit\" [disabled]=\"disableLoginBtn || loginInProgress\" class=\"btn waves-effect waves-light\" (click)=\"onLoginButtonClicked($event, email.value, password.value)\">{{loginButtonText ? loginButtonText : 'Login'}}</button>\n        </form>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1266,6 +1389,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _utils_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/utils */ "./src/app/utils/utils.ts");
+/* harmony import */ var _components_expenses_expenseType__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/expenses/expenseType */ "./src/app/components/expenses/expenseType.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1279,12 +1404,23 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+var ReportType;
+(function (ReportType) {
+    ReportType[ReportType["ByDuration"] = 1] = "ByDuration";
+    ReportType[ReportType["ByExpenseType"] = 2] = "ByExpenseType";
+})(ReportType || (ReportType = {}));
+;
 var ReportsComponent = /** @class */ (function () {
-    function ReportsComponent(expenseService, router, route) {
+    function ReportsComponent(expenseService, router, route, expenseType) {
         this.expenseService = expenseService;
         this.router = router;
         this.route = route;
+        this.expenseType = expenseType;
         this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        this.startYear = 2018;
+        this.yearsToGenerate = 20;
         this.years = ['2018', '2019', '2020', '2021', '2022'];
         this.reportData = {
             expensesByType: [],
@@ -1301,12 +1437,24 @@ var ReportsComponent = /** @class */ (function () {
         this.earning = null;
         this.sub = null;
         this.queryParams = null;
+        this.expenseTypes = [];
+        this.currentExpenseTypeForReport = '';
+        this.currentDurationForReport = new Date().getFullYear() + "-" + new Date().getFullYear();
+        this.validDurationRegex = /^\d{4}-\d{4}$/;
+        this.reportType = ReportType.ByDuration;
+        this.currentAmountSortBy = _utils_utils__WEBPACK_IMPORTED_MODULE_4__["SortOrder"].ASC;
+        var year = this.startYear;
+        while (year <= this.startYear + this.yearsToGenerate) {
+            this.years.push(year.toString());
+            year++;
+        }
     }
     ReportsComponent.prototype.ngOnInit = function () {
         var _this = this;
         setTimeout(function () {
             // $('select').formSelect();
         }, 1000);
+        this.getExpenseTypes();
         this.sub = this.route
             .queryParams
             .subscribe(function (params) {
@@ -1328,23 +1476,73 @@ var ReportsComponent = /** @class */ (function () {
     ReportsComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
+    ReportsComponent.prototype.getExpenseTypes = function () {
+        var _this = this;
+        return this.expenseType.getExpenseTypes()
+            .then(function (res) {
+            if (res.data.items) {
+                _this.expenseTypes = res.data.items;
+            }
+            else if (res.errors) {
+                M.toast({ html: res.errors[0].message });
+            }
+        });
+    };
     ReportsComponent.prototype.generateReportBtnClicked = function () {
         var _this = this;
         if (this.chart) {
             this.chart.destroy();
         }
         this.lineChartData = null;
-        this.expenseService.getExpenseReport(this.year, this.month)
+        var filter = {
+            year: this.year,
+            month: this.month
+        };
+        if (this.reportType === ReportType.ByExpenseType) {
+            filter = {
+                year: this.currentDurationForReport,
+                expenseType: this.currentExpenseTypeForReport
+            };
+        }
+        this.expenseService.getExpenseReport(filter)
             .then(function (res) {
             if (res.errors) {
                 console.log(res.errors);
             }
             else {
-                _this.reportData = res.data;
-                if (!_this.month && _this.reportData.expensesByMonth) {
-                    _this.prepareLineChartData();
+                if (_this.reportType === ReportType.ByDuration) {
+                    _this.reportData = res.data;
+                    _this.reportData.expensesByType = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(_this.reportData.expensesByType, function (d) { return d.total; }, ['asc']);
+                    if (!_this.month && _this.reportData.expensesByMonth) {
+                        _this.prepareLineChartData();
+                    }
+                    _this.generateReport();
                 }
-                _this.generateReport();
+                else {
+                    _this.reportData.expensesByType = res.data.items || [];
+                    _this.reportData.expensesByType.forEach(function (d) {
+                        d.monthNumber = _utils_utils__WEBPACK_IMPORTED_MODULE_4__["utils"].getMonthFromMonthName(d.month);
+                    });
+                    var years = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["uniq"])(_this.reportData.expensesByType.map(function (d) { return d.year; }));
+                    years.forEach(function (year) {
+                        var yearData = _this.reportData.expensesByType.filter(function (d) { return d.year === year; });
+                        var monthsDataPresent = yearData.map(function (d) { return d.month; });
+                        _this.months.forEach(function (month) {
+                            if (monthsDataPresent.indexOf(month.toUpperCase()) === -1) {
+                                _this.reportData.expensesByType.push({
+                                    year: yearData[0].year,
+                                    month: month.toUpperCase(),
+                                    amount: 0,
+                                    expenseType: yearData[0].expenseType,
+                                    monthNumber: _utils_utils__WEBPACK_IMPORTED_MODULE_4__["utils"].getMonthFromMonthName(month)
+                                });
+                            }
+                        });
+                    });
+                    _this.reportData.expensesByType = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(_this.reportData.expensesByType, (function (d) { return "" + d.year + d.monthNumber; }), ['asc']);
+                    _this.prepareLineChartData();
+                    _this.generateReport();
+                }
             }
         });
     };
@@ -1354,9 +1552,18 @@ var ReportsComponent = /** @class */ (function () {
     ReportsComponent.prototype.prepareLineChartData = function () {
         var _this = this;
         this.lineChartData = [];
-        this.reportData.expensesByMonth.forEach(function (item) {
-            _this.lineChartData.push({ month: item.month, earning: item.income, expenses: item.expenditure, savings: item.saving });
-        });
+        if (this.reportType === ReportType.ByDuration) {
+            this.reportData.expensesByMonth.forEach(function (item) {
+                _this.lineChartData.push({ month: item.month, earning: item.income, expenses: item.expenditure, savings: item.saving });
+            });
+        }
+        else if (this.reportType === ReportType.ByExpenseType) {
+            var dataGroupedByYear = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["groupBy"])(this.reportData.expensesByType, 'year');
+            for (var year in dataGroupedByYear) {
+                var yearData = dataGroupedByYear[year];
+                this.lineChartData.push({ year: year, data: yearData.map(function (d) { return d.total || 0; }) });
+            }
+        }
     };
     ReportsComponent.prototype.generateChart = function () {
         var ctx = document.getElementById('myChart')['getContext']('2d');
@@ -1364,43 +1571,76 @@ var ReportsComponent = /** @class */ (function () {
         Chart.defaults.global.elements.line.fill = false;
         var self = this;
         if (this.lineChartData) {
-            //sprt by month
-            this.lineChartData = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"])(this.lineChartData, [function (data) {
-                    return self.MonthToNumber(data.month);
-                }]);
-            for (var idx in this.lineChartData) {
-                labels.push(this.lineChartData[idx].month);
-                expensedata.push(this.lineChartData[idx].expenses);
-                savingsdata.push(this.lineChartData[idx].savings);
-                earningdata.push(this.lineChartData[idx].earning);
+            if (this.reportType === ReportType.ByDuration) {
+                //sort by month
+                this.lineChartData = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"])(this.lineChartData, [function (data) {
+                        return self.MonthToNumber(data.month);
+                    }]);
+                for (var idx in this.lineChartData) {
+                    labels.push(this.lineChartData[idx].month);
+                    expensedata.push(this.lineChartData[idx].expenses);
+                    savingsdata.push(this.lineChartData[idx].savings);
+                    earningdata.push(this.lineChartData[idx].earning);
+                }
+                this.chart = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'line',
+                    // The data for our dataset
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                data: expensedata,
+                                label: "Expense",
+                                borderColor: "#ca1717",
+                            },
+                            {
+                                data: earningdata,
+                                label: "Earnings",
+                                borderColor: "#00acc1",
+                            },
+                            {
+                                data: savingsdata,
+                                label: "Savings",
+                                borderColor: "#3cba9f",
+                            }
+                        ],
+                    },
+                    // Configuration options go here
+                    options: {}
+                });
             }
-            this.chart = new Chart(ctx, {
-                // The type of chart we want to create
-                type: 'line',
-                // The data for our dataset
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            data: expensedata,
-                            label: "Expense",
-                            borderColor: "#ca1717",
-                        },
-                        {
-                            data: earningdata,
-                            label: "Earnings",
-                            borderColor: "#8e5ea2",
-                        },
-                        {
-                            data: savingsdata,
-                            label: "Savings",
-                            borderColor: "#3cba9f",
+            else if (this.reportType === ReportType.ByExpenseType) {
+                var backgroundColors_1 = ['#d81b60', '#8e24aa', '#e53935', '#5e35b1', '#3949ab', '#1e88e5', '#039be5',
+                    '#00acc1', '#00897b',
+                    '#ffc107', '#7cb342', '#ff9800'];
+                var datasets_1 = [];
+                this.lineChartData.forEach(function (data, idx) {
+                    datasets_1.push({
+                        data: data.data,
+                        label: data.year,
+                        borderColor: backgroundColors_1[idx]
+                    });
+                });
+                this.chart = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'line',
+                    // The data for our dataset
+                    data: {
+                        labels: this.months,
+                        datasets: datasets_1,
+                    },
+                    // Configuration options go here
+                    options: {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: "Expense Distribution for " + this.currentExpenseTypeForReport
+                            }
                         }
-                    ],
-                },
-                // Configuration options go here
-                options: {}
-            });
+                    }
+                });
+            }
             return;
         }
         labels = this.reportData.expensesByType.map(function (_d) { return _d.expenseType; });
@@ -1425,7 +1665,7 @@ var ReportsComponent = /** @class */ (function () {
         });
     };
     ReportsComponent.prototype.isFormValid = function () {
-        return (this.year || this.month);
+        return this.reportType === ReportType.ByDuration ? (this.year || this.month) : (this.currentDurationForReport && this.currentExpenseTypeForReport && this.validDurationRegex.test(this.currentDurationForReport));
     };
     ReportsComponent.prototype.onYearChange = function (e) {
         this.year = e.currentTarget.value;
@@ -1518,11 +1758,32 @@ var ReportsComponent = /** @class */ (function () {
         }
         return ret;
     };
+    ReportsComponent.prototype.sortByAmountClicked = function () {
+        if (this.reportData.expensesByType.length > 0 && this.currentAmountSortBy) {
+            this.currentAmountSortBy = this.currentAmountSortBy === _utils_utils__WEBPACK_IMPORTED_MODULE_4__["SortOrder"].ASC ? _utils_utils__WEBPACK_IMPORTED_MODULE_4__["SortOrder"].DSC : _utils_utils__WEBPACK_IMPORTED_MODULE_4__["SortOrder"].ASC;
+            switch (this.currentAmountSortBy) {
+                case _utils_utils__WEBPACK_IMPORTED_MODULE_4__["SortOrder"].DSC: {
+                    this.reportData.expensesByType = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(this.reportData.expensesByType, function (d) { return d.total; }, ['desc']);
+                    break;
+                }
+                default: {
+                    this.reportData.expensesByType = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(this.reportData.expensesByType, function (d) { return d.total; }, ['asc']);
+                }
+            }
+        }
+    };
+    ReportsComponent.prototype.onReportCategoryChange = function (reportType) {
+        this.reportType = reportType;
+    };
     ReportsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            template: __webpack_require__(/*! ./Reports.html */ "./src/app/components/reports/Reports.html")
+            template: __webpack_require__(/*! ./Reports.html */ "./src/app/components/reports/Reports.html"),
+            styles: [__webpack_require__(/*! ./reports.css */ "./src/app/components/reports/reports.css")]
         }),
-        __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+        __metadata("design:paramtypes", [_services_expense_service__WEBPACK_IMPORTED_MODULE_1__["ExpenseService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _components_expenses_expenseType__WEBPACK_IMPORTED_MODULE_5__["ExpenseType"]])
     ], ReportsComponent);
     return ReportsComponent;
 }());
@@ -1538,7 +1799,18 @@ var ReportsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <style>\r\n\r\n    table tbody tr:nth-last-child(2) {\r\n      background-color: #00acc1;\r\n      color: #fff;\r\n      font-size: 20px;\r\n      font-weight: 600;\r\n    }\r\n\r\n    table tbody tr:last-child {\r\n      color: #fff;\r\n      background-color: #43A047;\r\n      font-size: 20px;\r\n      font-weight: 600;\r\n    }\r\n    table tbody tr:nth-last-child(3) {\r\n      background-color: #d24c51;\r\n      color: #fff;\r\n      font-size: 20px;\r\n      font-weight: 600;\r\n    }\r\n\r\n    #earnings_form>div {\r\n      margin: 7px 0;\r\n\r\n    }\r\n\r\n    select {\r\n        display: inline-block !important;\r\n    }\r\n\r\n    .cursor{\r\n      cursor: pointer;\r\n    }\r\n  </style>\r\n  <div class=\"col s12\" id=\"earnings_form\">\r\n    <h4>Set Earnings</h4>\r\n    <div class=\"col s12\">\r\n      <select class=\"\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\r\n        <option value=\"\">Choose Year</option>\r\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\r\n      </select>\r\n      <label for=\"earn_year\">Year</label>\r\n    </div>\r\n    <div class=\"col s12\">\r\n      <select class=\"\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\r\n        <option value=\"\">Choose Month</option>\r\n        <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\r\n      </select>\r\n      <label for=\"earn_month\">Month</label>\r\n    </div>\r\n    <div class=\"input-field col s12\">\r\n      <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\"\r\n        (input)='onEarningChange($event)' />\r\n        <label for=\"earning\">Earnings (INR)</label>\r\n    </div>\r\n    <div class=\"col s12\">\r\n      <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isEarningFormValid()\"\r\n        (click)='onSaveEarningBtnClicked()'>Save</button>\r\n    </div>\r\n  </div>\r\n\r\n\r\n  <div class=\"col s12\">\r\n    <h4>Monthly Reports</h4>\r\n    <!-- Generate Report For: -->\r\n    <div class=\"col s12\">\r\n      <select class=\"\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\r\n        <option value=\"\">Choose Year</option>\r\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\r\n      </select>\r\n      <label for=\"year\">Year</label>\r\n      </div>\r\n      <div class=\"col s12\">\r\n          <select class=\"\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\r\n              <option value=\"\">Choose Month</option>\r\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\r\n            </select>\r\n            <label for=\"month\">Month</label>\r\n      </div>\r\n      <div class=\"col s12\">\r\n          <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate\r\n              Report</button>\r\n      </div>\r\n\r\n  </div>\r\n  <br>\r\n  <div class=\"col s12\">\r\n    <table *ngIf=\"reportData.expensesByType.length>0\" class=\"striped table table-bordered table-condensed\">\r\n      <thead>\r\n        <tr>\r\n          <th>Category</th>\r\n          <th>Expense Amount</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr id=\"{{report.expenseType}}\" *ngFor=\"let report of reportData.expensesByType\">\r\n          <td>{{report.expenseType}}</td>\r\n          <td><a class=\"cursor\" (click)=\"onExepenseCategoryRowClicked($event, report.expenseType)\">{{toLocale(report.total)}}</a></td>\r\n        </tr>\r\n        <tr>\r\n          <td>Expenditure</td>\r\n          <td>{{toLocale(reportData.totalExpenditure)}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>Earnings</td>\r\n          <td>{{toLocale(reportData.totalIncome)}}</td>\r\n        </tr>\r\n        <tr>\r\n          <td>Saved</td>\r\n          <td>{{toLocale(reportData.totalIncome-reportData.totalExpenditure)}}</td>\r\n        </tr>\r\n\r\n      </tbody>\r\n    </table>\r\n    <div class=\"chart-container\" style=\"\">\r\n      <canvas id=\"myChart\"></canvas>\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"row\">\n  <style>\n\n    table tbody tr:nth-last-child(2) {\n      background-color: #00acc1;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    table tbody tr:last-child {\n      color: #fff;\n      background-color: #43A047;\n      font-size: 20px;\n      font-weight: 600;\n    }\n    table tbody tr:nth-last-child(3) {\n      background-color: #d24c51;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    #earnings_form>div {\n      margin: 7px 0;\n\n    }\n\n    select {\n        display: inline-block !important;\n    }\n\n    .cursor{\n      cursor: pointer;\n    }\n  </style>\n  <div class=\"col s12\" id=\"earnings_form\">\n    <h4>Set Earnings</h4>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"earn_year\">Year</label>\n    </div>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\n        <option value=\"\">Choose Month</option>\n        <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n      </select>\n      <label for=\"earn_month\">Month</label>\n    </div>\n    <div class=\"input-field col s12\">\n      <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\"\n        (input)='onEarningChange($event)' />\n        <label for=\"earning\">Earnings (INR)</label>\n    </div>\n    <div class=\"col s12\">\n      <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isEarningFormValid()\"\n        (click)='onSaveEarningBtnClicked()'>Save</button>\n    </div>\n  </div>\n\n\n  <div class=\"col s12\">\n    <h4>Generate Reports</h4>\n    <!-- Generate Report For: -->\n    <div class=\"col s12 report_type_sel\">\n      <label>\n        <input name=\"reportType\" (change)=\"onReportCategoryChange(1)\" type=\"radio\" checked />\n        <span>For a Duration</span>\n      </label>\n      <label>\n        <input name=\"reportType\" type=\"radio\" (change)=\"onReportCategoryChange(2)\" />\n        <span>For an ExpenseType</span>\n      </label>\n    </div>\n    <div *ngIf=\"reportType === 1\">\n      <div class=\"col s12\">\n        <select class=\"\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n          <option value=\"\">Choose Year</option>\n          <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n        </select>\n        <label for=\"year\">Year</label>\n      </div>\n      <div class=\"col s12\">\n          <select class=\"\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n              <option value=\"\">Choose Month</option>\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <label for=\"month\">Month</label>\n      </div>\n    </div>\n    <div *ngIf=\"reportType === 2\">\n      <div class=\"col s12\">\n        <label for=\"expense_type_sel\">Select Expense Type</label>\n        <select id=\"expense_type_sel\" name=\"expense_type_sel\" [(ngModel)]=\"currentExpenseTypeForReport\">\n          <option value=\"{{expenseType.value}}\" *ngFor=\"let expenseType of expenseTypes\">{{expenseType.name}}</option>\n        </select>  \n      </div>\n      <div class=\"col s12\">\n        <label for=\"duration_input\">Enter Duration</label>\n        <input type=\"text\" placeholder=\"yyyy-yyyy\" [(ngModel)]=\"currentDurationForReport\" name=\"duration_input\" />\n      </div>\n    </div>\n    <div class=\"col s12\">\n        <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate\n            Report</button>\n    </div>\n  </div>\n  <br>\n  <div class=\"col s12\">\n    <table *ngIf=\"reportData?.expensesByType?.length>0 && reportType === 1\" class=\"striped table table-bordered table-condensed\">\n      <thead>\n        <tr>\n          <th>Category</th>\n          <th class=\"sort-icon\" (click)=\"sortByAmountClicked()\">Expense Amount\n            <i [class.dsc]=\"currentAmountSortBy === 2\" class=\"fas fa-arrow-up\"></i>\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr [class.overspent]=\"month && report.total > 5000\" id=\"{{report.expenseType}}\" *ngFor=\"let report of reportData.expensesByType\">\n          <td>{{report.expenseType}}</td>\n          <td><a class=\"cursor\" (click)=\"onExepenseCategoryRowClicked($event, report.expenseType)\">{{toLocale(report.total)}}</a></td>\n        </tr>\n        <tr>\n          <td>Expenditure</td>\n          <td>{{toLocale(reportData.totalExpenditure)}}</td>\n        </tr>\n        <tr>\n          <td>Earnings</td>\n          <td>{{toLocale(reportData.totalIncome)}}</td>\n        </tr>\n        <tr>\n          <td>Saved</td>\n          <td>{{toLocale(reportData.totalIncome-reportData.totalExpenditure)}}</td>\n        </tr>\n\n      </tbody>\n    </table>\n    <div class=\"chart-container\" style=\"\">\n      <canvas id=\"myChart\"></canvas>\n    </div>\n\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/components/reports/reports.css":
+/*!************************************************!*\
+  !*** ./src/app/components/reports/reports.css ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".sort-icon{\n    cursor: pointer;\n}\n\n.sort-icon .fas {\n    padding-left: 3px;\n}\n\n.sort-icon .fas.dsc {\n    -webkit-transform: rotateX(180deg);\n            transform: rotateX(180deg);\n}\n\n.overspent {\n    background-color: #ed30065e;\n}\n\n.report_type_sel{\n    margin-bottom: 20px;\n}\n\n.report_type_sel label:last-child{\n    padding-left: 10px;\n}"
 
 /***/ }),
 
@@ -1768,13 +2040,16 @@ var ExpenseService = /** @class */ (function () {
             body: JSON.stringify(payload)
         }).then(function (res) { return res.json(); });
     };
-    ExpenseService.prototype.getExpenseReport = function (year, month) {
-        var payload = {
-            filter: {
-                year: parseInt(year, 10),
-                month: month ? month : null
-            }
-        };
+    ExpenseService.prototype.getExpenseReport = function (filter) {
+        if (filter.year && !filter.expenseType) {
+            filter.year = parseInt(filter.year, 10);
+            filter.month = filter.month || null;
+        }
+        else {
+            filter.year = filter.year ? filter.year.trim() : new Date().getFullYear() + "-" + new Date().getFullYear();
+        }
+        var payload = { filter: {} };
+        payload.filter = filter;
         var url = this.baseUrl + "/" + this.reportUrl;
         return fetch(url, {
             method: 'POST',
@@ -1791,6 +2066,83 @@ var ExpenseService = /** @class */ (function () {
     return ExpenseService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/utils/utils.ts":
+/*!********************************!*\
+  !*** ./src/app/utils/utils.ts ***!
+  \********************************/
+/*! exports provided: utils, SortOrder */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "utils", function() { return utils; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SortOrder", function() { return SortOrder; });
+var utils = {
+    getMonthFromMonthName: function (monthName) {
+        var result;
+        switch (monthName.toLowerCase()) {
+            case "jan": {
+                result = "01";
+                break;
+            }
+            case "feb": {
+                result = "02";
+                break;
+            }
+            case "mar": {
+                result = "03";
+                break;
+            }
+            case "apr": {
+                result = "04";
+                break;
+            }
+            case "may": {
+                result = "05";
+                break;
+            }
+            case "jun": {
+                result = "06";
+                break;
+            }
+            case "jul": {
+                result = "07";
+                break;
+            }
+            case "aug": {
+                result = "08";
+                break;
+            }
+            case "sep": {
+                result = "09";
+                break;
+            }
+            case "oct": {
+                result = "10";
+                break;
+            }
+            case "nov": {
+                result = "11";
+                break;
+            }
+            case "dec": {
+                result = "12";
+                break;
+            }
+        }
+        return result;
+    }
+};
+var SortOrder;
+(function (SortOrder) {
+    SortOrder[SortOrder["ASC"] = 1] = "ASC";
+    SortOrder[SortOrder["DSC"] = 2] = "DSC";
+})(SortOrder || (SortOrder = {}));
+;
 
 
 /***/ }),
@@ -1855,7 +2207,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\My FE Works\expensemanagerapp\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! /Users/manmeetg/Projects/expensemanagerSource/src/main.ts */"./src/main.ts");
 
 
 /***/ })
