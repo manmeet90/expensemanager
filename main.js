@@ -1408,8 +1408,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var ReportType;
 (function (ReportType) {
-    ReportType[ReportType["ByDuration"] = 1] = "ByDuration";
+    ReportType[ReportType["ByYearMonth"] = 1] = "ByYearMonth";
     ReportType[ReportType["ByExpenseType"] = 2] = "ByExpenseType";
+    ReportType[ReportType["ByDuration"] = 3] = "ByDuration";
 })(ReportType || (ReportType = {}));
 ;
 var ReportsComponent = /** @class */ (function () {
@@ -1422,6 +1423,8 @@ var ReportsComponent = /** @class */ (function () {
         this.startYear = 2018;
         this.yearsToGenerate = 20;
         this.years = ['2018', '2019', '2020', '2021', '2022'];
+        this.durations = [2, 3, 5];
+        this.currentSelectedPeriod = 5;
         this.reportData = {
             expensesByType: [],
             expensesByMonth: [],
@@ -1441,9 +1444,10 @@ var ReportsComponent = /** @class */ (function () {
         this.currentExpenseTypeForReport = '';
         this.currentDurationForReport = new Date().getFullYear() + "-" + new Date().getFullYear();
         this.validDurationRegex = /^\d{4}-\d{4}$/;
-        this.reportType = ReportType.ByDuration;
+        this.reportType = ReportType.ByYearMonth;
         this.currentAmountSortBy = _utils_utils__WEBPACK_IMPORTED_MODULE_4__["SortOrder"].ASC;
         var year = this.startYear;
+        this.years = [];
         while (year <= this.startYear + this.yearsToGenerate) {
             this.years.push(year.toString());
             year++;
@@ -1504,16 +1508,29 @@ var ReportsComponent = /** @class */ (function () {
                 expenseType: this.currentExpenseTypeForReport
             };
         }
+        else if (this.reportType === ReportType.ByDuration) {
+            filter = {
+                duration: this.currentSelectedPeriod
+            };
+        }
         this.expenseService.getExpenseReport(filter)
             .then(function (res) {
             if (res.errors) {
                 console.log(res.errors);
             }
             else {
-                if (_this.reportType === ReportType.ByDuration) {
+                if (_this.reportType === ReportType.ByYearMonth) {
                     _this.reportData = res.data;
                     _this.reportData.expensesByType = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(_this.reportData.expensesByType, function (d) { return d.total; }, ['asc']);
                     if (!_this.month && _this.reportData.expensesByMonth) {
+                        _this.prepareLineChartData();
+                    }
+                    _this.generateReport();
+                }
+                else if (_this.reportType === ReportType.ByDuration) {
+                    _this.reportData = res.data;
+                    _this.reportData.expensesByType = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["orderBy"])(_this.reportData.expensesByType, function (d) { return d.total; }, ['asc']);
+                    if (_this.reportData.expensesByMonth) {
                         _this.prepareLineChartData();
                     }
                     _this.generateReport();
@@ -1552,7 +1569,7 @@ var ReportsComponent = /** @class */ (function () {
     ReportsComponent.prototype.prepareLineChartData = function () {
         var _this = this;
         this.lineChartData = [];
-        if (this.reportType === ReportType.ByDuration) {
+        if (this.reportType === ReportType.ByYearMonth) {
             this.reportData.expensesByMonth.forEach(function (item) {
                 _this.lineChartData.push({ month: item.month, earning: item.income, expenses: item.expenditure, savings: item.saving });
             });
@@ -1564,6 +1581,15 @@ var ReportsComponent = /** @class */ (function () {
                 this.lineChartData.push({ year: year, data: yearData.map(function (d) { return d.total || 0; }) });
             }
         }
+        else if (this.reportType === ReportType.ByDuration) {
+            var dataGroupedByYear = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["groupBy"])(this.reportData.expensesByMonth, 'year');
+            for (var year in dataGroupedByYear) {
+                var yearData = dataGroupedByYear[year];
+                yearData.forEach(function (monthData) {
+                    _this.lineChartData.push({ year: monthData.year, month: monthData.month, earning: monthData.income, expenses: monthData.expenditure, savings: monthData.saving });
+                });
+            }
+        }
     };
     ReportsComponent.prototype.generateChart = function () {
         var ctx = document.getElementById('myChart')['getContext']('2d');
@@ -1571,13 +1597,18 @@ var ReportsComponent = /** @class */ (function () {
         Chart.defaults.global.elements.line.fill = false;
         var self = this;
         if (this.lineChartData) {
-            if (this.reportType === ReportType.ByDuration) {
+            if (this.reportType === ReportType.ByYearMonth || this.reportType === ReportType.ByDuration) {
                 //sort by month
                 this.lineChartData = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["sortBy"])(this.lineChartData, [function (data) {
                         return self.MonthToNumber(data.month);
                     }]);
                 for (var idx in this.lineChartData) {
-                    labels.push(this.lineChartData[idx].month);
+                    if (this.reportType === ReportType.ByDuration) {
+                        labels.push(this.lineChartData[idx].month + " " + this.lineChartData[idx].year);
+                    }
+                    else {
+                        labels.push(this.lineChartData[idx].month);
+                    }
                     expensedata.push(this.lineChartData[idx].expenses);
                     savingsdata.push(this.lineChartData[idx].savings);
                     earningdata.push(this.lineChartData[idx].earning);
@@ -1665,7 +1696,7 @@ var ReportsComponent = /** @class */ (function () {
         });
     };
     ReportsComponent.prototype.isFormValid = function () {
-        return this.reportType === ReportType.ByDuration ? (this.year || this.month) : (this.currentDurationForReport && this.currentExpenseTypeForReport && this.validDurationRegex.test(this.currentDurationForReport));
+        return this.reportType === ReportType.ByYearMonth ? (this.year || this.month) : this.reportType === ReportType.ByDuration ? this.currentSelectedPeriod : (this.currentDurationForReport && this.currentExpenseTypeForReport && this.validDurationRegex.test(this.currentDurationForReport));
     };
     ReportsComponent.prototype.onYearChange = function (e) {
         this.year = e.currentTarget.value;
@@ -1685,9 +1716,11 @@ var ReportsComponent = /** @class */ (function () {
     ReportsComponent.prototype.isEarningFormValid = function () {
         return (this.earn_year && this.earn_month && this.earning);
     };
-    ReportsComponent.prototype.onExepenseCategoryRowClicked = function (e, expenseType) {
+    ReportsComponent.prototype.onExpenseCategoryRowClicked = function (e, expenseType) {
         e.preventDefault();
-        this.router.navigate(['expenses'], { queryParams: { year: this.year, month: this.month, expenseType: expenseType } });
+        if (this.reportType !== ReportType.ByDuration) {
+            this.router.navigate(['expenses'], { queryParams: { year: this.year, month: this.month, expenseType: expenseType } });
+        }
     };
     ReportsComponent.prototype.onSaveEarningBtnClicked = function () {
         console.log(this.earn_month, this.earn_year, this.earning);
@@ -1775,6 +1808,9 @@ var ReportsComponent = /** @class */ (function () {
     ReportsComponent.prototype.onReportCategoryChange = function (reportType) {
         this.reportType = reportType;
     };
+    ReportsComponent.prototype.onDurationSelected = function (duration) {
+        this.currentSelectedPeriod = parseInt(duration, 10);
+    };
     ReportsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             template: __webpack_require__(/*! ./Reports.html */ "./src/app/components/reports/Reports.html"),
@@ -1799,7 +1835,7 @@ var ReportsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <style>\n\n    table tbody tr:nth-last-child(2) {\n      background-color: #00acc1;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    table tbody tr:last-child {\n      color: #fff;\n      background-color: #43A047;\n      font-size: 20px;\n      font-weight: 600;\n    }\n    table tbody tr:nth-last-child(3) {\n      background-color: #d24c51;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    #earnings_form>div {\n      margin: 7px 0;\n\n    }\n\n    select {\n        display: inline-block !important;\n    }\n\n    .cursor{\n      cursor: pointer;\n    }\n  </style>\n  <div class=\"col s12\" id=\"earnings_form\">\n    <h4>Set Earnings</h4>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"earn_year\">Year</label>\n    </div>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\n        <option value=\"\">Choose Month</option>\n        <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n      </select>\n      <label for=\"earn_month\">Month</label>\n    </div>\n    <div class=\"input-field col s12\">\n      <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\"\n        (input)='onEarningChange($event)' />\n        <label for=\"earning\">Earnings (INR)</label>\n    </div>\n    <div class=\"col s12\">\n      <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isEarningFormValid()\"\n        (click)='onSaveEarningBtnClicked()'>Save</button>\n    </div>\n  </div>\n\n\n  <div class=\"col s12\">\n    <h4>Generate Reports</h4>\n    <!-- Generate Report For: -->\n    <div class=\"col s12 report_type_sel\">\n      <label>\n        <input name=\"reportType\" (change)=\"onReportCategoryChange(1)\" type=\"radio\" checked />\n        <span>For a Duration</span>\n      </label>\n      <label>\n        <input name=\"reportType\" type=\"radio\" (change)=\"onReportCategoryChange(2)\" />\n        <span>For an ExpenseType</span>\n      </label>\n    </div>\n    <div *ngIf=\"reportType === 1\">\n      <div class=\"col s12\">\n        <select class=\"\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n          <option value=\"\">Choose Year</option>\n          <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n        </select>\n        <label for=\"year\">Year</label>\n      </div>\n      <div class=\"col s12\">\n          <select class=\"\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n              <option value=\"\">Choose Month</option>\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <label for=\"month\">Month</label>\n      </div>\n    </div>\n    <div *ngIf=\"reportType === 2\">\n      <div class=\"col s12\">\n        <label for=\"expense_type_sel\">Select Expense Type</label>\n        <select id=\"expense_type_sel\" name=\"expense_type_sel\" [(ngModel)]=\"currentExpenseTypeForReport\">\n          <option value=\"{{expenseType.value}}\" *ngFor=\"let expenseType of expenseTypes\">{{expenseType.name}}</option>\n        </select>  \n      </div>\n      <div class=\"col s12\">\n        <label for=\"duration_input\">Enter Duration</label>\n        <input type=\"text\" placeholder=\"yyyy-yyyy\" [(ngModel)]=\"currentDurationForReport\" name=\"duration_input\" />\n      </div>\n    </div>\n    <div class=\"col s12\">\n        <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate\n            Report</button>\n    </div>\n  </div>\n  <br>\n  <div class=\"col s12\">\n    <table *ngIf=\"reportData?.expensesByType?.length>0 && reportType === 1\" class=\"striped table table-bordered table-condensed\">\n      <thead>\n        <tr>\n          <th>Category</th>\n          <th class=\"sort-icon\" (click)=\"sortByAmountClicked()\">Expense Amount\n            <i [class.dsc]=\"currentAmountSortBy === 2\" class=\"fas fa-arrow-up\"></i>\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr [class.overspent]=\"month && report.total > 5000\" id=\"{{report.expenseType}}\" *ngFor=\"let report of reportData.expensesByType\">\n          <td>{{report.expenseType}}</td>\n          <td><a class=\"cursor\" (click)=\"onExepenseCategoryRowClicked($event, report.expenseType)\">{{toLocale(report.total)}}</a></td>\n        </tr>\n        <tr>\n          <td>Expenditure</td>\n          <td>{{toLocale(reportData.totalExpenditure)}}</td>\n        </tr>\n        <tr>\n          <td>Earnings</td>\n          <td>{{toLocale(reportData.totalIncome)}}</td>\n        </tr>\n        <tr>\n          <td>Saved</td>\n          <td>{{toLocale(reportData.totalIncome-reportData.totalExpenditure)}}</td>\n        </tr>\n\n      </tbody>\n    </table>\n    <div class=\"chart-container\" style=\"\">\n      <canvas id=\"myChart\"></canvas>\n    </div>\n\n  </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n  <style>\n\n    table tbody tr:nth-last-child(2) {\n      background-color: #00acc1;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    table tbody tr:last-child {\n      color: #fff;\n      background-color: #43A047;\n      font-size: 20px;\n      font-weight: 600;\n    }\n    table tbody tr:nth-last-child(3) {\n      background-color: #d24c51;\n      color: #fff;\n      font-size: 20px;\n      font-weight: 600;\n    }\n\n    #earnings_form>div {\n      margin: 7px 0;\n\n    }\n\n    select {\n        display: inline-block !important;\n    }\n\n    .cursor{\n      cursor: pointer;\n    }\n  </style>\n  <div class=\"col s12\" id=\"earnings_form\">\n    <h4>Set Earnings</h4>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_year\" id=\"earn_year\" (change)='onEarnYearChange($event)'>\n        <option value=\"\">Choose Year</option>\n        <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n      </select>\n      <label for=\"earn_year\">Year</label>\n    </div>\n    <div class=\"col s12\">\n      <select class=\"\" name=\"earn_month\" id=\"earn_month\" (change)='onEarnMonthChange($event)'>\n        <option value=\"\">Choose Month</option>\n        <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n      </select>\n      <label for=\"earn_month\">Month</label>\n    </div>\n    <div class=\"input-field col s12\">\n      <input type=\"number\" class=\"form-control\" name=\"earning\" id=\"earning\" [value]=\"earning\"\n        (input)='onEarningChange($event)' />\n        <label for=\"earning\">Earnings (INR)</label>\n    </div>\n    <div class=\"col s12\">\n      <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isEarningFormValid()\"\n        (click)='onSaveEarningBtnClicked()'>Save</button>\n    </div>\n  </div>\n\n\n  <div class=\"col s12\">\n    <h4>Generate Reports</h4>\n    <!-- Generate Report For: -->\n    <div class=\"col s12 report_type_sel\">\n      <label>\n        <input name=\"reportType\" (change)=\"onReportCategoryChange(1)\" type=\"radio\" checked />\n        <span>For a Duration</span>\n      </label>\n      <label>\n        <input name=\"reportType\" type=\"radio\" (change)=\"onReportCategoryChange(2)\" />\n        <span>For an ExpenseType</span>\n      </label>\n      <label>\n        <input name=\"reportType\" type=\"radio\" (change)=\"onReportCategoryChange(3)\" />\n        <span>For a span of years</span>\n      </label>\n    </div>\n    <div *ngIf=\"reportType === 1\">\n      <div class=\"col s12\">\n        <select class=\"\" name=\"year\" id=\"year\" (change)='onYearChange($event)'>\n          <option value=\"\">Choose Year</option>\n          <option *ngFor='let year of years' [value]=\"year\">{{year}}</option>\n        </select>\n        <label for=\"year\">Year</label>\n      </div>\n      <div class=\"col s12\">\n          <select class=\"\" name=\"month\" id=\"month\" (change)='onMonthChange($event)'>\n              <option value=\"\">Choose Month</option>\n              <option *ngFor='let month of months' [value]=\"month\">{{month}}</option>\n            </select>\n            <label for=\"month\">Month</label>\n      </div>\n    </div>\n    <div *ngIf=\"reportType === 2\">\n      <div class=\"col s12\">\n        <label for=\"expense_type_sel\">Select Expense Type</label>\n        <select id=\"expense_type_sel\" name=\"expense_type_sel\" [(ngModel)]=\"currentExpenseTypeForReport\">\n          <option value=\"{{expenseType.value}}\" *ngFor=\"let expenseType of expenseTypes\">{{expenseType.name}}</option>\n        </select>  \n      </div>\n      <div class=\"col s12\">\n        <label for=\"duration_input\">Enter Duration</label>\n        <input type=\"text\" placeholder=\"yyyy-yyyy\" [(ngModel)]=\"currentDurationForReport\" name=\"duration_input\" />\n      </div>\n    </div>\n    <div *ngIf=\"reportType === 3\" class=\"col s12\">\n      <label *ngFor=\"let duration of durations; let idx = index;\">\n        <input name=\"durationReport\" (change)=\"onDurationSelected(duration)\" type=\"radio\" [checked]=\"idx===durations.length-1\" />\n        <span>Last {{duration}} years</span>\n      </label>\n    </div>\n    <div class=\"col s12\">\n        <button class=\"btn  waves-effect waves-light\" [disabled]=\"!isFormValid()\" (click)='generateReportBtnClicked()'>Generate\n            Report</button>\n    </div>\n  </div>\n  <br>\n  <div class=\"col s12\">\n    <table *ngIf=\"reportData?.expensesByType?.length>0 && (reportType === 1 || reportType === 3)\" class=\"striped table table-bordered table-condensed\">\n      <thead>\n        <tr>\n          <th>Category</th>\n          <th class=\"sort-icon\" (click)=\"sortByAmountClicked()\">Expense Amount\n            <i [class.dsc]=\"currentAmountSortBy === 2\" class=\"fas fa-arrow-up\"></i>\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr [class.overspent]=\"month && report.total > 5000\" id=\"{{report.expenseType}}\" *ngFor=\"let report of reportData.expensesByType\">\n          <td>{{report.expenseType}}</td>\n          <td><a class=\"cursor\" (click)=\"onExpenseCategoryRowClicked($event, report.expenseType)\">{{toLocale(report.total)}}</a></td>\n        </tr>\n        <tr>\n          <td>Expenditure</td>\n          <td>{{toLocale(reportData.totalExpenditure)}}</td>\n        </tr>\n        <tr>\n          <td>Earnings</td>\n          <td>{{toLocale(reportData.totalIncome)}}</td>\n        </tr>\n        <tr>\n          <td>Saved</td>\n          <td>{{toLocale(reportData.totalIncome-reportData.totalExpenditure)}}</td>\n        </tr>\n\n      </tbody>\n    </table>\n    <div class=\"chart-container\" style=\"\">\n      <canvas id=\"myChart\"></canvas>\n    </div>\n\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -2045,7 +2081,7 @@ var ExpenseService = /** @class */ (function () {
             filter.year = parseInt(filter.year, 10);
             filter.month = filter.month || null;
         }
-        else {
+        else if (!filter.duration) {
             filter.year = filter.year ? filter.year.trim() : new Date().getFullYear() + "-" + new Date().getFullYear();
         }
         var payload = { filter: {} };
