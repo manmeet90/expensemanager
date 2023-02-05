@@ -1342,24 +1342,32 @@ var LoginComponent = /** @class */ (function () {
             this.loginInProgress = true;
             this.loginButtonText = "logging in...";
             this.authService.login(email, password)
-                .then(function (data) {
-                _this.loginError = false;
-                _this.loginInProgress = false;
-                _this.loginButtonText = "Login";
-                sessionStorage.setItem('isLoggedIn', JSON.stringify(true));
-                _this.authService.loginEvent.emit('login');
-                _this.router.navigate(['expenses']);
+                .then(function (response) {
+                if (response.data) {
+                    _this.loginError = false;
+                    _this.loginInProgress = false;
+                    _this.loginButtonText = "Login";
+                    sessionStorage.setItem('isLoggedIn', JSON.stringify(true));
+                    _this.authService.loginEvent.emit('login');
+                    _this.router.navigate(['expenses']);
+                }
+                else {
+                    _this.handleError(response.errors[0]);
+                }
             })
                 .catch(function (error) {
                 // Handle Errors here.
-                _this.loginInProgress = false;
-                _this.loginButtonText = "Login";
-                _this.loginError = true;
-                _this.message = error.message;
-                console.log(error);
-                sessionStorage.setItem('isLoggedIn', JSON.stringify(false));
+                _this.handleError(error);
             });
         }
+    };
+    LoginComponent.prototype.handleError = function (error) {
+        this.loginInProgress = false;
+        this.loginButtonText = "Login";
+        this.loginError = true;
+        this.message = error.message;
+        console.log(error);
+        sessionStorage.setItem('isLoggedIn', JSON.stringify(false));
     };
     LoginComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1882,7 +1890,7 @@ var AuthGuard = /** @class */ (function () {
     };
     AuthGuard.prototype.login = function (username, password) {
         var payload = {
-            username: username, password: password
+            username: username, password: btoa(password)
         };
         var baseUrl = sessionStorage.getItem('apiBaseUrl');
         var url = baseUrl + "/" + this.loginUrl;
